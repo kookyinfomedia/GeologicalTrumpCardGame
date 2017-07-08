@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class TossDeck extends AppCompatActivity {
     Animation myAnim,myAnim4;
     Timer timer = new Timer();
     TimerTask timerTask;
+    MediaPlayer spinSound;
     private int flag;
     private boolean mIsBound = false;
     private MusicService mServ;
@@ -79,6 +81,9 @@ public class TossDeck extends AppCompatActivity {
         myAnim.reset();
         cardCoin.setVisibility(View.INVISIBLE);
         cardCoin2.startAnimation(myAnim);
+        spinSound = MediaPlayer.create(this,R.raw.spin);
+        spinSound.setLooping(true);
+        spinSound.setVolume(0.2f,0.2f);
         flag= getIntent().getIntExtra("int_value", 0);
         if(flag==1)
         {
@@ -141,6 +146,7 @@ public class TossDeck extends AppCompatActivity {
                                 public void onAnimationEnd(Animation animation) {
 
                                     initialize();
+
                                 }
 
                                 @Override
@@ -174,7 +180,7 @@ public class TossDeck extends AppCompatActivity {
     }
     public void initialize()
     {
-
+        spinSound.stop();
         timerTask = new TimerTask()
         {
             @Override
@@ -194,6 +200,7 @@ public class TossDeck extends AppCompatActivity {
     public void onBackPressed(){
         Intent intent=new Intent(this,Options.class);
         startActivity(intent);
+        spinSound.stop();
         timer.cancel();
         finish();
     }
@@ -201,6 +208,7 @@ public class TossDeck extends AppCompatActivity {
     public void onStop(){
         super.onStop();
         doUnbindService();
+        spinSound.stop();
         stopMusic();
     }
     @Override
@@ -209,21 +217,26 @@ public class TossDeck extends AppCompatActivity {
         doBindService();
         if(flag==1)
         {
+            spinSound.stop();
             stopMusic();
         }
         else{
+            spinSound.start();
             startMusic();
         }
     }
     public void startMusic(){
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
+
         startService(music);
+
     }
     public void stopMusic(){
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
         stopService(music);
+
     }
 
 
