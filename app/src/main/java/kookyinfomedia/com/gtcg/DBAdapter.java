@@ -15,12 +15,13 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import static kookyinfomedia.com.gtcg.Category.selectedContinent;
 
 
 public class DBAdapter extends SQLiteOpenHelper {
     static String name = "gtcg.sqlite";
     static String path = "";
-    static String country="africa";
+    static String continent;
     static ArrayList<ModelClass> a;
     static SQLiteDatabase sdb;
 
@@ -116,14 +117,15 @@ public class DBAdapter extends SQLiteOpenHelper {
 
     public ArrayList<ModelClass> getData()
     {
-
-        Cursor c1 = sdb.rawQuery("select * from "+country, null);
+        continent=selectedContinent;
+        Cursor c1 = sdb.rawQuery("select * from "+continent, null);
         a = new ArrayList<ModelClass>();
 
 
         while (c1.moveToNext())
         {
             ModelClass modelClass = new ModelClass();
+            String country=c1.getString(0);
             String area=c1.getString(1);
             String population=c1.getString(2);
             String coastline=c1.getString(3);

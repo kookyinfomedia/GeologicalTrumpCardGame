@@ -11,12 +11,15 @@ import android.os.IBinder;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 public class Category extends AppCompatActivity {
     private int flag;
     private boolean mIsBound = false;
     private MusicService mServ;
+    public static String selectedContinent="";
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
@@ -46,6 +49,9 @@ public class Category extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_category);
         doBindService();
         flag= getIntent().getIntExtra("int_value", 0);
@@ -79,6 +85,7 @@ public class Category extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent=new Intent(this,Options.class);
+        intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
     }
@@ -92,7 +99,50 @@ public class Category extends AppCompatActivity {
         music.setClass(this,MusicService.class);
         stopService(music);
     }
-    public void openDeck(View view){
+    public void openDeckAsia(View view){
+        selectedContinent="asia";
+        Intent intent =new Intent(this,DeckSelect.class);
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+    }
+    public void openDeckNorthAmerica(View view){
+        selectedContinent="north_america";
+        Intent intent =new Intent(this,DeckSelect.class);
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+    }
+    public void openDeckSouthAmerica(View view){
+        selectedContinent="south_america";
+        Intent intent =new Intent(this,DeckSelect.class);
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+    }
+    public void openDeckAfrica(View view){
+        selectedContinent="africa";
+        Intent intent =new Intent(this,DeckSelect.class);
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+    }
+    public void openDeckAntarctica(View view){
+        selectedContinent="antarctica";
+        Intent intent =new Intent(this,DeckSelect.class);
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+    }
+    public void openDeckEurope(View view){
+        selectedContinent="europe";
+        Intent intent =new Intent(this,DeckSelect.class);
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+    }
+    public void openDeckAustralia(View view){
+        selectedContinent="australia";
         Intent intent =new Intent(this,DeckSelect.class);
         intent.putExtra("int_value",flag);
         startActivity(intent);

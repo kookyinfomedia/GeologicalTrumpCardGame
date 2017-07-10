@@ -107,6 +107,7 @@ public class DeckSelect extends AppCompatActivity {
     public void deckSelected16(View v){
         Intent intent = new Intent(DeckSelect.this,TossDeck.class);
         deck=16;
+        intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
 
@@ -114,6 +115,7 @@ public class DeckSelect extends AppCompatActivity {
     public void deckSelected32(View v){
         Intent intent = new Intent(DeckSelect.this,TossDeck.class);
         deck=32;
+        intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
 
@@ -121,6 +123,7 @@ public class DeckSelect extends AppCompatActivity {
     public void deckSelected52(View v){
         Intent intent = new Intent(DeckSelect.this,TossDeck.class);
         deck=52;
+        intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
 

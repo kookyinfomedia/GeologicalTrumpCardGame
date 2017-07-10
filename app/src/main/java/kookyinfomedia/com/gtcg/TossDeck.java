@@ -10,8 +10,11 @@ import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import java.util.Random;
 import java.util.Timer;
@@ -31,6 +34,7 @@ public class TossDeck extends AppCompatActivity {
     MediaPlayer spinSound;
     private int flag;
     private boolean mIsBound = false;
+    public static int toss;
     private MusicService mServ;
 
 
@@ -67,6 +71,9 @@ public class TossDeck extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_toss_deck);
         doBindService();
         Random ran = new Random();
@@ -83,7 +90,7 @@ public class TossDeck extends AppCompatActivity {
         cardCoin2.startAnimation(myAnim);
         spinSound = MediaPlayer.create(this,R.raw.spin);
         spinSound.setLooping(true);
-        spinSound.setVolume(0.2f,0.2f);
+        spinSound.setVolume(0,0.1f);
         flag= getIntent().getIntExtra("int_value", 0);
         if(flag==1)
         {
@@ -144,9 +151,9 @@ public class TossDeck extends AppCompatActivity {
 
                                 @Override
                                 public void onAnimationEnd(Animation animation) {
-
                                     initialize();
-
+                                    spinSound.setLooping(false);
+                                    toss=x;
                                 }
 
                                 @Override
@@ -187,6 +194,7 @@ public class TossDeck extends AppCompatActivity {
             public void run()
             {
                 Intent intent = new Intent(TossDeck.this,LoadingScreen.class);
+                intent.putExtra("int_value",flag);
                 startActivity(intent);
                 doUnbindService();
                 stopMusic();
@@ -199,6 +207,7 @@ public class TossDeck extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         Intent intent=new Intent(this,Options.class);
+        intent.putExtra("int_value",flag);
         startActivity(intent);
         spinSound.stop();
         timer.cancel();
@@ -228,7 +237,6 @@ public class TossDeck extends AppCompatActivity {
     public void startMusic(){
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
-
         startService(music);
 
     }
@@ -238,6 +246,7 @@ public class TossDeck extends AppCompatActivity {
         stopService(music);
 
     }
+
 
 
 }
