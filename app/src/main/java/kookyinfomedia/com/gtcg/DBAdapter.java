@@ -37,133 +37,122 @@ public class DBAdapter extends SQLiteOpenHelper {
 
     }
 
-    private DBAdapter(Context v)
-    {
+    private DBAdapter(Context v) {
         super(v, name, null, 1);
         path = "/data/data/" + v.getApplicationContext().getPackageName()
                 + "/databases";
     }
 
-    public boolean checkDatabase()
-    {
+    public boolean checkDatabase() {
         SQLiteDatabase db = null;
-        try
-        {
+        try {
             db = SQLiteDatabase.openDatabase(path + "/" + name, null,
                     SQLiteDatabase.OPEN_READWRITE);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
 
-        if(db==null)
-        {
+        if (db == null) {
             return false;
-        }
-        else
-        {
+        } else {
             db.close();
             return true;
         }
     }
 
-    public static synchronized DBAdapter getDBAdapter(Context v)
-    {
-        return(new DBAdapter(v));
+    public static synchronized DBAdapter getDBAdapter(Context v) {
+        return (new DBAdapter(v));
     }
 
-    public void createDatabase(Context v)
-    {
+    public void createDatabase(Context v) {
         this.getReadableDatabase();
-        try
-        {
+        try {
             InputStream myInput = v.getAssets().open(name);
             // Path to the just created empty db
-            String outFileName = path +"/"+ name;
+            String outFileName = path + "/" + name;
             // Open the empty db as the output stream
             OutputStream myOutput = new FileOutputStream(outFileName);
             // transfer bytes from the inputfile to the outputfile
             byte[] bytes = new byte[1024];
             int length;
-            while ((length = myInput.read(bytes)) > 0)
-            {
+            while ((length = myInput.read(bytes)) > 0) {
                 myOutput.write(bytes, 0, length);
             }
             // Close the streams
             myOutput.flush();
             myOutput.close();
             myInput.close();
-        }
-        catch(IOException e)
-        {
+        } catch (IOException e) {
             System.out.println(e);
         }
     }
 
-    public void openDatabase()
-    {
-        try
-        {
+    public void openDatabase() {
+        try {
             sdb = SQLiteDatabase.openDatabase(path + "/" + name, null,
                     SQLiteDatabase.OPEN_READWRITE);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
 
     }
 
-    public ArrayList<ModelClass> getData()
-    {
-        continent=selectedContinent;
-        Cursor c1 = sdb.rawQuery("select * from "+continent, null);
+    public ArrayList<ModelClass> getData() {
+
+        continent = selectedContinent;
+        Cursor c1 = sdb.rawQuery("select * from " + continent, null);
         a = new ArrayList<ModelClass>();
 
+        try {
+            while (c1.moveToNext()) {
+                ModelClass modelClass = new ModelClass();
+                String country = c1.getString(0);
+                String area = c1.getString(1);
+                String population = c1.getString(2);
+                String coastline = c1.getString(3);
+                String aUnits = c1.getString(4);
+                String bCountries = c1.getString(5);
+                String hPoint = c1.getString(6);
+                byte map[] = c1.getBlob(7);
+                byte flag[] = c1.getBlob(8);
 
-        while (c1.moveToNext())
-        {
-            ModelClass modelClass = new ModelClass();
-            String country=c1.getString(0);
-            String area=c1.getString(1);
-            String population=c1.getString(2);
-            String coastline=c1.getString(3);
-            String aUnits=c1.getString(4);
-            String bCountries=c1.getString(5);
-            String hPoint=c1.getString(6);
-            byte map[]=c1.getBlob(7);
-            byte flag[]=c1.getBlob(8);
 
+                /**************************** Splitting strings using the delimiter "space" ***********************************/
 
-            /**************************** Splitting strings using the delimiter "space" ***********************************/
+                StringTokenizer tokens = new StringTokenizer(area, " ");
+                area = tokens.nextToken();
 
-            StringTokenizer tokens = new StringTokenizer(area, " ");
-            area=tokens.nextToken();
+                tokens = new StringTokenizer(population, " ");
+                population = tokens.nextToken();
 
-            tokens = new StringTokenizer(population, " ");
-            population=tokens.nextToken();
+                // if(coastline!="LANDLOCKED") {
+                tokens = new StringTokenizer(coastline, " ");
+                coastline = tokens.nextToken();
+                //}
 
-            // if(coastline!="LANDLOCKED") {
-            tokens = new StringTokenizer(coastline, " ");
-            coastline = tokens.nextToken();
-            //}
+                tokens = new StringTokenizer(hPoint, " ");
+                hPoint = tokens.nextToken();
 
-            tokens=new StringTokenizer(hPoint," ");
-            hPoint=tokens.nextToken();
+                modelClass.setCountry(country);
+                modelClass.setArea(area);
+                modelClass.setPopulation(population);
+                modelClass.setCoastline(coastline);
+                modelClass.setaUnits(aUnits);
+                modelClass.setbCountries(bCountries);
+                modelClass.sethPoint(hPoint);
+                modelClass.setMap(map);
+                modelClass.setFlag(flag);
+                a.add(modelClass);
 
-            modelClass.setCountry(country);
-            modelClass.setArea(area);
-            modelClass.setPopulation(population);
-            modelClass.setCoastline(coastline);
-            modelClass.setaUnits(aUnits);
-            modelClass.setbCountries(bCountries);
-            modelClass.sethPoint(hPoint);
-            modelClass.setMap(map);
-            modelClass.setFlag(flag);
-            a.add(modelClass);
+            }
         }
+        catch (Exception e) {}
+            finally{
+                c1.close();
+                sdb.close();
+            }
         return a;
     }
 
 }
+

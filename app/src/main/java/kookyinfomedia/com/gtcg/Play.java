@@ -19,11 +19,14 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
+import android.provider.CalendarContract;
+import android.support.annotation.ColorRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -32,6 +35,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -161,11 +165,97 @@ public class Play extends AppCompatActivity {
         valHPoint = (TextView) findViewById(R.id.valHPoint);
 
         l1 = (LinearLayout) findViewById(R.id.linLay1);
+        l1.setOnTouchListener(new View.OnTouchListener() {
+
+                                  @Override
+                                  public boolean onTouch(View view, MotionEvent event) {
+                                      setColorWhite();
+                                      if (event.getAction() == MotionEvent.ACTION_UP) {
+                                          l1.setBackgroundColor(Color.LTGRAY);
+
+                                      } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                                          l1.setBackgroundColor(Color.WHITE);
+                                      }
+                                      return false;
+                                  }
+        });
+
+
         l2 = (LinearLayout) findViewById(R.id.linLay2);
+        l2.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                setColorWhite();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    l2.setBackgroundColor(Color.LTGRAY);
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    l2.setBackgroundColor(Color.WHITE);
+                }
+                return false;
+            }
+        });
+
         l3 = (LinearLayout) findViewById(R.id.linLay3);
+        l3.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                setColorWhite();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    l3.setBackgroundColor(Color.LTGRAY);
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    l3.setBackgroundColor(Color.WHITE);
+                }
+                return false;
+            }
+        });
+
         l4 = (LinearLayout) findViewById(R.id.linLay4);
+        l4.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                setColorWhite();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    l4.setBackgroundColor(Color.LTGRAY);
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    l4.setBackgroundColor(Color.WHITE);
+                }
+                return false;
+            }
+        });
+
         l5 = (LinearLayout) findViewById(R.id.linLay5);
+        l5.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                setColorWhite();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    l5.setBackgroundColor(Color.LTGRAY);
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    l5.setBackgroundColor(Color.WHITE);
+                }
+                return false;
+            }
+        });
+
         l6 = (LinearLayout) findViewById(R.id.linLay6);
+        l6.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                setColorWhite();
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    l6.setBackgroundColor(Color.LTGRAY);
+                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    l6.setBackgroundColor(Color.WHITE);
+                }
+                return false;
+            }
+        });
+
 
 
         /////////////////  for second player
@@ -235,6 +325,7 @@ public class Play extends AppCompatActivity {
                 if (obj.checkDatabase() == false)
                     obj.createDatabase(getApplicationContext());
                 obj.openDatabase();
+
                 arr = obj.getData();
                 ShowRecord();
                 if (playerNum == 1) {
@@ -467,6 +558,9 @@ public class Play extends AppCompatActivity {
     /////////// Method to be called if user selects area for betting. ///////////////////////
     public void areaSelect(View v) {
         //Toast.makeText(this,"Area",Toast.LENGTH_LONG).show();
+        //touchOff();
+
+
         betField = 1;
         setColorWhite();
         getBlinkAnimation(l1,"GREEN");
@@ -509,6 +603,7 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects population for betting. //////////////////////
     public void populationSelect(View v) {
+       // touchOff();
         betField = 2;
         //Toast.makeText(this,"Pop",Toast.LENGTH_LONG).show();
         setColorWhite();
@@ -551,6 +646,7 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects coastline for betting. ////////////////////////////
     public void coastSelect(View v) {
+       // touchOff();
         //Toast.makeText(this,"Coast",Toast.LENGTH_LONG).show();
         betField = 3;
         setColorWhite();
@@ -593,6 +689,7 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects administrative units for betting. //////////////////////////
     public void aUnitSelect(View v) {
+        //touchOff();
         betField = 4;
         //Toast.makeText(this,"Aunit",Toast.LENGTH_LONG).show();
         setColorWhite();
@@ -635,6 +732,7 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects Bordering Countries for betting. //////////////////////////
     public void bCountriesSelect(View v) {
+       // touchOff();
         betField = 5;
         //Toast.makeText(this,"bCountry",Toast.LENGTH_LONG).show();
         setColorWhite();
@@ -678,6 +776,7 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects highest point for betting. ////////////////////
     public void hPointSelect(View v) {
+        //touchOff();
         betField = 6;
         //Toast.makeText(this,"hPoint",Toast.LENGTH_LONG).show();
         setColorWhite();
@@ -716,6 +815,15 @@ public class Play extends AppCompatActivity {
                 }
             });
         }
+    }
+    public void touchOff(){
+        l1.setOnTouchListener(null);
+        l2.setOnTouchListener(null);
+        l3.setOnTouchListener(null);
+        l4.setOnTouchListener(null);
+        l5.setOnTouchListener(null);
+        l6.setOnTouchListener(null);
+
     }
 
     ///////////// Method for implementing the game logic. //////////////////

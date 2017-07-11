@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Values for Asia-->
+    <dimen name="asia_height">157dp</dimen>
+    <dimen name="asia_width">191dp</dimen>
+    <dimen name="asia_marginBottom">8dp</dimen>
+    <dimen name="asia_marginLeft">50dp</dimen>
+    <dimen name="asia_marginStart">50dp</dimen>
+    <dimen name="asia_marginTop">57dp</dimen>
+
+    <!--Values for North America-->
+    <dimen name="northamerica_width">139dp</dimen>
+    <dimen name="northamerica_height">163dp</dimen>
+    <dimen name="northamerica_marginBottom">200dp</dimen>
+    <dimen name="northamerica_marginEnd">8dp</dimen>
+    <dimen name="northamerica_marginLeft">16dp</dimen>
+    <dimen name="northamerica_marginRight">8dp</dimen>
+    <dimen name="northamerica_marginStart">16dp</dimen>
+    <dimen name="northamerica_marginTop">8dp</dimen>
+
+    <!--Values for South America-->
+    <dimen name="southamerica_width">88dp</dimen>
+    <dimen name="southamerica_height">111dp</dimen>
+    <dimen name="southamerica_marginBottom">8dp</dimen>
+    <dimen name="southamerica_marginLeft">31dp</dimen>
+    <dimen name="southamerica_marginRight">8dp</dimen>
+    <dimen name="southamerica_marginStart">31dp</dimen>
+    <dimen name="southamericamarginTop">192dp</dimen>
+
+
+    <!--Values for Africa-->
+    <dimen name="africa_width">117dp</dimen>
+    <dimen name="africa_height">134dp</dimen>
+    <dimen name="africa_marginBottom">61dp</dimen>
+    <dimen name="africa_marginEnd">25dp</dimen>
+    <dimen name="africa_marginLeft">8dp</dimen>
+    <dimen name="africa_marginRight">25dp</dimen>
+    <dimen name="africa_marginStart">8dp</dimen>
+
+
+
+</resources>
