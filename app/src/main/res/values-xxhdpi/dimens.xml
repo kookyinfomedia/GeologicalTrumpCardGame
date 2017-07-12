@@ -38,12 +38,8 @@
     <dimen name="africa_marginStart">8dp</dimen>
 
     <!--Values for Europe-->
-    <dimen name="europe_layout_width">135dp</dimen>
-    <dimen name="europe_layout_height"> </dimen>
-    <dimen name="europe_marginBottom"> </dimen>
-    <dimen name="europe_marginEnd"> </dimen>
-    <dimen name="europe_marginLeft"> </dimen>
-    <dimen name="europe_marginRight"> </dimen>
+    <dimen name="europe_layout_width">107dp</dimen>
+    <dimen name="europe_layout_height">87dp</dimen>
     <dimen name="europe_marginStart">8dp</dimen>
     <dimen name="europe_marginTop">8dp</dimen>
 

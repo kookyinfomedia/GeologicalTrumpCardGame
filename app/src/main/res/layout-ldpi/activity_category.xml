@@ -16,20 +16,17 @@
         android:layout_height="158dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/asia_marginBottom"
-        android:layout_marginLeft="@dimen/asia_marginLeft"
-        android:layout_marginStart="@dimen/asia_marginStart"
         android:alpha="1"
         android:fontFamily="serif"
         android:onClick="openDeckAsia"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.894"
+        app:layout_constraintHorizontal_bias="0.932"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintVertical_bias="0.155" />
 
     <Button
         android:id="@+id/northamerica"
@@ -37,22 +34,17 @@
         android:layout_height="140dp"
         android:layout_alignBaseline="@+id/asia"
         android:layout_alignBottom="@+id/asia"
-        android:layout_marginBottom="@dimen/northamerica_marginBottom"
-        android:layout_marginEnd="@dimen/northamerica_marginEnd"
-        android:layout_marginLeft="@dimen/northamerica_marginLeft"
-        android:layout_marginRight="@dimen/northamerica_marginRight"
-        android:layout_marginStart="@dimen/northamerica_marginStart"
         android:alpha="1"
         android:fontFamily="serif"
         android:onClick="openDeckNorthAmerica"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/europe"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/northamerica_marginTop"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.054" />
 
     <Button
         android:id="@+id/southamerica"
@@ -60,35 +52,26 @@
         android:layout_height="134dp"
         android:layout_alignBaseline="@+id/northamerica"
         android:layout_alignBottom="@+id/northamerica"
-        android:layout_marginBottom="@dimen/southamerica_marginBottom"
-        android:layout_marginLeft="@dimen/southamerica_marginLeft"
-        android:layout_marginRight="@dimen/southamerica_marginRight"
-        android:layout_marginStart="@dimen/southamerica_marginStart"
-        android:layout_marginTop="@dimen/southamerica_marginTop"
         android:layout_toEndOf="@+id/northamerica"
         android:alpha="1"
         android:fontFamily="serif"
         android:onClick="openDeckSouthAmerica"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.118"
+        app:layout_constraintHorizontal_bias="0.159"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.968" />
 
     <Button
         android:id="@+id/africa"
-        android:layout_width="119dp"
+        android:layout_width="125dp"
         android:layout_height="148dp"
         android:layout_alignBaseline="@+id/southamerica"
         android:layout_alignBottom="@+id/southamerica"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginEnd="@dimen/africa_marginEnd"
-        android:layout_marginLeft="@dimen/africa_marginEnd"
-        android:layout_marginRight="@dimen/africa_marginRight"
-        android:layout_marginStart="@dimen/africa_marginStart"
         android:alpha="1"
         android:fontFamily="serif"
         android:onClick="openDeckAfrica"
@@ -96,7 +79,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        tools:layout_editor_absoluteX="223dp" />
 
     <Button
         android:id="@+id/europe"
@@ -104,10 +88,6 @@
         android:layout_height="91dp"
         android:layout_below="@+id/northamerica"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/europe_marginBottom"
-        android:layout_marginEnd="@dimen/europe_marginEnd"
-        android:layout_marginLeft="@dimen/europe_marginLeft"
-        android:layout_marginRight="@dimen/europe_marginRight"
         android:layout_marginStart="@dimen/europe_marginStart"
         android:layout_marginTop="@dimen/europe_marginTop"
         android:alpha="1"
@@ -119,20 +99,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintHorizontal_bias="0.479" />
+        app:layout_constraintHorizontal_bias="0.501" />
 
     <Button
         android:id="@+id/australia"
-        android:layout_width="85dp"
-        android:layout_height="65dp"
+        android:layout_width="92dp"
+        android:layout_height="63dp"
         android:layout_alignBaseline="@+id/europe"
         android:layout_alignBottom="@+id/europe"
-        android:layout_marginBottom="@dimen/australia_marginBottom"
-        android:layout_marginEnd="@dimen/australia_marginEnd"
-        android:layout_marginLeft="@dimen/australia_marginLeft"
-        android:layout_marginRight="@dimen/australia_marginRight"
-        android:layout_marginStart="@dimen/australia_marginStart"
-        android:layout_marginTop="@dimen/australia_marginTop"
         android:layout_toStartOf="@+id/africa"
         android:alpha="1"
         android:fontFamily="serif"
@@ -143,7 +117,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.978"
+        tools:layout_editor_absoluteY="227dp"
+        tools:layout_editor_absoluteX="476dp" />
 
     <LinearLayout
         android:id="@+id/pop"

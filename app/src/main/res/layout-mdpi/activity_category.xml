@@ -79,12 +79,12 @@
 
     <Button
         android:id="@+id/africa"
-        android:layout_width="93dp"
-        android:layout_height="113dp"
+        android:layout_width="99dp"
+        android:layout_height="124dp"
         android:layout_alignBaseline="@+id/southamerica"
         android:layout_alignBottom="@+id/southamerica"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="43dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="@dimen/africa_marginEnd"
         android:layout_marginLeft="@dimen/africa_marginEnd"
         android:layout_marginRight="@dimen/africa_marginRight"
@@ -104,10 +104,6 @@
         android:layout_height="82dp"
         android:layout_below="@+id/northamerica"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/europe_marginBottom"
-        android:layout_marginEnd="@dimen/europe_marginEnd"
-        android:layout_marginLeft="@dimen/europe_marginLeft"
-        android:layout_marginRight="@dimen/europe_marginRight"
         android:layout_marginStart="@dimen/europe_marginStart"
         android:layout_marginTop="@dimen/europe_marginTop"
         android:alpha="1"
@@ -119,7 +115,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintHorizontal_bias="0.446" />
+        app:layout_constraintHorizontal_bias="0.467" />
 
     <Button
         android:id="@+id/australia"
