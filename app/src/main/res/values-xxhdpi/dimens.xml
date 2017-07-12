@@ -2,17 +2,17 @@
 <resources>
 
     <!--Values for Asia-->
-    <dimen name="asia_height">157dp</dimen>
-    <dimen name="asia_width">191dp</dimen>
-    <dimen name="asia_marginBottom">8dp</dimen>
+    <dimen name="asia_height">145dp</dimen>
+    <dimen name="asia_width">181dp</dimen>
+    <dimen name="asia_marginBottom">155dp</dimen>
     <dimen name="asia_marginLeft">50dp</dimen>
     <dimen name="asia_marginStart">50dp</dimen>
-    <dimen name="asia_marginTop">57dp</dimen>
+    <dimen name="asia_marginTop">8dp</dimen>
 
     <!--Values for North America-->
-    <dimen name="northamerica_width">139dp</dimen>
-    <dimen name="northamerica_height">163dp</dimen>
-    <dimen name="northamerica_marginBottom">200dp</dimen>
+    <dimen name="northamerica_width">113dp</dimen>
+    <dimen name="northamerica_height">152dp</dimen>
+    <dimen name="northamerica_marginBottom">156dp</dimen>
     <dimen name="northamerica_marginEnd">8dp</dimen>
     <dimen name="northamerica_marginLeft">16dp</dimen>
     <dimen name="northamerica_marginRight">8dp</dimen>
@@ -20,24 +20,52 @@
     <dimen name="northamerica_marginTop">8dp</dimen>
 
     <!--Values for South America-->
-    <dimen name="southamerica_width">88dp</dimen>
-    <dimen name="southamerica_height">111dp</dimen>
+    <dimen name="southamerica_width">93dp</dimen>
+    <dimen name="southamerica_height">120dp</dimen>
     <dimen name="southamerica_marginBottom">8dp</dimen>
     <dimen name="southamerica_marginLeft">31dp</dimen>
     <dimen name="southamerica_marginRight">8dp</dimen>
     <dimen name="southamerica_marginStart">31dp</dimen>
-    <dimen name="southamericamarginTop">192dp</dimen>
-
+    <dimen name="southamerica_marginTop">192dp</dimen>
 
     <!--Values for Africa-->
-    <dimen name="africa_width">117dp</dimen>
-    <dimen name="africa_height">134dp</dimen>
-    <dimen name="africa_marginBottom">61dp</dimen>
+    <dimen name="africa_width">118dp</dimen>
+    <dimen name="africa_height">143dp</dimen>
+    <dimen name="africa_marginBottom">46dp</dimen>
     <dimen name="africa_marginEnd">25dp</dimen>
     <dimen name="africa_marginLeft">8dp</dimen>
     <dimen name="africa_marginRight">25dp</dimen>
     <dimen name="africa_marginStart">8dp</dimen>
 
+    <!--Values for Europe-->
+    <dimen name="europe_layout_width">135dp</dimen>
+    <dimen name="europe_layout_height"> </dimen>
+    <dimen name="europe_marginBottom"> </dimen>
+    <dimen name="europe_marginEnd"> </dimen>
+    <dimen name="europe_marginLeft"> </dimen>
+    <dimen name="europe_marginRight"> </dimen>
+    <dimen name="europe_marginStart">8dp</dimen>
+    <dimen name="europe_marginTop">8dp</dimen>
+
+    <!--Values for Australia-->
+    <dimen name="australia_width">110dp</dimen>
+    <dimen name="australia_height">95dp</dimen>
+    <dimen name="australia_marginBottom">8dp</dimen>
+    <dimen name="australia_marginEnd">8dp"</dimen>
+    <dimen name="australia_marginLeft">8dp"</dimen>
+    <dimen name="australia_marginRight">8dp"</dimen>
+    <dimen name="australia_marginStart">8dp"</dimen>
+    <dimen name="australia_marginTop">256dp</dimen>
+
+    <dimen name="linear_layout_padding">30dp</dimen>
+
+    <dimen name="gif_layout_width">55dp</dimen>
+    <dimen name="gif_layout_height">45dp</dimen>
+
+    <dimen name="text_view_layout_width">210dp</dimen>
+    <dimen name="text_view_layout_height">40dp</dimen>
+    <dimen name="text_view_marginStart">5dp</dimen>
+    <dimen name="text_view_padding">10dp</dimen>
 
 
 </resources>

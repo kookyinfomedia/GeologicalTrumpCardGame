@@ -41,7 +41,7 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".Category"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <service
             android:name=".MusicService"
             android:enabled="true" />
