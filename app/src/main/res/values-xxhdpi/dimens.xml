@@ -47,10 +47,10 @@
     <dimen name="australia_width">110dp</dimen>
     <dimen name="australia_height">95dp</dimen>
     <dimen name="australia_marginBottom">8dp</dimen>
-    <dimen name="australia_marginEnd">8dp"</dimen>
-    <dimen name="australia_marginLeft">8dp"</dimen>
-    <dimen name="australia_marginRight">8dp"</dimen>
-    <dimen name="australia_marginStart">8dp"</dimen>
+    <dimen name="australia_marginEnd">8dp</dimen>
+    <dimen name="australia_marginLeft">8dp</dimen>
+    <dimen name="australia_marginRight">8dp</dimen>
+    <dimen name="australia_marginStart">8dp</dimen>
     <dimen name="australia_marginTop">256dp</dimen>
 
     <dimen name="linear_layout_padding">30dp</dimen>
