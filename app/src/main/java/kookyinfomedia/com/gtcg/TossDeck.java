@@ -79,7 +79,7 @@ public class TossDeck extends AppCompatActivity {
         Random ran = new Random();
         x = ran.nextInt(2);//// will give 0 or 1 and chooses whether the turn would be of first player's or second's
 
-        cardCoin=(CardView)findViewById(R.id.Score);
+        cardCoin=(CardView)findViewById(R.id.cardCoin);
         cardCoin2=(CardView)findViewById(R.id.cardCoin2);
 
         myAnim =AnimationUtils.loadAnimation(this,R.anim.coin_rotate);
@@ -246,7 +246,6 @@ public class TossDeck extends AppCompatActivity {
         stopService(music);
 
     }
-
-
-
 }
+
+

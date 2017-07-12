@@ -12,7 +12,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape">
+            android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,26 +22,26 @@
         <activity
             android:name=".Options"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".TossDeck"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".DeckSelect"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".LoadingScreen"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Play"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Category"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="sensorLandscape"></activity>
         <service
             android:name=".MusicService"
             android:enabled="true" />

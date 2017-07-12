@@ -37,68 +37,85 @@ public class DBAdapter extends SQLiteOpenHelper {
 
     }
 
-    private DBAdapter(Context v) {
+    private DBAdapter(Context v)
+    {
         super(v, name, null, 1);
         path = "/data/data/" + v.getApplicationContext().getPackageName()
                 + "/databases";
     }
 
-    public boolean checkDatabase() {
+    public boolean checkDatabase()
+    {
         SQLiteDatabase db = null;
-        try {
+        try
+        {
             db = SQLiteDatabase.openDatabase(path + "/" + name, null,
                     SQLiteDatabase.OPEN_READWRITE);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
 
         }
 
-        if (db == null) {
+        if(db==null)
+        {
             return false;
-        } else {
+        }
+        else
+        {
             db.close();
             return true;
         }
     }
 
-    public static synchronized DBAdapter getDBAdapter(Context v) {
-        return (new DBAdapter(v));
+    public static synchronized DBAdapter getDBAdapter(Context v)
+    {
+        return(new DBAdapter(v));
     }
 
-    public void createDatabase(Context v) {
+    public void createDatabase(Context v)
+    {
         this.getReadableDatabase();
-        try {
+        try
+        {
             InputStream myInput = v.getAssets().open(name);
             // Path to the just created empty db
-            String outFileName = path + "/" + name;
+            String outFileName = path +"/"+ name;
             // Open the empty db as the output stream
             OutputStream myOutput = new FileOutputStream(outFileName);
             // transfer bytes from the inputfile to the outputfile
             byte[] bytes = new byte[1024];
             int length;
-            while ((length = myInput.read(bytes)) > 0) {
+            while ((length = myInput.read(bytes)) > 0)
+            {
                 myOutput.write(bytes, 0, length);
             }
             // Close the streams
             myOutput.flush();
             myOutput.close();
             myInput.close();
-        } catch (IOException e) {
+        }
+        catch(IOException e)
+        {
             System.out.println(e);
         }
     }
 
-    public void openDatabase() {
-        try {
+    public void openDatabase()
+    {
+        try
+        {
             sdb = SQLiteDatabase.openDatabase(path + "/" + name, null,
                     SQLiteDatabase.OPEN_READWRITE);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             System.out.println(e);
         }
 
     }
 
     public ArrayList<ModelClass> getData() {
-
         continent = selectedContinent;
         Cursor c1 = sdb.rawQuery("select * from " + continent, null);
         a = new ArrayList<ModelClass>();
@@ -143,16 +160,15 @@ public class DBAdapter extends SQLiteOpenHelper {
                 modelClass.setMap(map);
                 modelClass.setFlag(flag);
                 a.add(modelClass);
-
             }
         }
-        catch (Exception e) {}
-            finally{
-                c1.close();
-                sdb.close();
-            }
-        return a;
+        catch (Exception e){}
+        finally {
+            c1.close();
+            sdb.close();
+        }
+            return a;
     }
 
-}
 
+}

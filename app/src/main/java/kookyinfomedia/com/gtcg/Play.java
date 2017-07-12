@@ -19,14 +19,11 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
-import android.provider.CalendarContract;
-import android.support.annotation.ColorRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.ListMenuItemView;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Display;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -35,7 +32,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -165,97 +161,11 @@ public class Play extends AppCompatActivity {
         valHPoint = (TextView) findViewById(R.id.valHPoint);
 
         l1 = (LinearLayout) findViewById(R.id.linLay1);
-        l1.setOnTouchListener(new View.OnTouchListener() {
-
-                                  @Override
-                                  public boolean onTouch(View view, MotionEvent event) {
-                                      setColorWhite();
-                                      if (event.getAction() == MotionEvent.ACTION_UP) {
-                                          l1.setBackgroundColor(Color.LTGRAY);
-
-                                      } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                                          l1.setBackgroundColor(Color.WHITE);
-                                      }
-                                      return false;
-                                  }
-        });
-
-
         l2 = (LinearLayout) findViewById(R.id.linLay2);
-        l2.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                setColorWhite();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    l2.setBackgroundColor(Color.LTGRAY);
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    l2.setBackgroundColor(Color.WHITE);
-                }
-                return false;
-            }
-        });
-
         l3 = (LinearLayout) findViewById(R.id.linLay3);
-        l3.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                setColorWhite();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    l3.setBackgroundColor(Color.LTGRAY);
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    l3.setBackgroundColor(Color.WHITE);
-                }
-                return false;
-            }
-        });
-
         l4 = (LinearLayout) findViewById(R.id.linLay4);
-        l4.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                setColorWhite();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    l4.setBackgroundColor(Color.LTGRAY);
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    l4.setBackgroundColor(Color.WHITE);
-                }
-                return false;
-            }
-        });
-
         l5 = (LinearLayout) findViewById(R.id.linLay5);
-        l5.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                setColorWhite();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    l5.setBackgroundColor(Color.LTGRAY);
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    l5.setBackgroundColor(Color.WHITE);
-                }
-                return false;
-            }
-        });
-
         l6 = (LinearLayout) findViewById(R.id.linLay6);
-        l6.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                setColorWhite();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    l6.setBackgroundColor(Color.LTGRAY);
-                } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    l6.setBackgroundColor(Color.WHITE);
-                }
-                return false;
-            }
-        });
-
 
 
         /////////////////  for second player
@@ -296,6 +206,10 @@ public class Play extends AppCompatActivity {
         txtScore = (TextView) findViewById(R.id.txtScore);
         txtScoreVal = (TextView) findViewById(R.id.txtScoreVal);
 
+
+        cardBigLeft.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        cardBigRight.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         cardBigLeft.setVisibility(View.INVISIBLE);
         cardBigRight.setVisibility(View.INVISIBLE);
         playAnimation();
@@ -321,13 +235,20 @@ public class Play extends AppCompatActivity {
 
 
                 //// Using DBAdapter class for fetching data from database ///////
-                obj = DBAdapter.getDBAdapter(getApplicationContext());
-                if (obj.checkDatabase() == false)
-                    obj.createDatabase(getApplicationContext());
-                obj.openDatabase();
-
-                arr = obj.getData();
+                try {
+                    obj = DBAdapter.getDBAdapter(getApplicationContext());
+                    if (obj.checkDatabase() == false)
+                        obj.createDatabase(getApplicationContext());
+                    obj.openDatabase();
+                    arr = obj.getData();
+                }
+                catch (Exception e){}
+                finally {
+                    obj.close();
+                }
                 ShowRecord();
+
+
                 if (playerNum == 1) {
                     player=1;
                     /// Blinking animation over border of first card
@@ -394,7 +315,7 @@ public class Play extends AppCompatActivity {
                         ObjectAnimator.ofFloat(cardBigLeft, "scaleX", 0.1f, 1f),
                         ObjectAnimator.ofFloat(cardBigLeft, "scaleY", 0.1f, 1f)
                 );
-                set.setDuration(1000).start();
+                set.setDuration(600).start();
 
                 Animation myAnim2 = AnimationUtils.loadAnimation(Play.this, R.anim.animation2);
                 cardBigLeft.startAnimation(myAnim2);
@@ -405,7 +326,7 @@ public class Play extends AppCompatActivity {
                         ObjectAnimator.ofFloat(cardBigRight, "scaleX", 0.1f, 1f),
                         ObjectAnimator.ofFloat(cardBigRight, "scaleY", 0.1f, 1f)
                 );
-                set1.setDuration(1000).start();
+                set1.setDuration(600).start();
                 Animation myAnim1 = AnimationUtils.loadAnimation(Play.this, R.anim.animation1);
                 cardBigRight.startAnimation(myAnim1);
             }
@@ -530,7 +451,7 @@ public class Play extends AppCompatActivity {
 
     /////// Method to be called when user clicks his card ////////
     public void showCard(View v) {
-        cardBigLeft.setBackgroundColor(Color.WHITE);
+        cardBigLeft.setBackground(getResources().getDrawable(R.drawable.layout_white));
         if (flag == 0) {
             //Toast.makeText(this, "CLICKED", Toast.LENGTH_LONG);
             cardBigLeft.setVisibility(View.INVISIBLE);
@@ -558,13 +479,11 @@ public class Play extends AppCompatActivity {
     /////////// Method to be called if user selects area for betting. ///////////////////////
     public void areaSelect(View v) {
         //Toast.makeText(this,"Area",Toast.LENGTH_LONG).show();
-        //touchOff();
-
-
         betField = 1;
         setColorWhite();
-        getBlinkAnimation(l1,"GREEN");
-        getBlinkAnimation(l11,"RED");
+        l1.setBackgroundColor(Color.BLUE);
+        getBlinkAnimation(l1,"BLUE");
+        getBlinkAnimation(l11,"BLUE");
         //l1.setBackgroundColor(getResources().getColor(R.color.colorLight));
         //l11.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
@@ -603,14 +522,14 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects population for betting. //////////////////////
     public void populationSelect(View v) {
-       // touchOff();
         betField = 2;
         //Toast.makeText(this,"Pop",Toast.LENGTH_LONG).show();
         setColorWhite();
+        l2.setBackgroundColor(Color.BLUE);
         //l2.setBackgroundColor(getResources().getColor(R.color.colorLight));
         //l12.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        getBlinkAnimation(l2,"GREEN");
-        getBlinkAnimation(l12,"RED");
+        getBlinkAnimation(l2,"BLUE");
+        getBlinkAnimation(l12,"BLUE");
         if (playerNum == 1) {
             cardBigRight.setVisibility(View.INVISIBLE);
             cardP2.setVisibility(View.VISIBLE);
@@ -646,14 +565,14 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects coastline for betting. ////////////////////////////
     public void coastSelect(View v) {
-       // touchOff();
         //Toast.makeText(this,"Coast",Toast.LENGTH_LONG).show();
         betField = 3;
         setColorWhite();
+        l3.setBackgroundColor(Color.BLUE);
         //l3.setBackgroundColor(getResources().getColor(R.color.colorLight));
         //l13.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        getBlinkAnimation(l3,"GREEN");
-        getBlinkAnimation(l13,"RED");
+        getBlinkAnimation(l3,"BLUE");
+        getBlinkAnimation(l13,"BLUE");
         if (playerNum == 1) {
             cardBigRight.setVisibility(View.INVISIBLE);
             cardP2.setVisibility(View.VISIBLE);
@@ -689,12 +608,12 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects administrative units for betting. //////////////////////////
     public void aUnitSelect(View v) {
-        //touchOff();
         betField = 4;
+        l4.setBackgroundColor(Color.BLUE);
         //Toast.makeText(this,"Aunit",Toast.LENGTH_LONG).show();
         setColorWhite();
-        getBlinkAnimation(l4,"GREEN");
-        getBlinkAnimation(l14,"RED");
+        getBlinkAnimation(l4,"BLUE");
+        getBlinkAnimation(l14,"BLUE");
         //l4.setBackgroundColor(getResources().getColor(R.color.colorLight));
         //l14.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
@@ -732,12 +651,12 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects Bordering Countries for betting. //////////////////////////
     public void bCountriesSelect(View v) {
-       // touchOff();
         betField = 5;
+        l5.setBackgroundColor(Color.BLUE);
         //Toast.makeText(this,"bCountry",Toast.LENGTH_LONG).show();
         setColorWhite();
-        getBlinkAnimation(l5,"GREEN");
-        getBlinkAnimation(l15,"RED");
+        getBlinkAnimation(l5,"BLUE");
+        getBlinkAnimation(l15,"BLUE");
         //l5.setBackgroundColor(getResources().getColor(R.color.colorLight));
         //l15.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
@@ -776,12 +695,12 @@ public class Play extends AppCompatActivity {
 
     /////////// Method to be called if user selects highest point for betting. ////////////////////
     public void hPointSelect(View v) {
-        //touchOff();
         betField = 6;
+        l6.setBackgroundColor(Color.BLUE);
         //Toast.makeText(this,"hPoint",Toast.LENGTH_LONG).show();
         setColorWhite();
-        getBlinkAnimation(l6,"GREEN");
-        getBlinkAnimation(l16,"RED");
+        getBlinkAnimation(l6,"BLUE");
+        getBlinkAnimation(l16,"BLUE");
         //l6.setBackgroundColor(getResources().getColor(R.color.colorLight));
         //l16.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
@@ -815,15 +734,6 @@ public class Play extends AppCompatActivity {
                 }
             });
         }
-    }
-    public void touchOff(){
-        l1.setOnTouchListener(null);
-        l2.setOnTouchListener(null);
-        l3.setOnTouchListener(null);
-        l4.setOnTouchListener(null);
-        l5.setOnTouchListener(null);
-        l6.setOnTouchListener(null);
-
     }
 
     ///////////// Method for implementing the game logic. //////////////////
@@ -922,99 +832,128 @@ public class Play extends AppCompatActivity {
 
                 public void onFinish() {
                     // After one round ..send cards back to the respective place.
-                    cardP1.setVisibility(View.INVISIBLE);
+
+
+                   /* cardP1.setVisibility(View.INVISIBLE);
                     cardP2.setVisibility(View.INVISIBLE);
                     Animation animation1 = AnimationUtils.loadAnimation(Play.this, R.anim.card_rotate);
-                    animation2 = AnimationUtils.loadAnimation(Play.this, R.anim.card_rotate);
-                    animation2.setStartOffset(1000);
-                    animation2.setDuration(1000);
-                    cardBigLeft.startAnimation(animation1);
-                    cardBigRight.startAnimation(animation1);
+                    animation2 = AnimationUtils.loadAnimation(Play.this, R.anim.card_rotate_2);
+                    cardBigLeft.startAnimation(animation2);
+                    cardBigRight.startAnimation(animation2);
+                    animation2.setStartOffset(600);
+                    cardP1.startAnimation(animation2);
+                    cardP2.startAnimation(animation2);*/
 
 
-                    Animation animation3 = AnimationUtils.loadAnimation(Play.this, R.anim.animation3);
-                    Animation animation4 = AnimationUtils.loadAnimation(Play.this, R.anim.animation4);
-                    // animation4.setStartOffset(3000);
-                    animation3.setDuration(1000);
-                    animation3.setStartOffset(1000);
-                    animation4.setDuration(1000);
-                    animation4.setStartOffset(1000);
-                    AnimatorSet set = new AnimatorSet();
-                    set.playTogether(
 
-                            ObjectAnimator.ofFloat(cardBigLeft, "scaleX", 1f, 0.1f),
-                            ObjectAnimator.ofFloat(cardBigLeft, "scaleY", 1f, 0.1f)
-                    );
-                    set.setDuration(1000);
-                    set.setStartDelay(1000);
-                    set.start();
-                    Animation myAnim2 = AnimationUtils.loadAnimation(Play.this, R.anim.animation2);
-                    cardBigLeft.startAnimation(myAnim2);
-                    AnimatorSet set1 = new AnimatorSet();
-                    set1.playTogether(
-                            ObjectAnimator.ofFloat(cardBigRight, "scaleX", 1f, 0.1f),
-                            ObjectAnimator.ofFloat(cardBigRight, "scaleY", 1f, 0.1f)
-                    );
-                    set1.setDuration(1000);
-                    set1.setStartDelay(1000);
-                    set1.start();
-                    if (playerNum == 2) {
-                        player = 2;
-                        cardBigLeft.startAnimation(animation4);
-                        cardBigRight.startAnimation(animation4);
-                        animation4.setAnimationListener(new Animation.AnimationListener() {
-                            @Override
-                            public void onAnimationStart(Animation animation) {
-                                flag = 1;
+                    Animation anim1= AnimationUtils.loadAnimation(Play.this,R.anim.card_rotate);
+                    cardP2.setVisibility(View.INVISIBLE);
+                    cardP1.setVisibility(View.INVISIBLE);
+                    cardBigLeft.setVisibility(View.VISIBLE);
+                    cardBigRight.setVisibility(View.VISIBLE);
+                    anim1.setStartOffset(0);
+                    cardBigLeft.startAnimation(anim1);
+                    cardBigRight.startAnimation(anim1);
+
+                    anim1.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            cardBigLeft.setVisibility(View.VISIBLE);
+                            cardBigRight.setVisibility(View.VISIBLE);
+                            cardP1.setVisibility(View.INVISIBLE);
+                            cardP2.setVisibility(View.INVISIBLE);
+                            Animation animation3 = AnimationUtils.loadAnimation(Play.this, R.anim.animation3);
+                            Animation animation4 = AnimationUtils.loadAnimation(Play.this, R.anim.animation4);
+                            // animation4.setStartOffset(3000);
+                            animation3.setDuration(1000);
+                            animation3.setStartOffset(1000);
+                            animation4.setDuration(1000);
+                            animation4.setStartOffset(1000);
+                            AnimatorSet set = new AnimatorSet();
+                            set.playTogether(
+
+                                    ObjectAnimator.ofFloat(cardBigLeft, "scaleX", 1f, 0.1f),
+                                    ObjectAnimator.ofFloat(cardBigLeft, "scaleY", 1f, 0.1f)
+                            );
+                            set.setDuration(1000);
+                            set.setStartDelay(1000);
+                            set.start();
+                            Animation myAnim2 = AnimationUtils.loadAnimation(Play.this, R.anim.animation2);
+                            cardBigLeft.startAnimation(myAnim2);
+                            AnimatorSet set1 = new AnimatorSet();
+                            set1.playTogether(
+                                    ObjectAnimator.ofFloat(cardBigRight, "scaleX", 1f, 0.1f),
+                                    ObjectAnimator.ofFloat(cardBigRight, "scaleY", 1f, 0.1f)
+                            );
+                            set1.setDuration(1000);
+                            set1.setStartDelay(1000);
+                            set1.start();
+                            if (playerNum == 2) {
+                                player = 2;
+                                cardBigLeft.startAnimation(animation4);
+                                cardBigRight.startAnimation(animation4);
+                                animation4.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+                                        flag = 1;
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        if (myCard != 0 && oppCard != 0) {// Game not over then start next round
+                                            repeatGame();
+                                        } else if (myCard == 0 || oppCard == 0) {
+                                            if (myCard != 0)
+                                                Toast.makeText(Play.this, "Game over, You WON !", Toast.LENGTH_SHORT).show();
+                                            else
+                                                Toast.makeText(Play.this, "Game over, You LOSE !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+
+                                    }
+                                });
+                            } else {
+                                player = 1;
+                                cardBigLeft.startAnimation(animation3);
+                                cardBigRight.startAnimation(animation3);
+                                animation3.setAnimationListener(new Animation.AnimationListener() {
+                                    @Override
+                                    public void onAnimationStart(Animation animation) {
+                                        flag = 1;
+                                    }
+
+                                    @Override
+                                    public void onAnimationEnd(Animation animation) {
+                                        if (myCard != 0 && oppCard != 0) {
+                                            repeatGame();
+                                        } else if (myCard == 0 || oppCard == 0) {
+                                            if (myCard != 0)
+                                                Toast.makeText(Play.this, "Game over, You WON !", Toast.LENGTH_SHORT).show();
+                                            else
+                                                Toast.makeText(Play.this, "Game over, You LOSE !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animation animation) {
+
+                                    }
+                                });
                             }
-
+                        }
                             @Override
-                            public void onAnimationEnd(Animation animation) {
-                                if (myCard != 0 && oppCard != 0) {// Game not over then start next round
-                                    repeatGame();
-                                }
-                                else if (myCard == 0 || oppCard == 0) {
-                                    if (myCard != 0)
-                                        Toast.makeText(Play.this, "Game over, You WON !", Toast.LENGTH_SHORT).show();
-                                    else
-                                        Toast.makeText(Play.this, "Game over, You LOSE !", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animation animation) {
+                            public void onAnimationRepeat (Animation animation){
 
                             }
-                        });
-                    } else {
-                        player = 1;
-                        cardBigLeft.startAnimation(animation3);
-                        cardBigRight.startAnimation(animation3);
-                        animation3.setAnimationListener(new Animation.AnimationListener() {
-                            @Override
-                            public void onAnimationStart(Animation animation) {
-                                flag = 1;
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animation animation) {
-                                if (myCard != 0 && oppCard != 0) {
-                                    repeatGame();
-                                }
-                                else if (myCard == 0 || oppCard == 0) {
-                                    if (myCard != 0)
-                                        Toast.makeText(Play.this, "Game over, You WON !", Toast.LENGTH_SHORT).show();
-                                    else
-                                        Toast.makeText(Play.this, "Game over, You LOSE !", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animation animation) {
-
-                            }
-                        });
-                    }
+                    });
                     cardBigLeft.setVisibility(View.VISIBLE);
                     cardBigRight.setVisibility(View.VISIBLE);
                 }
@@ -1176,8 +1115,8 @@ public class Play extends AppCompatActivity {
         animation.setRepeatCount(0);
         final AnimationDrawable drawable = new AnimationDrawable();
         final Handler handler = new Handler();
-        drawable.addFrame(new ColorDrawable(Color.WHITE), 200);
-        drawable.addFrame(getDrawable(R.drawable.cardborder), 400);
+        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white), 200);
+        drawable.addFrame(getResources().getDrawable(R.drawable.cardborder), 400);
         //drawable.addFrame(new ColorDrawable(Color.RED), 400);
         drawable.setOneShot(false);
         cardBigLeft.setBackgroundDrawable(drawable);
@@ -1195,12 +1134,15 @@ public class Play extends AppCompatActivity {
         animation.setRepeatCount(0);
         final AnimationDrawable drawable = new AnimationDrawable();
         final Handler handler = new Handler();
-        drawable.addFrame(new ColorDrawable(Color.WHITE), 200);
+        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white), 200);
         //drawable.addFrame(getDrawable(R.drawable.layoutgreen), 400);
         if(c1.equals("RED"))
-            drawable.addFrame(new ColorDrawable(Color.RED), 400);
+            //drawable.addFrame(new ColorDrawable(Color.RED), 400);
+        drawable.addFrame(getResources().getDrawable(R.drawable.layout_red),400);
+        else if(c1.equals("BLUE"))
+            drawable.addFrame(getResources().getDrawable(R.drawable.layout_blue),400);
         else
-            drawable.addFrame(new ColorDrawable(Color.GREEN), 400);
+            drawable.addFrame(getResources().getDrawable(R.drawable.layout_green),400);
         drawable.setOneShot(false);
         l.setBackgroundDrawable(drawable);
         handler.postDelayed(new Runnable() {
@@ -1208,7 +1150,7 @@ public class Play extends AppCompatActivity {
             public void run() {
                 drawable.start();
             }
-        }, 300);
+        }, 0);
         return animation;
     }
 

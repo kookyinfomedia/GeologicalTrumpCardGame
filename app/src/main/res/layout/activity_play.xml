@@ -195,7 +195,8 @@
         android:layout_below="@+id/relUpper"
         android:layout_alignParentEnd="false"
         android:paddingLeft="20dp"
-        android:paddingRight="20dp">
+        android:paddingRight="20dp"
+        android:paddingBottom="10dp">
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardP1"
@@ -203,11 +204,13 @@
             android:layout_height="250dp"
             android:layout_toLeftOf="@+id/txt1"
             android:background="#FFFFFF"
-            android:elevation="12dp"
+            android:elevation="50dp"
             android:innerRadius="0dp"
             android:onClick="showCard"
             android:shape="ring"
-            android:thicknessRatio="2">
+            android:padding="2dp"
+            android:thicknessRatio="2"
+            app:cardCornerRadius="10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -249,7 +252,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:clickable="true"
                     android:id="@+id/linLay1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -276,7 +278,6 @@
 
                 <LinearLayout
                     android:id="@+id/linLay2"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linLay1"
@@ -303,7 +304,6 @@
 
                 <LinearLayout
                     android:id="@+id/linLay3"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linLay2"
@@ -330,7 +330,6 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:clickable="true"
                     android:id="@+id/linLay4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -357,7 +356,6 @@
 
                 <LinearLayout
                     android:id="@+id/linLay5"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linLay4"
@@ -385,7 +383,6 @@
 
                 <LinearLayout
                     android:id="@+id/linLay6"
-                    android:clickable="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linLay5"
@@ -421,13 +418,12 @@
             android:layout_width="180dp"
             android:layout_height="250dp"
             android:layout_toLeftOf="@+id/txt1"
-            android:elevation="12dp"
-            android:paddingBottom="20dp"
-            android:innerRadius="40dp"
-            app:cardCornerRadius="4dp"
             android:onClick="showCard"
             android:shape="rectangle"
-            android:thicknessRatio="5">
+            android:thicknessRatio="5"
+            android:padding="2dp"
+            app:cardUseCompatPadding="false"
+            app:cardCornerRadius="10dp">
 
             <ImageView
                 android:id="@+id/imgCardBigLeft"
@@ -451,10 +447,11 @@
             android:layout_height="250dp"
             android:layout_toRightOf="@+id/txt1"
             android:background="#FFFFFF"
-            android:elevation="12dp"
             android:innerRadius="0dp"
             android:shape="ring"
-            android:thicknessRatio="2">
+            android:padding="2dp"
+            android:thicknessRatio="2"
+            app:cardCornerRadius="10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -645,17 +642,15 @@
 
         </android.support.v7.widget.CardView>
 
-
         <android.support.v7.widget.CardView
             android:id="@+id/cardBigRight"
             android:layout_width="180dp"
             android:layout_height="250dp"
             android:layout_toRightOf="@+id/txt1"
-            android:elevation="12dp"
-            app:cardUseCompatPadding="true"
+            android:innerRadius="0dp"
             android:shape="ring"
-            android:layout_margin="4dp"
-            android:thicknessRatio="2">
+            app:cardUseCompatPadding="false"
+            app:cardCornerRadius="10dp">
 
             <ImageView
                 android:id="@+id/imgCardBigRight"
