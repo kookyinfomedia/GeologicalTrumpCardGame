@@ -2,12 +2,8 @@ package kookyinfomedia.com.gtcg;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import static android.app.Activity.RESULT_OK;
-import static kookyinfomedia.com.gtcg.LoadingScreen.progress_bar_type;
 
 /**
  * Created by shagun choudhary on 7/11/2017.

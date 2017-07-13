@@ -1,67 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--Values for Asia-->
-    <dimen name="asia_height">145dp</dimen>
-    <dimen name="asia_width">181dp</dimen>
-    <dimen name="asia_marginBottom">155dp</dimen>
-    <dimen name="asia_marginLeft">50dp</dimen>
-    <dimen name="asia_marginStart">50dp</dimen>
-    <dimen name="asia_marginTop">8dp</dimen>
+    <!--xxhdpi-->
 
-    <!--Values for North America-->
-    <dimen name="northamerica_width">113dp</dimen>
-    <dimen name="northamerica_height">152dp</dimen>
-    <dimen name="northamerica_marginBottom">156dp</dimen>
-    <dimen name="northamerica_marginEnd">8dp</dimen>
-    <dimen name="northamerica_marginLeft">16dp</dimen>
-    <dimen name="northamerica_marginRight">8dp</dimen>
-    <dimen name="northamerica_marginStart">16dp</dimen>
-    <dimen name="northamerica_marginTop">8dp</dimen>
+    <dimen name="dimen_1dp">3dp</dimen>
+    <dimen name="dimen_2dp">6dp</dimen>
+    <dimen name="dimen_3dp">9dp</dimen>
+    <dimen name="dimen_4dp">12dp</dimen>
+    <dimen name="dimen_5dp">15dp</dimen>
+    <dimen name="dimen_6dp">18dp</dimen>
+    <dimen name="dimen_7dp">21dp</dimen>
+    <dimen name="dimen_8dp">24dp</dimen>
+    <dimen name="dimen_9dp">27dp</dimen>
+    <dimen name="dimen_10dp">30dp</dimen>
 
-    <!--Values for South America-->
-    <dimen name="southamerica_width">93dp</dimen>
-    <dimen name="southamerica_height">120dp</dimen>
-    <dimen name="southamerica_marginBottom">8dp</dimen>
-    <dimen name="southamerica_marginLeft">31dp</dimen>
-    <dimen name="southamerica_marginRight">8dp</dimen>
-    <dimen name="southamerica_marginStart">31dp</dimen>
-    <dimen name="southamerica_marginTop">192dp</dimen>
+    <dimen name="dimen_11dp">33dp</dimen>
+    <dimen name="dimen_12dp">36dp</dimen>
+    <dimen name="dimen_13dp">39dp</dimen>
+    <dimen name="dimen_14dp">42dp</dimen>
+    <dimen name="dimen_15dp">45dp</dimen>
+    <dimen name="dimen_16dp">48dp</dimen>
+    <dimen name="dimen_17dp">51dp</dimen>
+    <dimen name="dimen_18dp">54dp</dimen>
+    <dimen name="dimen_19dp">57dp</dimen>
+    <dimen name="dimen_20dp">60dp</dimen>
 
-    <!--Values for Africa-->
-    <dimen name="africa_width">118dp</dimen>
-    <dimen name="africa_height">143dp</dimen>
-    <dimen name="africa_marginBottom">46dp</dimen>
-    <dimen name="africa_marginEnd">25dp</dimen>
-    <dimen name="africa_marginLeft">8dp</dimen>
-    <dimen name="africa_marginRight">25dp</dimen>
-    <dimen name="africa_marginStart">8dp</dimen>
+    <dimen name="dimen_25dp">75dp</dimen>
+    <dimen name="dimen_30dp">90dp</dimen>
+    <dimen name="dimen_35dp">105dp</dimen>
+    <dimen name="dimen_40dp">120dp</dimen>
+    <dimen name="dimen_45dp">135dp</dimen>
+    <dimen name="dimen_50dp">150dp</dimen>
+    <dimen name="dimen_55dp">165dp</dimen>
+    <dimen name="dimen_60dp">180dp</dimen>
+    <dimen name="dimen_65dp">195dp</dimen>
+    <dimen name="dimen_70dp">210dp</dimen>
+    <dimen name="dimen_75dp">225dp</dimen>
+    <dimen name="dimen_80dp">240dp</dimen>
+    <dimen name="dimen_85dp">255dp</dimen>
+    <dimen name="dimen_90dp">270dp</dimen>
+    <dimen name="dimen_95dp">285dp</dimen>
+    <dimen name="dimen_100dp">300dp</dimen>
+    <dimen name="dimen_105dp">315dp</dimen>
+    <dimen name="dimen_110dp">330dp</dimen>
+    <dimen name="dimen_115dp">345dp</dimen>
+    <dimen name="dimen_120dp">360dp</dimen>
+    <dimen name="dimen_125dp">375dp</dimen>
+    <dimen name="dimen_130dp">390dp</dimen>
+    <dimen name="dimen_135dp">405dp</dimen>
+    <dimen name="dimen_140dp">420dp</dimen>
+    <dimen name="dimen_145dp">435dp</dimen>
+    <dimen name="dimen_150dp">450dp</dimen>
+    <dimen name="dimen_155dp">465dp</dimen>
+    <dimen name="dimen_160dp">480dp</dimen>
+    <dimen name="dimen_165dp">495dp</dimen>
+    <dimen name="dimen_170dp">510dp</dimen>
+    <dimen name="dimen_175dp">525dp</dimen>
+    <dimen name="dimen_180dp">540dp</dimen>
+    <dimen name="dimen_185dp">565dp</dimen>
+    <dimen name="dimen_190dp">580dp</dimen>
+    <dimen name="dimen_195dp">595dp</dimen>
+    <dimen name="dimen_200dp">610dp</dimen>
 
-    <!--Values for Europe-->
-    <dimen name="europe_layout_width">107dp</dimen>
-    <dimen name="europe_layout_height">87dp</dimen>
-    <dimen name="europe_marginStart">8dp</dimen>
-    <dimen name="europe_marginTop">8dp</dimen>
+    <dimen name="dimen_210dp">630dp</dimen>
+    <dimen name="dimen_220dp">660dp</dimen>
+    <dimen name="dimen_230dp">690dp</dimen>
+    <dimen name="dimen_240dp">720dp</dimen>
+    <dimen name="dimen_250dp">750dp</dimen>
+    <dimen name="dimen_260dp">780dp</dimen>
+    <dimen name="dimen_270dp">810dp</dimen>
+    <dimen name="dimen_280dp">830dp</dimen>
+    <dimen name="dimen_290dp">870dp</dimen>
+    <dimen name="dimen_300dp">900dp</dimen>
 
-    <!--Values for Australia-->
-    <dimen name="australia_width">110dp</dimen>
-    <dimen name="australia_height">95dp</dimen>
-    <dimen name="australia_marginBottom">8dp</dimen>
-    <dimen name="australia_marginEnd">8dp</dimen>
-    <dimen name="australia_marginLeft">8dp</dimen>
-    <dimen name="australia_marginRight">8dp</dimen>
-    <dimen name="australia_marginStart">8dp</dimen>
-    <dimen name="australia_marginTop">256dp</dimen>
-
-    <dimen name="linear_layout_padding">30dp</dimen>
-
-    <dimen name="gif_layout_width">55dp</dimen>
-    <dimen name="gif_layout_height">45dp</dimen>
-
-    <dimen name="text_view_layout_width">210dp</dimen>
-    <dimen name="text_view_layout_height">40dp</dimen>
-    <dimen name="text_view_marginStart">5dp</dimen>
-    <dimen name="text_view_padding">10dp</dimen>
 
 
 </resources>
