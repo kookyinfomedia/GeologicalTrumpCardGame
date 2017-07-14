@@ -14,8 +14,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+
 
 public class Options extends AppCompatActivity{
     private static final String TAG = "";
@@ -60,7 +59,7 @@ public class Options extends AppCompatActivity{
         doBindService();
         playMenuAnimation();
         flag= getIntent().getIntExtra("int_value", 0);
-        Button imgLoudspeaker=(Button)findViewById(R.id.imgLoudspeaker);
+        Button imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
         if(flag==1)
         {
             imgLoudspeaker.setBackgroundResource(R.drawable.soundoff);
@@ -74,7 +73,7 @@ public class Options extends AppCompatActivity{
 
     @Override
     public void onResume(){
-       super.onResume();
+        super.onResume();
         doBindService();
         Button imgLoudspeaker=(Button)findViewById(R.id.imgLoudspeaker);
 
@@ -91,14 +90,14 @@ public class Options extends AppCompatActivity{
 
     @Override
     public void onStop(){
-       super.onStop();
+        super.onStop();
         doUnbindService();
         stopMusic();
     }
 
     public void soundOpt(View view)
     {
-       Button speaker =(Button) view;
+        Button speaker =(Button) view;
         if(flag==0)
         {
             speaker.setBackgroundResource(R.drawable.soundoff);
@@ -115,10 +114,10 @@ public class Options extends AppCompatActivity{
         final Button btnPlay=(Button) findViewById(R.id.btnPlay);
         final Button btnHelp=(Button) findViewById(R.id.btnHelp);
         final Button btnPrivacy=(Button) findViewById(R.id.btnPrivacy);
-        final ImageView imgFb = (ImageView)findViewById(R.id.imgFb);
-        final ImageView imgG = (ImageView)findViewById(R.id.imgG);
-        final RelativeLayout txtMoreGames=(RelativeLayout)findViewById(R.id.playMore);
-        final Button imgLoudspeaker=(Button)findViewById(R.id.imgLoudspeaker);
+        final Button imgFb = (Button) findViewById(R.id.imgFb);
+        final Button imgG = (Button) findViewById(R.id.imgG);
+        final Button txtMoreGames=(Button) findViewById(R.id.playMore);
+        final Button imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.3,20);
         myAnim.setInterpolator(interpolator);
@@ -126,37 +125,37 @@ public class Options extends AppCompatActivity{
         btnPlay.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1000);
+        myAnim.setStartOffset(800);
         myAnim.setInterpolator(interpolator);
         myAnim.setDuration(1000);
         btnHelp.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1100);
+        myAnim.setStartOffset(900);
         myAnim.setInterpolator(interpolator);
         myAnim.setDuration(1000);
         btnPrivacy.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1200);
+        myAnim.setStartOffset(1000);
         myAnim.setInterpolator(interpolator);
         myAnim.setDuration(1000);
         imgFb.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1300);
+        myAnim.setStartOffset(1100);
         myAnim.setInterpolator(interpolator);
         myAnim.setDuration(1000);
         imgG.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1500);
+        myAnim.setStartOffset(1200);
         myAnim.setInterpolator(interpolator);
         myAnim.setDuration(1000);
         imgLoudspeaker.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1600);
+        myAnim.setStartOffset(1300);
         myAnim.setInterpolator(interpolator);
         myAnim.setDuration(1000);
         txtMoreGames.startAnimation(myAnim);
@@ -192,6 +191,5 @@ public class Options extends AppCompatActivity{
         stopService(music);
 
     }
-
 }
 

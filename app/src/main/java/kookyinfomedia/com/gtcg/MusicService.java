@@ -8,7 +8,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.widget.Toast;
 
-public class MusicService extends Service  implements MediaPlayer.OnErrorListener {
+public class MusicService extends Service  implements OnErrorListener {
 
     private final IBinder mBinder = new ServiceBinder();
     MediaPlayer mPlayer;
@@ -32,7 +32,7 @@ public class MusicService extends Service  implements MediaPlayer.OnErrorListene
     public void onCreate() {
         super.onCreate();
 
-        mPlayer = MediaPlayer.create(this,R.raw.backmusic);
+        mPlayer = MediaPlayer.create(this, R.raw.backmusic);
         mPlayer.setOnErrorListener(this);
 
         if (mPlayer != null) {

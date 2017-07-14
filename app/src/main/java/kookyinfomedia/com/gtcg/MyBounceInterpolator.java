@@ -1,10 +1,5 @@
 package kookyinfomedia.com.gtcg;
 
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-
 class MyBounceInterpolator implements android.view.animation.Interpolator {
     private double mAmplitude = 1;
     private double mFrequency = 10;
