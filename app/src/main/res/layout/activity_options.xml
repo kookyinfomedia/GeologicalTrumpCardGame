@@ -84,7 +84,7 @@
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
         android:onClick="openGPlus"
-        android:src="@drawable/g" />
+        android:src="@drawable/google_plus" />
 
     <ImageView
         android:id="@+id/imgFb"
@@ -96,7 +96,7 @@
         android:layout_marginTop="5dp"
         android:layout_toStartOf="@+id/playMore"
         android:onClick="openFb"
-        android:src="@drawable/fb" />
+        android:src="@drawable/facebook" />
 
     <RelativeLayout
         android:id="@+id/playMore"
