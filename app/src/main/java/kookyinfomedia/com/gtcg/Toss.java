@@ -75,7 +75,6 @@ public class Toss extends AppCompatActivity{
         doBindService();
         Random ran = new Random();
         x = ran.nextInt(2);//// will give 0 or 1 and chooses whether the turn would be of first player's or second's
-        Toast.makeText(this,""+x,Toast.LENGTH_SHORT).show();
         spinSound = MediaPlayer.create(this,R.raw.spin);
         spinSound.setLooping(true);
         spinSound.setVolume(0,0.1f);
@@ -89,7 +88,6 @@ public class Toss extends AppCompatActivity{
         }
         animation1 = AnimationUtils.loadAnimation(this, R.anim.to_middle);
         animation2 = AnimationUtils.loadAnimation(this, R.anim.from_middle);
-        final Button btn=(Button)findViewById(R.id.btn);
         new CountDownTimer(500,100){
             public void onTick(long ms){
 
@@ -154,7 +152,6 @@ public class Toss extends AppCompatActivity{
                             });
                         } else {
                             isBackOfCardShowing = !isBackOfCardShowing;
-                            findViewById(R.id.btn).setEnabled(true);
                         }
                     }
 

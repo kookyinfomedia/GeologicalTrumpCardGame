@@ -15,8 +15,8 @@
         android:fontFamily="cursive"
         android:text="Kooky Infomedia"
         android:textAlignment="center"
-        android:textColor="#46C7C7"
-        android:textSize="30sp" />
+        android:textColor="@color/color_JellyFish"
+        android:textSize="@dimen/dimen_30dp" />
 
     <TextView
         android:id="@+id/subtitle"
@@ -27,6 +27,7 @@
         android:fontFamily="cursive"
         android:text="Softwares"
         android:textAlignment="center"
-        android:textColor="#008080"
-        android:textSize="30sp" />
+        android:textColor="@color/color_Teal"
+        android:textSize="@dimen/dimen_30dp" />
+
 </RelativeLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/back1"
     android:hapticFeedbackEnabled="false">
 
     <RelativeLayout
@@ -20,78 +20,73 @@
         android:id="@+id/rel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/play"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
+        android:layout_centerInParent="true"
         android:background="#CC00B8A6"
-        android:paddingBottom="30dp"
-        android:paddingEnd="70dp"
-        android:paddingStart="70dp"
-        android:paddingTop="30dp">
+        android:paddingBottom="@dimen/dimen_30dp"
+        android:paddingEnd="@dimen/dimen_70dp"
+        android:paddingStart="@dimen/dimen_70dp"
+        android:paddingTop="@dimen/dimen_30dp">
 
         <Button
             android:id="@+id/deck16"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
+            android:layout_width="@dimen/dimen_80dp"
+            android:layout_height="@dimen/dimen_110dp"
             android:layout_alignParentStart="false"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/card"
-            android:elevation="10dp"
+            android:layout_margin="@dimen/dimen_10dp"
+            android:background="@drawable/card_16"
+            android:elevation="@dimen/dimen_10dp"
             android:onClick="deckSelected16"
-            android:text="16"
             android:textColor="@android:color/white"
-            android:textSize="40sp" />
+            android:textSize="@dimen/dimen_40dp" />
 
         <Button
             android:id="@+id/deck32"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
+            android:layout_width="@dimen/dimen_80dp"
+            android:layout_height="@dimen/dimen_110dp"
             android:layout_centerInParent="true"
             android:layout_centerVertical="false"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dimen_10dp"
             android:layout_toEndOf="@+id/deck16"
-            android:background="@drawable/card"
-            android:elevation="10dp"
+            android:background="@drawable/card_32"
+            android:elevation="@dimen/dimen_10dp"
             android:onClick="deckSelected32"
-            android:text="32"
             android:textColor="@android:color/white"
-            android:textSize="40sp" />
+            android:textSize="@dimen/dimen_40dp" />
 
         <Button
             android:id="@+id/deck52"
-            android:layout_width="80dp"
-            android:layout_height="110dp"
+            android:layout_width="@dimen/dimen_80dp"
+            android:layout_height="@dimen/dimen_110dp"
             android:layout_centerVertical="true"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/dimen_10dp"
             android:layout_toEndOf="@+id/deck32"
-            android:background="@drawable/card"
-            android:elevation="10dp"
+            android:background="@drawable/card_52"
+            android:elevation="@dimen/dimen_10dp"
             android:onClick="deckSelected52"
-            android:text="52"
             android:textColor="@android:color/white"
-            android:textSize="40sp" />
+            android:textSize="@dimen/dimen_40dp" />
     </RelativeLayout>
 
     <Button
         android:id="@+id/sound"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="@dimen/dimen_40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginRight="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:background="@drawable/soundon"
         android:onClick="soundDeck" />
 
     <Button
-        android:id="@+id/play"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:id="@+id/back"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="@dimen/dimen_40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:background="@drawable/left"
         android:onClick="back" />
 

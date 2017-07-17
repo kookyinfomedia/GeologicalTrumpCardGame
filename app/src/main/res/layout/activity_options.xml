@@ -4,152 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background">
-
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.5"
-        android:background="#CCFFFFFF">
-
-    </RelativeLayout>
+    android:background="@drawable/back1"
+    >
 
     <Button
         android:id="@+id/imgLoudspeaker"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="@dimen/dimen_40dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="false"
-        android:layout_centerInParent="false"
-        android:layout_gravity="center"
-        android:layout_marginBottom="5dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:layout_marginLeft="@dimen/dimen_10dp"
         android:background="@drawable/soundon"
-        android:onClick="soundOpt">
+        android:onClick="soundOpt" />
 
-    </Button>
 
     <Button
         android:id="@+id/btnPlay"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dimen_130dp"
+        android:layout_height="@dimen/dimen_45dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:background="#00B8A6"
+        android:layout_marginTop="@dimen/dimen_20dp"
         android:onClick="playGame"
-        android:text="PLAY"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp" />
+        android:layout_marginRight="10dp"
+        android:background="@drawable/play_button" />
 
     <Button
         android:id="@+id/btnHelp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dimen_130dp"
+        android:layout_height="@dimen/dimen_45dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btnPlay"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="#00B8A6"
-        android:text="HELP !"
-        android:textColor="#FFFFFF"
-        android:textSize="25sp" />
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/help_button" />
 
     <Button
         android:id="@+id/btnPrivacy"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dimen_130dp"
+        android:layout_height="@dimen/dimen_45dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btnHelp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        android:background="#00B8A6"
-        android:text="PRIVACY POLICY"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/private_policies_button" />
 
 
-    <ImageView
+    <Button
         android:id="@+id/imgG"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="@dimen/dimen_40dp"
+        android:layout_below="@+id/btnPrivacy"
+        android:layout_marginLeft="@dimen/dimen_5dp"
+        android:layout_marginRight="@dimen/dimen_10dp"
+        android:layout_marginTop="@dimen/dimen_5dp"
         android:layout_alignEnd="@+id/btnPrivacy"
-        android:layout_below="@+id/btnPrivacy"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
         android:onClick="openGPlus"
-        android:src="@drawable/google_plus" />
+        android:background="@drawable/google_plus" />
 
-    <ImageView
+    <Button
         android:id="@+id/imgFb"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@+id/btnPrivacy"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_toStartOf="@+id/playMore"
+        android:layout_width="@dimen/dimen_40dp"
+        android:layout_height="@dimen/dimen_40dp"
+        android:layout_alignTop="@+id/imgG"
+        android:layout_marginRight="@dimen/dimen_5dp"
         android:onClick="openFb"
-        android:src="@drawable/facebook" />
+        android:layout_toLeftOf="@+id/imgG"
+        android:background="@drawable/facebook" />
 
-    <RelativeLayout
+    <Button
         android:id="@+id/playMore"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
+        android:layout_width="@dimen/dimen_80dp"
+        android:layout_height="@dimen/dimen_80dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/best_02">
+        android:layout_marginBottom="@dimen/dimen_5dp"
+        android:layout_marginRight="@dimen/dimen_5dp"
+        android:background="@drawable/play_more_games"/>
 
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="Play More Games"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_dark"
-            android:textSize="14sp" />
 
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/ribbin"
+        android:layout_width="@dimen/dimen_300dp"
+        android:layout_height="@dimen/dimen_80dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
-        <ImageView
-            android:id="@+id/ribbin"
-            android:layout_width="350dp"
-            android:layout_height="80dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:scaleX="1.25"
-            android:scaleY="1.25"
-            app:srcCompat="@drawable/ribbin" />
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="19dp"
-            android:text="Geological Trump Card Game"
-            android:textColor="#FFFFFF"
-            android:textSize="17sp" />
-
-    </RelativeLayout>
-
-
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="@dimen/dimen_10dp"
+        app:srcCompat="@drawable/ribbin" />
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package kookyinfomedia.com.gtcg;
 
+import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +15,13 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 
 
 public class Options extends AppCompatActivity{
     private static final String TAG = "";
+    final Context context = this;
+
     public int flag=0;
     //--------------------------------------Service Binding------------------------------------//
     private boolean mIsBound = false;
@@ -119,9 +123,9 @@ public class Options extends AppCompatActivity{
         final Button txtMoreGames=(Button) findViewById(R.id.playMore);
         final Button imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.3,20);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.4,20);
         myAnim.setInterpolator(interpolator);
-        myAnim.setStartOffset(0);
+        myAnim.setStartOffset(200);
         btnPlay.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
@@ -177,6 +181,38 @@ public class Options extends AppCompatActivity{
         intent.putExtra("int_value", flag);
         startActivity(intent);
         finish();
+
+    }
+    public void onBackPressed() {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.custom2);
+        //dialog.setTitle("");
+
+        // set the custom dialog components - text, image and button
+
+        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+        image.setImageResource(R.drawable.wrong);
+        ImageView image2 = (ImageView) dialog.findViewById(R.id.image2);
+        image2.setImageResource(R.drawable.righttick);
+
+
+        // if button is clicked, close the custom dialog
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        image2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+        dialog.show();
 
     }
 

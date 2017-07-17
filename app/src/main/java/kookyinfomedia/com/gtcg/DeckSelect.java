@@ -110,7 +110,7 @@ public class DeckSelect extends AppCompatActivity {
 
 
     public void deckSelected16(View v){
-        Intent intent = new Intent(DeckSelect.this,TossDeck.class);
+        Intent intent = new Intent(DeckSelect.this,Toss.class);
         deck=16;
         intent.putExtra("int_value",flag);
         startActivity(intent);
@@ -118,7 +118,7 @@ public class DeckSelect extends AppCompatActivity {
 
     }
     public void deckSelected32(View v){
-        Intent intent = new Intent(DeckSelect.this,TossDeck.class);
+        Intent intent = new Intent(DeckSelect.this,Toss.class);
         deck=32;
         intent.putExtra("int_value",flag);
         startActivity(intent);
@@ -126,7 +126,7 @@ public class DeckSelect extends AppCompatActivity {
 
     }
     public void deckSelected52(View v){
-        Intent intent = new Intent(DeckSelect.this,TossDeck.class);
+        Intent intent = new Intent(DeckSelect.this,Toss.class);
         deck=52;
         intent.putExtra("int_value",flag);
         startActivity(intent);
@@ -160,46 +160,50 @@ public class DeckSelect extends AppCompatActivity {
 
 
     private void playMenuAnimation() {
-        Button b1 = (Button)findViewById(R.id.play);
-        final Button b2 = (Button)findViewById(R.id.sound);
-        Button b3 = (Button)findViewById(R.id.deck16);
-        Button b4 = (Button)findViewById(R.id.deck32);
-        Button b5 = (Button)findViewById(R.id.deck52);
+        Button btnBack = (Button)findViewById(R.id.back);
+        final Button btnSound = (Button)findViewById(R.id.sound);
+        Button btnDeck16 = (Button)findViewById(R.id.deck16);
+        Button btnDeck32 = (Button)findViewById(R.id.deck32);
+        Button btnDeck52 = (Button)findViewById(R.id.deck52);
         RelativeLayout rel=(RelativeLayout)findViewById(R.id.rel);
 
-
+        // relative layout bounce
         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.3, 15);
+        MyBounceInterpolator interpolator = new MyBounceInterpolator(0.3, 20);
         myAnim.setInterpolator(interpolator);
         rel.startAnimation(myAnim);
 
-
+        //  Deck 16 bounce
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
         myAnim.setStartOffset(1000);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);
-        b3.startAnimation(myAnim);
+        btnDeck16.startAnimation(myAnim);
 
+        //  Deck 32 bounce
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        b4.startAnimation(myAnim);
+        btnDeck32.startAnimation(myAnim);
         myAnim.setStartOffset(1100);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);
 
+        // Deck 52 bounce
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        b5.startAnimation(myAnim);
+        btnDeck52.startAnimation(myAnim);
         myAnim.setStartOffset(1200);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);
 
+        // Back button bounce
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        b1.startAnimation(myAnim);
+        btnBack.startAnimation(myAnim);
         myAnim.setStartOffset(1400);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);
 
+        // Sound Button bounce
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        b2.startAnimation(myAnim);
+        btnSound.startAnimation(myAnim);
         myAnim.setStartOffset(1400);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);
