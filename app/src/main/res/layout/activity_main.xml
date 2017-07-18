@@ -7,14 +7,16 @@
     android:animateLayoutChanges="true"
     android:animationCache="true">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:fontFamily="cursive"
         android:text="Kooky Infomedia"
-        android:textAlignment="center"
         android:textColor="@color/color_JellyFish"
         android:textSize="@dimen/dimen_30dp" />
 
@@ -26,8 +28,7 @@
         android:layout_below="@+id/title"
         android:fontFamily="cursive"
         android:text="Softwares"
-        android:textAlignment="center"
         android:textColor="@color/color_Teal"
         android:textSize="@dimen/dimen_30dp" />
-
+    </RelativeLayout>
 </RelativeLayout>

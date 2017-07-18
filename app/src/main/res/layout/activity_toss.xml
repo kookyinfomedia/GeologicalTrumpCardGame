@@ -5,7 +5,7 @@
     android:id="@+id/mainRel"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back1"
+    android:background="@drawable/back"
     tools:context="kookyinfomedia.com.gtcg.Toss">
 
 

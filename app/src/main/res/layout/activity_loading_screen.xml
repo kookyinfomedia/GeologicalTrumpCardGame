@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF73E5D0"
+    android:background="@drawable/back"
     tools:context="kookyinfomedia.com.gtcg.LoadingScreen">
 
     <pl.droidsonroids.gif.GifImageView

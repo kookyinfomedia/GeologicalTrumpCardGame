@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/back"
     tools:context="kookyinfomedia.com.gtcg.Play">
 
     <RelativeLayout
@@ -24,7 +24,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/dimen_10dp"
         android:layout_marginTop="@dimen/dimen_10dp"
-        android:background="@drawable/left"
+        android:background="@drawable/backbtn"
         android:onClick="back">
 
     </Button>
@@ -50,6 +50,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="-40dp"
+        android:id="@+id/cardSmallLeft"
         android:src="@drawable/card_left" />
 
     <ImageView
@@ -58,6 +59,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="-40dp"
+        android:id="@+id/cardSmallRight"
         android:src="@drawable/card_right" />
 
     <RelativeLayout
@@ -65,7 +67,8 @@
         android:layout_width="@dimen/dimen_50dp"
         android:layout_height="@dimen/dimen_20dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"></RelativeLayout>
+        android:layout_centerHorizontal="true">
+    </RelativeLayout>
 
 
     <android.support.v7.widget.CardView
@@ -597,7 +600,7 @@
             android:innerRadius="0dp"
             android:shape="ring"
             android:thicknessRatio="2"
-            app:cardBackgroundColor="#FF73E5D0"
+            app:cardBackgroundColor="@color/color_Teal"
             app:cardCornerRadius="@dimen/dimen_25dp">
 
             <TextView
@@ -631,9 +634,11 @@
             android:layout_centerVertical="true"
             android:innerRadius="0dp"
             android:shape="ring"
+            android:layout_marginLeft="@dimen/dimen_10dp"
             android:thicknessRatio="2"
-            app:cardBackgroundColor="#8E6B23"
-            app:cardCornerRadius="@dimen/dimen_15dp"></android.support.v7.widget.CardView>
+            app:cardBackgroundColor="@color/color_Teal"
+            app:cardCornerRadius="@dimen/dimen_15dp">
+        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardCoinRight"
@@ -645,8 +650,10 @@
             android:innerRadius="0dp"
             android:shape="ring"
             android:thicknessRatio="2"
-            app:cardBackgroundColor="#8E6B23"
-            app:cardCornerRadius="@dimen/dimen_15dp"></android.support.v7.widget.CardView>
+            android:layout_marginRight="@dimen/dimen_10dp"
+            app:cardBackgroundColor="@color/color_Teal"
+            app:cardCornerRadius="@dimen/dimen_15dp">
+        </android.support.v7.widget.CardView>
 
         <LinearLayout
             android:id="@+id/linLayBottomRight"
@@ -656,7 +663,7 @@
             android:layout_marginEnd="@dimen/dimen_9dp"
             android:layout_marginRight="@dimen/dimen_5dp"
             android:layout_toStartOf="@+id/cardCoinRight"
-            android:background="#73E5D0"
+            android:background="@color/color_Teal"
             android:padding="@dimen/dimen_3dp">
 
             <TextView
@@ -691,7 +698,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dimen_5dp"
             android:layout_toEndOf="@+id/cardCoinLeft"
-            android:background="#73E5D0"
+            android:background="@color/color_Teal"
             android:padding="@dimen/dimen_3dp">
 
             <TextView

@@ -3,9 +3,9 @@
     android:fillAfter="false"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <translate
-        android:fromYDelta="30%"
+        android:fromYDelta="25%"
         android:toYDelta="0%"
         android:duration="600"
-        android:fromXDelta="100%"
+        android:fromXDelta="300%"
         android:toXDelta="0%"/>
     </set>

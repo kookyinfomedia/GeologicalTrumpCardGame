@@ -1,11 +1,3 @@
 <resources>
-    <string name="app_name">COCC</string>
-
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
-    <string name="title_activity_category">Category</string>
-
-    <string name="title_activity_cateogory">Cateogory</string>
+    <string name="app_name">GTCG</string>
 </resources>

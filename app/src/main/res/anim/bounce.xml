@@ -11,6 +11,6 @@
         android:pivotY="50%" />
     <alpha
         android:fromAlpha="0.0"
-        android:toAlpha="1.0"
+        android:toAlpha="5.0"
         android:duration="500"/>
 </set>

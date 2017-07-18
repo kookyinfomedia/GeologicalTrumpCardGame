@@ -11,7 +11,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,32 +20,26 @@
         </activity>
         <activity
             android:name=".Options"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".TossDeck"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".DeckSelect"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".LoadingScreen"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Play"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="sensorLandscape" />
-        <activity
-            android:name=".Category"
-            android:screenOrientation="sensorLandscape"></activity>
+        <activity android:name=".Category"
+            android:screenOrientation="sensorLandscape"/>
+
         <service
             android:name=".MusicService"
             android:enabled="true" />
 
+        <activity
+            android:name=".DeckSelect"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Toss"
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".LoadingScreen"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".Play"
+            android:screenOrientation="sensorLandscape">
 
+        </activity>
     </application>
 
 </manifest>

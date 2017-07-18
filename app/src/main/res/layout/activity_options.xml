@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back1"
+    android:background="@drawable/back"
     >
 
     <Button
@@ -84,14 +84,4 @@
         android:layout_marginRight="@dimen/dimen_5dp"
         android:background="@drawable/play_more_games"/>
 
-
-    <ImageView
-        android:id="@+id/ribbin"
-        android:layout_width="@dimen/dimen_300dp"
-        android:layout_height="@dimen/dimen_80dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="@dimen/dimen_10dp"
-        app:srcCompat="@drawable/ribbin" />
 </RelativeLayout>

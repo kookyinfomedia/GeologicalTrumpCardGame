@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
@@ -53,8 +54,8 @@ public class Play extends AppCompatActivity {
     ImageView imgCard1_flag, imgCard2_flag, imgCard1_map, imgCard2_map, imgLoudspeaker, imgBack, imgMyCards, imgOppCards;
     ModelClass modelClass, modelClass1;
     Button cardLoudspeaker, cardBack;
-    CardView cardP1, cardP2, cardCoinLeft, cardCoinRight;
-    ImageView cardBigLeft, cardBigRight;
+    CardView cardP1, cardP2, cardCoinLeft, cardCoinRight,Score;
+    ImageView cardBigLeft, cardBigRight,cardSmallLeft,cardSmallRight;
     TextView txtArea, txtPopulation, txtCoastline, txtAUnits, txtBcountries, txtHPoint, txtCountry1;
     TextView valArea, valPopulation, valCoastline, valAUnits, valBCountries, valHPoint, txtCountry2;
     TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2;
@@ -182,6 +183,9 @@ public class Play extends AppCompatActivity {
         cardCoinRight = (CardView) findViewById(R.id.cardCoinRight);
         linLayBottomLeft = (LinearLayout) findViewById(R.id.linLayBottomLeft);
         linLayBottomRight = (LinearLayout) findViewById(R.id.linLayBottomRight);
+        cardSmallLeft=(ImageView)findViewById(R.id.cardSmallLeft);
+        cardSmallRight=(ImageView)findViewById(R.id.cardSmallRight);
+        Score=(CardView)findViewById(R.id.Score);
 
         ////accessing everything ! ////for first player
         cardP1 = (CardView) findViewById(R.id.cardP1);
@@ -255,6 +259,8 @@ public class Play extends AppCompatActivity {
 
         cardBigLeft.setBackground(getResources().getDrawable(R.drawable.layout_white2));
         cardBigRight.setBackground(getResources().getDrawable(R.drawable.layout_white2));
+        cardBigRight.setEnabled(false);
+        cardBigRight.setClickable(false);
         if (toss == 0)
             playerNum = 2;
         else
@@ -262,7 +268,6 @@ public class Play extends AppCompatActivity {
         /// Blinking animation over border of first card
         getBlinkAnimation();
         cardBigLeft.startAnimation(getBlinkAnimation());
-
         cardBigLeft.setVisibility(View.INVISIBLE);
         cardBigRight.setVisibility(View.INVISIBLE);
         playAnimation();
@@ -280,9 +285,6 @@ public class Play extends AppCompatActivity {
                 txtOppVal.setText("" + oppCard);
                 txtScoreVal.setText("" + score);
                 clickoff();
-                //Toast.makeText(Play.this,""+selectedContinent,Toast.LENGTH_LONG).show();
-
-                //// Using DBAdapter class for fetching data from database ///////
                 try {
                     obj = DBAdapter.getDBAdapter(getApplicationContext());
                     if (obj.checkDatabase() == false)
@@ -422,7 +424,22 @@ public class Play extends AppCompatActivity {
         myAnim.setStartOffset(1300);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);
-        cardBack.startAnimation(myAnim);
+        cardCoinRight.startAnimation(myAnim);
+        // card small left
+        myAnim.setStartOffset(1200);
+        myAnim.setDuration(1000);
+        myAnim.setInterpolator(interpolator);
+        cardSmallLeft.startAnimation(myAnim);
+        // card small right
+        myAnim.setStartOffset(1200);
+        myAnim.setDuration(1000);
+        myAnim.setInterpolator(interpolator);
+        cardSmallRight.startAnimation(myAnim);
+        //Score
+        myAnim.setStartOffset(1400);
+        myAnim.setDuration(1000);
+        myAnim.setInterpolator(interpolator);
+        Score.startAnimation(myAnim);
         // linear layout bottom left
         myAnim.setStartOffset(1400);
         myAnim.setDuration(1000);
@@ -789,7 +806,7 @@ public class Play extends AppCompatActivity {
             Toast.makeText(this, "Score and cards updated. Play again.", Toast.LENGTH_SHORT).show();
 
             /////// Timer to hold the cards for few seconds before animation.
-            new CountDownTimer(4000, 1000) {
+            new CountDownTimer(2000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
                 }
@@ -924,6 +941,15 @@ public class Play extends AppCompatActivity {
                 Toast.makeText(this, "Game over, You WON !", Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(this, "Game over, You LOSE !", Toast.LENGTH_SHORT).show();
+            new CountDownTimer(2000,1000){
+                public void onTick(long ms){
+
+                }
+                public void onFinish(){
+                    Intent intent=new Intent(Play.this,Options.class);
+                    startActivity(intent);
+                }
+            }.start();
         }
     }
 
@@ -982,13 +1008,9 @@ public class Play extends AppCompatActivity {
                 }
 
                 public void onFinish() {
-                    getBlinkAnimation();
-                    cardBigRight.setVisibility(View.INVISIBLE);
-                    cardP2.setVisibility(View.VISIBLE);
-                    Animation animation1 = AnimationUtils.loadAnimation(Play.this, R.anim.card_rotate);
-                    animation2 = AnimationUtils.loadAnimation(Play.this, R.anim.card_rotate);
-                    cardP2.startAnimation(animation1);
-                    int betField = controller.betDecisionComputer(modelClass1);
+                    Animation animation1 = AnimationUtils.loadAnimation(Play.this, R.anim.to_middle2);
+                    animation2 = AnimationUtils.loadAnimation(Play.this, R.anim.from_middle2);
+                    cardBigRight.startAnimation(animation1);
                     animation1.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
@@ -997,10 +1019,28 @@ public class Play extends AppCompatActivity {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            flag = 0;
-                            cardBigLeft.setEnabled(true);
-                            cardBigLeft.setClickable(true);
+                            cardBigRight.setVisibility(View.INVISIBLE);
+                            cardP2.setVisibility(View.VISIBLE);
+                            cardP2.startAnimation(animation2);
+                            animation2.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
 
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    flag=0;
+                                    getBlinkAnimation();
+                                    cardBigLeft.setEnabled(true);
+                                    cardBigLeft.setClickable(true);
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
                         }
 
                         @Override
@@ -1074,8 +1114,8 @@ public class Play extends AppCompatActivity {
         animation.setRepeatCount(0);
         final AnimationDrawable drawable = new AnimationDrawable();
         final Handler handler = new Handler();
-        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white2), 200);
-        drawable.addFrame(getResources().getDrawable(R.drawable.cardborder), 400);
+        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white2), 100);
+        drawable.addFrame(getResources().getDrawable(R.drawable.cardborder), 200);
         //drawable.addFrame(new ColorDrawable(Color.RED), 400);
         drawable.setOneShot(false);
         cardBigLeft.setBackgroundDrawable(drawable);
@@ -1084,7 +1124,7 @@ public class Play extends AppCompatActivity {
             public void run() {
                 drawable.start();
             }
-        }, 500);
+        }, 200);
         return animation;
     }
 
@@ -1094,15 +1134,15 @@ public class Play extends AppCompatActivity {
         animation.setRepeatCount(0);
         final AnimationDrawable drawable = new AnimationDrawable();
         final Handler handler = new Handler();
-        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white), 200);
+        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white), 100);
         //drawable.addFrame(getDrawable(R.drawable.layoutgreen), 400);
         if (c1.equals("RED"))
             //drawable.addFrame(new ColorDrawable(Color.RED), 400);
-            drawable.addFrame(getResources().getDrawable(R.drawable.layout_red), 400);
+            drawable.addFrame(getResources().getDrawable(R.drawable.layout_red), 200);
         else if (c1.equals("BLUE"))
-            drawable.addFrame(getResources().getDrawable(R.drawable.layout_blue), 400);
+            drawable.addFrame(getResources().getDrawable(R.drawable.layout_blue), 200);
         else
-            drawable.addFrame(getResources().getDrawable(R.drawable.layout_green), 400);
+            drawable.addFrame(getResources().getDrawable(R.drawable.layout_green), 200);
         drawable.setOneShot(false);
         l.setBackgroundDrawable(drawable);
         handler.postDelayed(new Runnable() {

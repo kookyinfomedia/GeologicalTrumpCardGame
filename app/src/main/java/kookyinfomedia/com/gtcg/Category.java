@@ -153,10 +153,10 @@ public class Category extends AppCompatActivity {
         final LinearLayout pop=(LinearLayout)findViewById(R.id.pop);
         final RelativeLayout map = (RelativeLayout) findViewById(R.id.map);
         pop.animate()
-                .setStartDelay(3000)
+                .setStartDelay(1500)
                 .translationY(pop.getHeight())
                 .alpha(0.0f)
-                .setDuration(2000)
+                .setDuration(1000)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -170,7 +170,7 @@ public class Category extends AppCompatActivity {
                 pop.animate()
                         .translationY(pop.getHeight())
                         .alpha(0.0f)
-                        .setDuration(3000)
+                        .setDuration(1500)
                         .setListener(new AnimatorListenerAdapter() {
                             @Override
                             public void onAnimationEnd(Animator animation) {
