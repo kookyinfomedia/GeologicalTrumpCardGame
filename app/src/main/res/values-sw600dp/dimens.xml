@@ -78,4 +78,6 @@
 
 
     <dimen name="dimen_470dp">705dp</dimen>
+    <dimen name="dimen_154dp">231dp</dimen>
+    <dimen name="dimen_219dp">328.5dp</dimen>
 </resources>

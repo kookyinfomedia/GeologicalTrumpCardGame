@@ -8,16 +8,6 @@
     android:hapticFeedbackEnabled="false">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.6"
-        android:alwaysDrawnWithCache="false"
-        android:background="#CCFFFFFF">
-
-    </RelativeLayout>
-
-
-    <RelativeLayout
         android:id="@+id/rel"
         android:layout_width="@dimen/dimen_470dp"
         android:layout_height="@dimen/dimen_180dp"

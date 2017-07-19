@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:hapticFeedbackEnabled="false">
+    android:hapticFeedbackEnabled="false"
+    android:id="@+id/rel">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -38,6 +39,7 @@
             android:layout_toRightOf="@+id/northAmerica"
             android:src="@drawable/europe" />
 
+
         <ImageView
             android:id="@+id/asia"
             android:layout_width="@dimen/dimen_160dp"
@@ -45,6 +47,7 @@
             android:onClick="openDeckAsia"
             android:layout_toRightOf="@+id/europe"
             android:src="@drawable/asia" />
+
 
         <ImageView
             android:id="@+id/africa"
@@ -74,7 +77,8 @@
         android:layout_height="@dimen/dimen_50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/antarctica" />
+        android:src="@drawable/antarctica"
+        android:id="@+id/antarctica"/>
 
 
     <RelativeLayout
@@ -109,5 +113,10 @@
                 android:textColor="#FFFFFFFF" />
         </LinearLayout>
     </RelativeLayout>
+    <ImageView
+        android:layout_width="@dimen/dimen_100dp"
+        android:layout_height="@dimen/dimen_100dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/img"/>
 
 </RelativeLayout>
