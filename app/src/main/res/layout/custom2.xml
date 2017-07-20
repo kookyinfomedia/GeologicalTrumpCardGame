@@ -1,41 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="@dimen/dimen_230dp"
-    android:layout_height="@dimen/dimen_160dp"
-    android:background="@color/colorLight">
-
-    <TextView
-        android:id="@+id/txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        android:gravity="center"
-        android:text=" Do you really want  "
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/dimen_20dp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txt2"
-        android:layout_width="@dimen/dimen_220dp"
-        android:layout_height="@dimen/dimen_30dp"
-        android:layout_below="@+id/txt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/dimen_50dp"
-        android:gravity="center"
-        android:text=" to Quit?? "
-        android:textColor="@color/colorWhite"
-        android:textSize="@dimen/dimen_20dp"
-        android:textStyle="bold" />
+    android:layout_height="@dimen/dimen_130dp"
+    android:background="@drawable/exitpopup">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txt2"
-        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_marginTop="@dimen/dimen_70dp"
         android:layout_marginBottom="@dimen/dimen_20dp">
 
         <ImageView

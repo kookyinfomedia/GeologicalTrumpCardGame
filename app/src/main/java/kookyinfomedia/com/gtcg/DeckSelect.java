@@ -1,10 +1,13 @@
 package kookyinfomedia.com.gtcg;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -24,7 +27,7 @@ public class DeckSelect extends AppCompatActivity {
     private static final String TAG ="" ;
     int flag=0;
     public static int deck;
-
+    Button deck16,deck32,deck52;
     //------------------------------------------Service Binding------------------------------------//
     private boolean mIsBound = false;
     private MusicService mServ;
@@ -64,6 +67,9 @@ public class DeckSelect extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_deck_select);
         playMenuAnimation();
+        deck16=(Button)findViewById(R.id.deck16);
+        deck32=(Button)findViewById(R.id.deck32);
+        deck52=(Button)findViewById(R.id.deck52);
         Button speaker =(Button) findViewById(R.id.sound);
         flag= getIntent().getIntExtra("int_value", 0);
         if(flag==1)
@@ -110,28 +116,72 @@ public class DeckSelect extends AppCompatActivity {
 
 
     public void deckSelected16(View v){
-        Intent intent = new Intent(DeckSelect.this,Toss.class);
-        deck=16;
-        intent.putExtra("int_value",flag);
-        startActivity(intent);
-        finish();
+        deck16.setAlpha(0.4f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
+
+                ObjectAnimator.ofFloat(deck16, "scaleX", 1f, 1.2f),
+                ObjectAnimator.ofFloat(deck16, "scaleY", 1f, 1.2f)
+        );
+        set.start();
+        new CountDownTimer(400,100){
+            public void onTick(long ms){
+
+            }
+            public void onFinish(){
+                Intent intent = new Intent(DeckSelect.this,Toss.class);
+                deck=16;
+                intent.putExtra("int_value",flag);
+                startActivity(intent);
+                finish();
+            }
+        }.start();
 
     }
     public void deckSelected32(View v){
-        Intent intent = new Intent(DeckSelect.this,Toss.class);
-        deck=32;
-        intent.putExtra("int_value",flag);
-        startActivity(intent);
-        finish();
+        deck32.setAlpha(0.4f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
+
+                ObjectAnimator.ofFloat(deck32, "scaleX", 1f, 1.2f),
+                ObjectAnimator.ofFloat(deck32, "scaleY", 1f, 1.2f)
+        );
+        set.start();
+        new CountDownTimer(400,100){
+            public void onTick(long ms){
+
+            }
+            public void onFinish(){
+                Intent intent = new Intent(DeckSelect.this,Toss.class);
+                deck=32;
+                intent.putExtra("int_value",flag);
+                startActivity(intent);
+                finish();
+            }
+        }.start();
 
     }
     public void deckSelected52(View v){
-        Intent intent = new Intent(DeckSelect.this,Toss.class);
-        deck=52;
-        intent.putExtra("int_value",flag);
-        startActivity(intent);
-        finish();
+        deck52.setAlpha(0.4f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
 
+                ObjectAnimator.ofFloat(deck52, "scaleX", 1f, 1.2f),
+                ObjectAnimator.ofFloat(deck52, "scaleY", 1f, 1.2f)
+        );
+        set.start();
+        new CountDownTimer(400,100){
+            public void onTick(long ms){
+
+            }
+            public void onFinish(){
+                Intent intent = new Intent(DeckSelect.this,Toss.class);
+                deck=52;
+                intent.putExtra("int_value",flag);
+                startActivity(intent);
+                finish();
+            }
+        }.start();
     }
     @Override
     public void onResume(){

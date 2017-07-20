@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GTCG</string>
+    <string name="shake_to_toss">Shake to toss</string>
 </resources>

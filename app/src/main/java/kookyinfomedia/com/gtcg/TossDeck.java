@@ -74,7 +74,7 @@ public class TossDeck extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_toss_deck);
+        setContentView(R.layout.activity_toss);
         doBindService();
         Random ran = new Random();
         x = ran.nextInt(2);//// will give 0 or 1 and chooses whether the turn would be of first player's or second's
@@ -139,8 +139,8 @@ public class TossDeck extends AppCompatActivity {
                                 cardCoin2.startAnimation(myAnim2);
                             }
                             else{
-                                cardCoin2.setVisibility(View.INVISIBLE);
                                 cardCoin.setVisibility(View.VISIBLE);
+                                cardCoin2.setVisibility(View.INVISIBLE);
                                 cardCoin.startAnimation(myAnim2);
                             }
                             myAnim2.setAnimationListener(new Animation.AnimationListener() {

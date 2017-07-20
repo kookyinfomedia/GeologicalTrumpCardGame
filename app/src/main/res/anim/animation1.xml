@@ -3,7 +3,7 @@
     android:fillAfter="false"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <translate
-        android:fromYDelta="25%"
+        android:fromYDelta="20%"
         android:toYDelta="0%"
         android:duration="1000"
         android:fromXDelta="100%"

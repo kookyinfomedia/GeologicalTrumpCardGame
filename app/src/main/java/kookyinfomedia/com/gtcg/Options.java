@@ -5,8 +5,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +29,7 @@ public class Options extends AppCompatActivity{
     //--------------------------------------Service Binding------------------------------------//
     private boolean mIsBound = false;
     public MusicService mServ;
+    Button btnPlay,btnHelp,btnPrivacy,imgFb,imgG,txtMoreGames,imgLoudspeaker;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
@@ -61,9 +65,15 @@ public class Options extends AppCompatActivity{
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_options);
         doBindService();
+        btnPlay=(Button) findViewById(R.id.btnPlay);
+        btnHelp=(Button) findViewById(R.id.btnHelp);
+        btnPrivacy=(Button) findViewById(R.id.btnPrivacy);
+        imgFb = (Button) findViewById(R.id.imgFb);
+        imgG = (Button) findViewById(R.id.imgG);
+        txtMoreGames=(Button) findViewById(R.id.playMore);
+        imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
         playMenuAnimation();
         flag= getIntent().getIntExtra("int_value", 0);
-        Button imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
         if(flag==1)
         {
             imgLoudspeaker.setBackgroundResource(R.drawable.soundoff);
@@ -79,8 +89,6 @@ public class Options extends AppCompatActivity{
     public void onResume(){
         super.onResume();
         doBindService();
-        Button imgLoudspeaker=(Button)findViewById(R.id.imgLoudspeaker);
-
         if(flag==1)
         {
             imgLoudspeaker.setBackgroundResource(R.drawable.soundoff);
@@ -115,14 +123,9 @@ public class Options extends AppCompatActivity{
     }
 
     public void playMenuAnimation(){
-        final Button btnPlay=(Button) findViewById(R.id.btnPlay);
-        final Button btnHelp=(Button) findViewById(R.id.btnHelp);
-        final Button btnPrivacy=(Button) findViewById(R.id.btnPrivacy);
-        final Button imgFb = (Button) findViewById(R.id.imgFb);
-        final Button imgG = (Button) findViewById(R.id.imgG);
-        final Button txtMoreGames=(Button) findViewById(R.id.playMore);
-        final Button imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
+
+
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.4,20);
         myAnim.setInterpolator(interpolator);
         myAnim.setStartOffset(200);
@@ -176,11 +179,41 @@ public class Options extends AppCompatActivity{
         startActivity(intent);
     }
 
-    public void playGame(View a){
-        Intent intent=new Intent(this,Category.class);
-        intent.putExtra("int_value", flag);
-        startActivity(intent);
-        finish();
+    public void playGame(View v){
+        btnPlay.setBackground(getResources().getDrawable(R.drawable.ripple_effect));
+        new CountDownTimer(300,100){
+            public void onTick(long ms){
+
+            }
+            public void onFinish(){
+                Intent intent=new Intent(Options.this,Category.class);
+                intent.putExtra("int_value", flag);
+                startActivity(intent);
+                finish();
+            }
+        }.start();
+
+    }
+    public void privacyPolicies(View v){
+        btnPrivacy.setBackground(getResources().getDrawable(R.drawable.ripple_effect2));
+        new CountDownTimer(300,100){
+            public void onTick(long ms){
+
+            }
+            public void onFinish(){
+            }
+        }.start();
+
+    }
+    public void help(View v){
+        btnHelp.setBackground(getResources().getDrawable(R.drawable.ripple_effect3));
+        new CountDownTimer(300,100){
+            public void onTick(long ms){
+
+            }
+            public void onFinish(){
+            }
+        }.start();
 
     }
     public void onBackPressed() {
@@ -210,8 +243,7 @@ public class Options extends AppCompatActivity{
                 finishAffinity();
             }
         });
-
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
     }

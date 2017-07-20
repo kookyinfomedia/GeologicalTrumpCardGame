@@ -56,8 +56,8 @@ public class Play extends AppCompatActivity {
     ImageView imgCard1_flag, imgCard2_flag, imgCard1_map, imgCard2_map, imgLoudspeaker, imgBack, imgMyCards, imgOppCards;
     ModelClass modelClass, modelClass1;
     Button cardLoudspeaker, cardBack;
-    CardView cardP1, cardP2, cardCoinLeft, cardCoinRight,Score,cardP3;
-    ImageView cardBigLeft, cardBigRight,cardSmallLeft,cardSmallRight;
+    CardView cardP1, cardP2,Score,cardP3;
+    ImageView cardBigLeft, cardBigRight,cardSmallLeft,cardSmallRight,toast,cardCoinLeft,cardCoinRight;
     TextView txtArea, txtPopulation, txtCoastline, txtAUnits, txtBcountries, txtHPoint, txtCountry1;
     TextView valArea, valPopulation, valCoastline, valAUnits, valBCountries, valHPoint, txtCountry2;
     TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2;
@@ -116,8 +116,6 @@ public class Play extends AppCompatActivity {
 
                                             dialog.setContentView(R.layout.custom);
 
-                                            //dialog.setTitle("");
-
                                             // set the custom dialog components - text, image and button
 
                                             ImageView image = (ImageView) dialog.findViewById(R.id.image);
@@ -128,13 +126,14 @@ public class Play extends AppCompatActivity {
                                             image3.setImageResource(R.drawable.home);
 
 
-                                            // if button is clicked, close the custom dialog
+                                            // Close the custom dialog
                                             image.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
                                                     dialog.dismiss();
                                                 }
                                             });
+                                            // Load the game again
                                             image2.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
@@ -142,6 +141,7 @@ public class Play extends AppCompatActivity {
                                                     startActivity(abc);
                                                 }
                                             });
+                                            // Back to main page
                                             image3.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
@@ -149,6 +149,7 @@ public class Play extends AppCompatActivity {
                                                     startActivity(abc);
                                                 }
                                             });
+                                            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                                             dialog.show();
 
@@ -181,8 +182,8 @@ public class Play extends AppCompatActivity {
         cardLoudspeaker = (Button) findViewById(R.id.cardLoudspeaker);
         //imgLoudspeaker=(ImageView)findViewById(R.id.imgLoudspeaker);
         cardBack = (Button) findViewById(R.id.cardBack);
-        cardCoinLeft = (CardView) findViewById(R.id.cardCoinLeft);
-        cardCoinRight = (CardView) findViewById(R.id.cardCoinRight);
+        cardCoinLeft = (ImageView) findViewById(R.id.cardCoinLeft);
+        cardCoinRight = (ImageView) findViewById(R.id.cardCoinRight);
         linLayBottomLeft = (LinearLayout) findViewById(R.id.linLayBottomLeft);
         linLayBottomRight = (LinearLayout) findViewById(R.id.linLayBottomRight);
         cardSmallLeft=(ImageView)findViewById(R.id.cardSmallLeft);
@@ -258,6 +259,7 @@ public class Play extends AppCompatActivity {
         txtOppVal = (TextView) findViewById(R.id.txtOppVal);
         txtScore = (TextView) findViewById(R.id.txtScore);
         txtScoreVal = (TextView) findViewById(R.id.txtScoreVal);
+        toast=(ImageView)findViewById(R.id.toast);
 
 
 
@@ -425,6 +427,7 @@ public class Play extends AppCompatActivity {
         });
     }
 
+
     public void playAnimation() {
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.3, 15);
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
@@ -482,7 +485,11 @@ public class Play extends AppCompatActivity {
         do {
             Random ran = new Random();
             x = ran.nextInt(arr.size());
+            if(x<0 ||x>arr.size())
+                x=1;
             y = ran.nextInt(arr.size());
+            if(y<0 || y>arr.size())
+                y=1;
             //valArea.setText(arr.get(count).getCountry());
         } while (x == y);
 
@@ -559,6 +566,8 @@ public class Play extends AppCompatActivity {
         if (flag == 0) {
             //Toast.makeText(this, "CLICKED", Toast.LENGTH_LONG);
             flag=1;
+            cardBigLeft.setClickable(false);
+            cardBigLeft.setEnabled(false);
             cardP1.setVisibility(View.INVISIBLE);
             cardBigLeft.setVisibility(View.VISIBLE);
             cardP3.setVisibility(View.INVISIBLE);
@@ -577,6 +586,20 @@ public class Play extends AppCompatActivity {
                     cardBigLeft.setVisibility(View.INVISIBLE);
                     cardP1.setVisibility(View.VISIBLE);
                     cardP1.startAnimation(animation2);
+                    clickon();
+                    if (playerNum == 2) {
+                        clickoff();
+                        flag = 1;
+                        new CountDownTimer(1500, 100) {
+                            public void onTick(long ms) {
+
+                            }
+
+                            public void onFinish() {
+                                updates();
+                            }
+                        }.start();
+                    }
                 }
 
                 @Override
@@ -584,20 +607,7 @@ public class Play extends AppCompatActivity {
 
                 }
             });
-            clickon();
-            if (playerNum == 2) {
-                clickoff();
-                flag = 1;
-                new CountDownTimer(1500, 100) {
-                    public void onTick(long ms) {
 
-                    }
-
-                    public void onFinish() {
-                        updates();
-                    }
-                }.start();
-            }
         }
     }
 
@@ -809,11 +819,21 @@ public class Play extends AppCompatActivity {
                         break;
                     }
                 }
-                LayoutInflater inflater = getLayoutInflater();
+                toast.setVisibility(View.VISIBLE);
+                toast.setImageResource(R.drawable.youwon);
+                new CountDownTimer(1200,500){
+                    public void onTick(long ms){
+
+                    }
+                    public void onFinish(){
+                        toast.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
+                /*LayoutInflater inflater = getLayoutInflater();
                 View view=inflater.inflate(R.layout.cust_toast_layout,(ViewGroup)findViewById(R.id.relativeLayout1));
                 Toast toast=new Toast(this);
                 toast.setView(view);
-                toast.show();
+                toast.show();*/
             } else if (updatedScore == 0) {
                 score = score - 100;
                 myCard = myCard - 1;
@@ -850,17 +870,27 @@ public class Play extends AppCompatActivity {
                         break;
                     }
                 }
-                LayoutInflater inflater = getLayoutInflater();
+                toast.setVisibility(View.VISIBLE);
+                toast.setImageResource(R.drawable.youlose);
+                new CountDownTimer(1200,500){
+                    public void onTick(long ms){
+
+                    }
+                    public void onFinish(){
+                        toast.setVisibility(View.INVISIBLE);
+                    }
+                }.start();
+                /*LayoutInflater inflater = getLayoutInflater();
                 View view=inflater.inflate(R.layout.cust_toast2_layout,(ViewGroup)findViewById(R.id.relativeLayout1));
                 Toast toast=new Toast(this);
                 toast.setView(view);
-                toast.show();
+                toast.show();*/
             }
             txtScoreVal.setText("" + score);
             txtMyVal.setText("" + myCard);
             txtOppVal.setText("" + oppCard);
             flag = 1;
-            Toast.makeText(this, "Score and cards updated. Play again.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Score and cards updated. Play again.", Toast.LENGTH_SHORT).show();
 
             /////// Timer to hold the cards for few seconds before animation.
             new CountDownTimer(2000, 1000) {
@@ -1112,6 +1142,7 @@ public class Play extends AppCompatActivity {
 
                         }
                     });
+                    int betField = controller.betDecisionComputer(modelClass1);
                     switch (betField) {
                         case 1: {
                             //Toast.makeText(Play.this,""+modelClass1.getArea(),Toast.LENGTH_SHORT).show();
@@ -1243,10 +1274,8 @@ public class Play extends AppCompatActivity {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.custom);
-        //dialog.setTitle("");
 
         // set the custom dialog components - text, image and button
-
         ImageView image = (ImageView) dialog.findViewById(R.id.image);
         image.setImageResource(R.drawable.backp);
         ImageView image2 = (ImageView) dialog.findViewById(R.id.image2);
@@ -1256,13 +1285,14 @@ public class Play extends AppCompatActivity {
 
 
 
-        // if button is clicked, close the custom dialog
+        // Close the custom dialog
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+        // Load the game again
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1270,6 +1300,7 @@ public class Play extends AppCompatActivity {
                 startActivity(abc);
             }
         });
+        // Show main menu
         image3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1277,7 +1308,7 @@ public class Play extends AppCompatActivity {
                 startActivity(abc);
             }
         });
-
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
     }
