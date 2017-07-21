@@ -120,8 +120,8 @@ public class DeckSelect extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
-                ObjectAnimator.ofFloat(deck16, "scaleX", 1f, 1.2f),
-                ObjectAnimator.ofFloat(deck16, "scaleY", 1f, 1.2f)
+                ObjectAnimator.ofFloat(deck16, "scaleX", 1f, 0.5f),
+                ObjectAnimator.ofFloat(deck16, "scaleY", 1f, 0.5f)
         );
         set.start();
         new CountDownTimer(400,100){
@@ -143,8 +143,8 @@ public class DeckSelect extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
-                ObjectAnimator.ofFloat(deck32, "scaleX", 1f, 1.2f),
-                ObjectAnimator.ofFloat(deck32, "scaleY", 1f, 1.2f)
+                ObjectAnimator.ofFloat(deck32, "scaleX", 1f, 0.5f),
+                ObjectAnimator.ofFloat(deck32, "scaleY", 1f, 0.5f)
         );
         set.start();
         new CountDownTimer(400,100){
@@ -166,8 +166,8 @@ public class DeckSelect extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
-                ObjectAnimator.ofFloat(deck52, "scaleX", 1f, 1.2f),
-                ObjectAnimator.ofFloat(deck52, "scaleY", 1f, 1.2f)
+                ObjectAnimator.ofFloat(deck52, "scaleX", 1f, 0.5f),
+                ObjectAnimator.ofFloat(deck52, "scaleY", 1f, 0.5f)
         );
         set.start();
         new CountDownTimer(400,100){

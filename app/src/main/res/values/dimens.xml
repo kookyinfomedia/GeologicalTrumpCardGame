@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="dimen_minus">-3dp</dimen>
-
-
     <dimen name="dimen_1dp">1dp</dimen>
     <dimen name="dimen_2dp">2dp</dimen>
     <dimen name="dimen_3dp">3dp</dimen>
@@ -23,7 +21,6 @@
     <dimen name="dimen_18dp">18dp</dimen>
     <dimen name="dimen_19dp">19dp</dimen>
     <dimen name="dimen_20dp">20dp</dimen>
-
     <dimen name="dimen_25dp">25dp</dimen>
     <dimen name="dimen_30dp">30dp</dimen>
     <dimen name="dimen_35dp">35dp</dimen>
@@ -60,7 +57,6 @@
     <dimen name="dimen_190dp">190dp</dimen>
     <dimen name="dimen_195dp">195dp</dimen>
     <dimen name="dimen_200dp">200dp</dimen>
-
     <dimen name="dimen_210dp">210dp</dimen>
     <dimen name="dimen_220dp">220dp</dimen>
     <dimen name="dimen_225dp">225dp</dimen>
@@ -72,8 +68,6 @@
     <dimen name="dimen_280dp">280dp</dimen>
     <dimen name="dimen_290dp">290dp</dimen>
     <dimen name="dimen_300dp">300dp</dimen>
-
-
     <dimen name="dimen_470dp">470dp</dimen>
     <dimen name="dimen_221dp">221dp</dimen>
 </resources>
