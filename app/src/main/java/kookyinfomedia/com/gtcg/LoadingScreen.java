@@ -2,7 +2,6 @@ package kookyinfomedia.com.gtcg;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -36,15 +35,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.gms.analytics.Tracker;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import static kookyinfomedia.com.gtcg.DeckSelect.deck;
 import static kookyinfomedia.com.gtcg.Toss.toss;
@@ -57,6 +55,7 @@ public class LoadingScreen extends AppCompatActivity {
     File imageFile;
     public static Bitmap bitmap;
     public static String mPath;
+    private Tracker mTracker;
     final Context context = this;
     int flag = 0;
     int flagInt;
