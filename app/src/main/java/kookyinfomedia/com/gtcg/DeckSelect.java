@@ -20,7 +20,7 @@ import android.widget.RelativeLayout;
 
 /*************************************** DECK SELECTION PAGE ********************************************/
 
-/// Setting the static variable "deck"  to be used in the Play class for setting initial score and cards.
+/// Setting the static variable "deck"  to be used in the Loading class for setting initial score and cards.
 
 
 public class DeckSelect extends AppCompatActivity {
@@ -120,8 +120,8 @@ public class DeckSelect extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
-                ObjectAnimator.ofFloat(deck16, "scaleX", 1f, 0.5f),
-                ObjectAnimator.ofFloat(deck16, "scaleY", 1f, 0.5f)
+                ObjectAnimator.ofFloat(deck16, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(deck16, "scaleY", 1f, 0.8f)
         );
         set.start();
         new CountDownTimer(400,100){
@@ -143,8 +143,8 @@ public class DeckSelect extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
-                ObjectAnimator.ofFloat(deck32, "scaleX", 1f, 0.5f),
-                ObjectAnimator.ofFloat(deck32, "scaleY", 1f, 0.5f)
+                ObjectAnimator.ofFloat(deck32, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(deck32, "scaleY", 1f, 0.8f)
         );
         set.start();
         new CountDownTimer(400,100){
@@ -166,8 +166,8 @@ public class DeckSelect extends AppCompatActivity {
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
-                ObjectAnimator.ofFloat(deck52, "scaleX", 1f, 0.5f),
-                ObjectAnimator.ofFloat(deck52, "scaleY", 1f, 0.5f)
+                ObjectAnimator.ofFloat(deck52, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(deck52, "scaleY", 1f, 0.8f)
         );
         set.start();
         new CountDownTimer(400,100){

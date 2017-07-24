@@ -1,5 +1,7 @@
 package kookyinfomedia.com.gtcg;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -169,34 +171,74 @@ public class Options extends AppCompatActivity{
 
     }
     public void openGPlus(View v){
-        Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
-    public void openFb(View v){
-        Uri uri = Uri.parse("https://www.facebook.com/kookyinfomedia/"); // missing 'http://' will cause crashed
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
+        imgG.setAlpha(0.5f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
 
-    public void playGame(View v){
-        btnPlay.setBackground(getResources().getDrawable(R.drawable.ripple_effect));
-        new CountDownTimer(300,100){
+                ObjectAnimator.ofFloat(imgG, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(imgG, "scaleY", 1f, 0.8f)
+        );
+        set.start();
+        new CountDownTimer(100,100){
             public void onTick(long ms){
 
             }
             public void onFinish(){
+                Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        }.start();
+    }
+    public void openFb(View v){
+        imgFb.setAlpha(0.5f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
+
+                ObjectAnimator.ofFloat(imgFb, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(imgFb, "scaleY", 1f, 0.8f)
+        );
+        set.start();
+        new CountDownTimer(100,100){
+            public void onTick(long ms){
+
+            }
+            public void onFinish(){
+                Uri uri = Uri.parse("https://www.facebook.com/kookyinfomedia/"); // missing 'http://' will cause crashed
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
+            }
+        }.start();
+    }
+
+    public void playGame(View v){
+        btnPlay.setAlpha(0.5f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
+
+                ObjectAnimator.ofFloat(btnPlay, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(btnPlay, "scaleY", 1f, 0.8f)
+        );
+        set.start();
+
+
                 Intent intent=new Intent(Options.this,Category.class);
                 intent.putExtra("int_value", flag);
                 startActivity(intent);
                 finish();
-            }
-        }.start();
+
 
     }
     public void privacyPolicies(View v){
-        btnPrivacy.setBackground(getResources().getDrawable(R.drawable.ripple_effect2));
-        new CountDownTimer(300,100){
+        btnPrivacy.setAlpha(0.5f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
+
+                ObjectAnimator.ofFloat(btnPrivacy, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(btnPrivacy, "scaleY", 1f, 0.8f)
+        );
+        set.start();
+        new CountDownTimer(100,100){
             public void onTick(long ms){
 
             }
@@ -206,8 +248,15 @@ public class Options extends AppCompatActivity{
 
     }
     public void help(View v){
-        btnHelp.setBackground(getResources().getDrawable(R.drawable.ripple_effect3));
-        new CountDownTimer(300,100){
+        btnHelp.setAlpha(0.5f);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(
+
+                ObjectAnimator.ofFloat(btnHelp, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(btnHelp, "scaleY", 1f, 0.8f)
+        );
+        set.start();
+        new CountDownTimer(100,100){
             public void onTick(long ms){
 
             }

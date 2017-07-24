@@ -52,6 +52,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerInParent="false"
                 android:layout_gravity="left|center_vertical"
+                android:onClick="next"
                 app:srcCompat="@drawable/shake" />
         </RelativeLayout>
 

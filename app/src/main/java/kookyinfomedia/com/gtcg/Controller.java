@@ -2,7 +2,7 @@ package kookyinfomedia.com.gtcg;
 
 import java.util.Random;
 
-import static kookyinfomedia.com.gtcg.Play.player;
+import static kookyinfomedia.com.gtcg.LoadingScreen.player;
 
 /********************************* for controlling game logic (Checks the winner and changes the scores. ****************************/
 
@@ -38,7 +38,7 @@ public class Controller {
                 break;
             }
             case 3:{
-                if(!(m1.getCoastline().trim().equals("Landlocked")) && !(m2.getCoastline().trim().equals("Landlocked"))) {
+                if(!(m1.getCoastline().trim().equals("LANDLOCKED")) && !(m2.getCoastline().trim().equals("LANDLOCKED"))) {
                     if (Integer.parseInt(m1.getCoastline()) < Integer.parseInt(m2.getCoastline()))
                         playerNum = first;
                     else if (Integer.parseInt(m1.getCoastline()) > Integer.parseInt(m2.getCoastline()))
@@ -46,11 +46,11 @@ public class Controller {
                     else
                         playerNum = first;
                 }
-                else if((m1.getCoastline().trim().equals("Landlocked")) && !(m2.getCoastline().trim().equals("Landlocked")))
+                else if((m1.getCoastline().trim().equals("LANDLOCKED")) && !(m2.getCoastline().trim().equals("LANDLOCKED")))
                         playerNum=second;
-                else if(!(m1.getCoastline().trim().equals("Landlocked")) && (m2.getCoastline().trim().equals("Landlocked")))
+                else if(!(m1.getCoastline().trim().equals("LANDLOCKED")) && (m2.getCoastline().trim().equals("LANDLOCKED")))
                         playerNum=first;
-                else if((m1.getCoastline().trim().equals("Landlocked")) && (m2.getCoastline().trim().equals("Landlocked")))
+                else if((m1.getCoastline().trim().equals("LANDLOCKED")) && (m2.getCoastline().trim().equals("LANDLOCKED")))
                     playerNum=first;
                 break;
                 }
@@ -99,7 +99,7 @@ public class Controller {
         int betField,area,population,coastline,aUnits,bCountries,hPoint;
         area=Integer.parseInt(m2.getArea());
         population=Integer.parseInt(m2.getPopulation());
-        if(!(m2.getCoastline().equals("Landlocked")))
+        if(!(m2.getCoastline().equals("Landlocked")) &&(!(m2.getCoastline().equals("LANDLOCKED"))))
             coastline=Integer.parseInt(m2.getCoastline());
         else
             coastline=5000;

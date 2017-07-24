@@ -4,12 +4,809 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="kookyinfomedia.com.gtcg.LoadingScreen">
+    android:background="@drawable/back"
+    tools:context="kookyinfomedia.com.gtcg.LoadingScreen"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relLoad">
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_width="@dimen/dimen_40dp"
+            android:layout_height="@dimen/dimen_40dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/loading"
+            android:rotation="10" />
+    </RelativeLayout>
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="@dimen/dimen_40dp"
-        android:layout_height="@dimen/dimen_40dp"
-        android:layout_centerInParent="true"
-        android:background="@drawable/loading"
-        android:rotation="10" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.5"
+        android:background="#CCFFFFFF"/>
+
+    <RelativeLayout
+        android:id="@+id/fullrel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <Button
+            android:id="@+id/cardBack"
+            android:layout_width="@dimen/dimen_40dp"
+            android:layout_height="@dimen/dimen_40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/dimen_5dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:background="@drawable/backbtn"
+            android:onClick="back">
+
+        </Button>
+
+
+        <Button
+            android:id="@+id/cardLoudspeaker"
+            android:layout_width="@dimen/dimen_40dp"
+            android:layout_height="@dimen/dimen_40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/dimen_5dp"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:background="@drawable/soundon"
+            android:innerRadius="0dp"
+            android:onClick="soundOpt">
+
+        </Button>
+
+        <ImageView
+            android:id="@+id/cardSmallLeft"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="-40dp"
+            android:src="@drawable/card_left" />
+
+        <ImageView
+            android:id="@+id/cardSmallRight"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="-40dp"
+            android:src="@drawable/card_right" />
+
+        <RelativeLayout
+            android:id="@+id/relUpper"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_10dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardP1"
+            android:layout_width="@dimen/dimen_170dp"
+            android:layout_height="@dimen/dimen_240dp"
+            android:layout_below="@id/relUpper"
+            android:layout_toLeftOf="@+id/relUpper"
+            android:background="#FFFFFF"
+            android:innerRadius="0dp"
+            android:onClick="showCard"
+            android:padding="@dimen/dimen_2dp"
+            android:shape="ring"
+            android:thicknessRatio="2"
+            app:cardCornerRadius="@dimen/dimen_10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_240dp"
+                android:padding="@dimen/dimen_2dp">
+
+                <LinearLayout
+                    android:id="@+id/linLayImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_2dp">
+
+                    <ImageView
+                        android:id="@+id/imgCard1_flag"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp" />
+
+                    <ImageView
+                        android:id="@+id/imgCard1_map"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLayCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLayImg"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/txtCountry1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dimen_2dp"
+                        android:text="Country1"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLayCountry"
+                    android:onClick="areaSelect">
+
+                    <TextView
+                        android:id="@+id/txtArea"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:text="Area (Rank)"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valArea"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toRightOf="@+id/txtArea"
+                        android:text="valArea"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay1"
+                    android:onClick="populationSelect">
+
+                    <TextView
+                        android:id="@+id/txtPopulation"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:text="Population (Rank)"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valPopulation"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toRightOf="@+id/txtPopulation"
+                        android:text="valPop"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linLay3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay2"
+                    android:onClick="coastSelect">
+
+                    <TextView
+                        android:id="@+id/txtCoastline"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtPopulation"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:text="Coastline  (Rank)"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valCoastline"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/valPopulation"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toRightOf="@+id/txtCoastline"
+                        android:text="LANDLOCKED"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay3"
+                    android:onClick="aUnitSelect">
+
+                    <TextView
+                        android:id="@+id/txtAUnits"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:text="Administrative units"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valAUnits"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toRightOf="@+id/txtAUnits"
+                        android:text="valAUnit"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay4"
+                    android:onClick="bCountriesSelect">
+
+                    <TextView
+                        android:id="@+id/txtBCountries"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtAUnits"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:text="Bordering Countries"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valBCountries"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/valAUnits"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toRightOf="@+id/txtBCountries"
+                        android:text="valBCoun"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay5"
+                    android:onClick="hPointSelect">
+
+                    <TextView
+                        android:id="@+id/txtHPoint"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtBCountries"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:text="Highest Point"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valHPoint"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/valBCountries"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_toRightOf="@+id/txtHPoint"
+                        android:text="valhPoin"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <ImageView
+            android:id="@+id/cardBigLeft"
+            android:layout_width="@dimen/dimen_170dp"
+            android:layout_height="@dimen/dimen_240dp"
+            android:layout_below="@id/relUpper"
+            android:layout_toLeftOf="@+id/relUpper"
+            android:onClick="showCard"
+            android:padding="@dimen/dimen_2dp"
+            android:src="@drawable/card" />
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardP3"
+            android:layout_width="@dimen/dimen_170dp"
+            android:layout_height="@dimen/dimen_235dp"
+            android:layout_marginTop="@dimen/dimen_2.5dp"
+            android:layout_below="@id/relUpper"
+            android:layout_toLeftOf="@+id/relUpper"
+            android:alpha="1"
+            android:background="@android:color/transparent"
+            android:innerRadius="0dp"
+            android:padding="@dimen/dimen_2dp"
+            android:shape="ring"
+            android:thicknessRatio="2"
+            app:cardCornerRadius="@dimen/dimen_10dp" />
+
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardP2"
+            android:layout_width="@dimen/dimen_170dp"
+            android:layout_height="@dimen/dimen_240dp"
+            android:layout_below="@id/relUpper"
+            android:layout_toRightOf="@+id/relUpper"
+            android:background="#FFFFFF"
+            android:innerRadius="0dp"
+            android:padding="@dimen/dimen_2dp"
+            android:shape="ring"
+            android:thicknessRatio="2"
+            app:cardCornerRadius="@dimen/dimen_10dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_240dp"
+                android:padding="@dimen/dimen_2dp">
+
+                <LinearLayout
+                    android:id="@+id/linLayImg2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/dimen_2dp">
+
+                    <ImageView
+                        android:id="@+id/imgCard2_flag"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp" />
+
+                    <ImageView
+                        android:id="@+id/imgCard2_map"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="@dimen/dimen_50dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLayCountry2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLayImg2"
+                    android:layout_centerHorizontal="true">
+
+                    <TextView
+                        android:textStyle="bold"
+                        android:id="@+id/txtCountry2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Country2"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_margin="@dimen/dimen_2dp"
+                        android:textSize="@dimen/dimen_10dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linLay11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLayCountry2">
+
+                    <TextView
+                        android:id="@+id/txtArea2"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:text="Area (Rank)"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valArea2"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_toRightOf="@+id/txtArea2"
+                        android:text="valArea"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay11">
+
+                    <TextView
+                        android:id="@+id/txtPopulation2"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:text="Population (Rank)"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valPopulation2"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_toRightOf="@+id/txtPopulation2"
+                        android:text="valPop"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay13"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay12">
+
+                    <TextView
+                        android:id="@+id/txtCoastline2"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:text="Coastline (Rank)"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valCoastline2"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_toRightOf="@+id/txtCoastline2"
+                        android:text="LANDLOCKED"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay13">
+
+                    <TextView
+                        android:id="@+id/txtAUnits2"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:text="Administrative units"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valAUnits2"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_toRightOf="@+id/txtAUnits2"
+                        android:text="valAUni"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay14">
+
+                    <TextView
+                        android:id="@+id/txtBCountries2"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:text="Bordering Countries"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valBCountries2"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_toRightOf="@+id/txtBCountries2"
+                        android:text="valBCo"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linLay16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linLay15">
+
+                    <TextView
+                        android:id="@+id/txtHPoint2"
+                        android:layout_width="@dimen/dimen_90dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        android:layout_marginRight="@dimen/dimen_2dp"
+                        android:text="Highest Point"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+
+                    <TextView
+                        android:textAlignment="center"
+                        android:id="@+id/valHPoint2"
+                        android:layout_width="@dimen/dimen_70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_5dp"
+                        android:layout_marginBottom="@dimen/dimen_5dp"
+                        android:layout_marginLeft="-3dp"
+                        android:layout_toRightOf="@+id/txtHPoint2"
+                        android:text="valHPo"
+                        android:textSize="@dimen/dimen_10dp"
+                        android:textColor="@color/colorPrimaryDark"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+
+
+
+        <ImageView
+            android:id="@+id/cardBigRight"
+            android:layout_width="@dimen/dimen_170dp"
+            android:layout_height="@dimen/dimen_240dp"
+            android:layout_below="@id/relUpper"
+            android:layout_toRightOf="@id/relUpper"
+            android:onClick="showCard"
+            android:padding="@dimen/dimen_2dp"
+            android:src="@drawable/card" />
+
+
+        <RelativeLayout
+            android:layout_marginBottom="@dimen/dimen_8dp"
+            android:id="@+id/relativeLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/Score"
+                android:layout_width="@dimen/dimen_50dp"
+                android:layout_height="@dimen/dimen_50dp"
+                android:background="@drawable/score_ellipse"
+                android:innerRadius="0dp"
+                android:shape="ring"
+                android:thicknessRatio="0"
+                app:cardCornerRadius="@dimen/dimen_25dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    app:srcCompat="@drawable/score_ellipse" />
+
+                <TextView
+                    android:id="@+id/txtScoreVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="@dimen/dimen_15dp"
+                    android:layout_marginTop="@dimen/dimen_25dp"
+                    android:text="0000"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_9dp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/txtScore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|center_horizontal"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    android:text="Score"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_12dp"
+                    android:textStyle="bold" />
+
+            </android.support.v7.widget.CardView>
+
+            <ImageView
+                android:id="@+id/cardCoinLeft"
+                android:layout_width="@dimen/dimen_40dp"
+                android:layout_height="@dimen/dimen_40dp"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_5dp"
+                android:src="@drawable/human"/>
+
+            <ImageView
+                android:id="@+id/cardCoinRight"
+                android:layout_width="@dimen/dimen_40dp"
+                android:layout_height="@dimen/dimen_40dp"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dimen_5dp"
+                android:src="@drawable/computer"/>
+
+            <LinearLayout
+                android:id="@+id/linLayBottomRight"
+                android:layout_width="@dimen/dimen_160dp"
+                android:layout_height="@dimen/dimen_30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/dimen_9dp"
+                android:layout_marginRight="@dimen/dimen_5dp"
+                android:layout_toStartOf="@+id/cardCoinRight"
+                android:background="@drawable/score_bar">
+
+                <TextView
+                    android:id="@+id/txtOppVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
+                    android:text="00"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_15dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtOppCards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Opponents Cards"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_13dp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linLayBottomLeft"
+                android:layout_width="@dimen/dimen_160dp"
+                android:layout_height="@dimen/dimen_30dp"
+                android:layout_alignParentBottom="false"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dimen_2dp"
+                android:layout_toEndOf="@+id/cardCoinLeft"
+                android:background="@drawable/score_bar"
+                android:padding="@dimen/dimen_3dp">
+
+                <TextView
+                    android:id="@+id/txtMyCards"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimen_55dp"
+                    android:text="Your Cards"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_13dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txtMyVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/dimen_10dp"
+                    android:text="00"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/dimen_15dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/relUpper2"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_20dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/toast"
+            android:layout_width="@dimen/dimen_250dp"
+            android:layout_height="@dimen/dimen_250dp"
+            android:layout_below="@+id/relUpper2"
+            android:layout_centerInParent="true"
+            android:visibility="invisible" />
+    </RelativeLayout>
 </RelativeLayout>

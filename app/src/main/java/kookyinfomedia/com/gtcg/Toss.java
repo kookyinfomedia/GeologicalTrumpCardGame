@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -263,5 +264,10 @@ public class Toss extends AppCompatActivity {
         }
 
     };
+    public void next(View v){
+        Intent intent=new Intent(Toss.this,LoadingScreen.class);
+        startActivity(intent);
+        finish();
+    }
 }
 
