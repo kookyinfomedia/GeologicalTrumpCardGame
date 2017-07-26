@@ -4,7 +4,7 @@ import java.util.Random;
 
 import static kookyinfomedia.com.gtcg.LoadingScreen.player;
 
-/********************************* for controlling game logic (Checks the winner and changes the scores. ****************************/
+/********************************* for controlling game logic (Checks the winner and changes the scores.) ****************************/
 
 
 public class Controller {
@@ -38,7 +38,7 @@ public class Controller {
                 break;
             }
             case 3:{
-                if(!(m1.getCoastline().trim().equals("LANDLOCKED")) && !(m2.getCoastline().trim().equals("LANDLOCKED"))) {
+                if(!(m1.getCoastline().trim().equals("Landlocked")) && !(m2.getCoastline().trim().equals("Landlocked"))) {
                     if (Integer.parseInt(m1.getCoastline()) < Integer.parseInt(m2.getCoastline()))
                         playerNum = first;
                     else if (Integer.parseInt(m1.getCoastline()) > Integer.parseInt(m2.getCoastline()))
@@ -46,11 +46,11 @@ public class Controller {
                     else
                         playerNum = first;
                 }
-                else if((m1.getCoastline().trim().equals("LANDLOCKED")) && !(m2.getCoastline().trim().equals("LANDLOCKED")))
+                else if(((m1.getCoastline().trim().equals("Landlocked")||(m1.getCoastline().trim().equals("LANDLOCKED"))) && (!(m2.getCoastline().trim().equals("Landlocked"))||!(m2.getCoastline().trim().equals("LANDLOCKED")))))
                         playerNum=second;
-                else if(!(m1.getCoastline().trim().equals("LANDLOCKED")) && (m2.getCoastline().trim().equals("LANDLOCKED")))
+                else if((!(m1.getCoastline().trim().equals("Landlocked"))||!(m1.getCoastline().trim().equals("LANDLOCKED"))) && ((m2.getCoastline().trim().equals("Landlocked"))||(m2.getCoastline().trim().equals("LANDLOCKED"))))
                         playerNum=first;
-                else if((m1.getCoastline().trim().equals("LANDLOCKED")) && (m2.getCoastline().trim().equals("LANDLOCKED")))
+                else if(((m1.getCoastline().trim().equals("Landlocked"))||(m1.getCoastline().trim().equals("LANDLOCKED"))) && ((m2.getCoastline().trim().equals("Landlocked"))||(m2.getCoastline().trim().equals("Landlocked"))))
                     playerNum=first;
                 break;
                 }
@@ -95,7 +95,6 @@ public class Controller {
     }
 
     public int betDecisionComputer(ModelClass m2){
-        Random ran= new Random();
         int betField,area,population,coastline,aUnits,bCountries,hPoint;
         area=Integer.parseInt(m2.getArea());
         population=Integer.parseInt(m2.getPopulation());

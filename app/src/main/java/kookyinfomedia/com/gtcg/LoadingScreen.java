@@ -5,23 +5,26 @@ import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -35,13 +38,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.android.gms.analytics.Tracker;
-
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Random;
 
 import static kookyinfomedia.com.gtcg.DeckSelect.deck;
@@ -49,23 +50,22 @@ import static kookyinfomedia.com.gtcg.Toss.toss;
 
 
 public class LoadingScreen extends AppCompatActivity {
-    RelativeLayout fullrel, relLoad;
+    RelativeLayout fullrel, relLoad,rel1,relPopup;
     private static final String TAG = "";
     public static int player;
     File imageFile;
     public static Bitmap bitmap;
     public static String mPath;
-    private Tracker mTracker;
     final Context context = this;
     int flag = 0;
-    int flagInt;
+    int flagInt,flagBack=0;
     Animation animation2, animation;
     DBAdapter obj;
     ArrayList<ModelClass> arr = new ArrayList<ModelClass>();
     Controller controller;
     ImageView imgCard1_flag, imgCard2_flag, imgCard1_map, imgCard2_map;
     ModelClass modelClass, modelClass1;
-    Button cardLoudspeaker, cardBack,loudspeaker;
+    Button cardLoudspeaker, cardBack, loudspeaker;
     CardView cardP1, cardP2, Score, cardP3;
     int screenHeight;
     ImageView cardBigLeft, cardBigRight, cardSmallLeft, cardSmallRight, toast, cardCoinLeft, cardCoinRight;
@@ -75,6 +75,7 @@ public class LoadingScreen extends AppCompatActivity {
     TextView txtArea2, txtPopulation2, txtCoastline2, txtAUnits2, txtBcountries2, txtHPoint2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
     RelativeLayout relUpper;
+    Dialog dialog;
     LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
     int betField, playerNum, updatedScore;
     Animation myAnim, myAnimFinal;
@@ -118,8 +119,20 @@ public class LoadingScreen extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_loading_screen);
         flag = getIntent().getIntExtra("int_value", 0);
+        if(flag==1)
+        {
+            stopMusic();
+        }
+        else{
+            startMusic();
+        }
         fullrel = (RelativeLayout) findViewById(R.id.fullrel);
         relLoad = (RelativeLayout) findViewById(R.id.relLoad);
+        relPopup=(RelativeLayout)findViewById(R.id.relPopup);
+        rel1=(RelativeLayout)findViewById(R.id.rel);
+        relLoad.setVisibility(View.VISIBLE);
+        relPopup.setVisibility(View.INVISIBLE);
+        fullrel.setVisibility(View.INVISIBLE);
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
     }
@@ -141,7 +154,7 @@ public class LoadingScreen extends AppCompatActivity {
             try {
                 obj = DBAdapter.getDBAdapter(getApplicationContext());
                 if (obj.checkDatabase() == false)
-                obj.createDatabase(getApplicationContext());
+                    obj.createDatabase(getApplicationContext());
                 obj.openDatabase();
                 arr = obj.getData();
             } catch (Exception e) {
@@ -152,7 +165,6 @@ public class LoadingScreen extends AppCompatActivity {
 
 
             doBindService();
-            flagInt = getIntent().getIntExtra("int_value", 0);
             loudspeaker = (Button) findViewById(R.id.cardLoudspeaker);
             relUpper = (RelativeLayout) findViewById(R.id.relUpper);
             Display display = getWindowManager().getDefaultDisplay();
@@ -247,183 +259,133 @@ public class LoadingScreen extends AppCompatActivity {
         }
 
         protected void onPostExecute(ArrayList arr) {
-            fullrel.setVisibility(View.VISIBLE);
-            relLoad.setVisibility(View.INVISIBLE);
-            final Dialog dialog = new Dialog(context);
-            cardP1.setVisibility(View.INVISIBLE);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-            cardBack = (Button) findViewById(R.id.cardBack);
-            cardBack.setOnClickListener(new View.OnClickListener() {
-
-                public void onClick(View arg0) {
-
-                    dialog.setContentView(R.layout.custom);
-
-                    // set the custom dialog components - text, image and button
-
-                    ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                    image.setImageResource(R.drawable.backp);
-                    ImageView image2 = (ImageView) dialog.findViewById(R.id.image2);
-                    image2.setImageResource(R.drawable.retry);
-                    ImageView image3 = (ImageView) dialog.findViewById(R.id.image3);
-                    image3.setImageResource(R.drawable.home);
-
-
-                    // Close the custom dialog
-                    image.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                    // Load the game again
-                    image2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent abc = new Intent(LoadingScreen.this, DeckSelect.class);
-                            startActivity(abc);
-                        }
-                    });
-                    // Back to main page
-                    image3.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent abc = new Intent(LoadingScreen.this, Options.class);
-                            startActivity(abc);
-                        }
-                    });
-                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                    dialog.show();
-
+            new CountDownTimer(500,100){
+                public void onTick(long ms){
                 }
+                public void onFinish(){
+                    fullrel.setVisibility(View.VISIBLE);
+                    relLoad.setVisibility(View.INVISIBLE);
+                    final Dialog dialog = new Dialog(context);
+                    cardP1.setVisibility(View.INVISIBLE);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-            });
-            if (flagInt == 1) {
-                loudspeaker.setBackgroundResource(R.drawable.soundoff);
-                stopMusic();
-            } else {
-                loudspeaker.setBackgroundResource(R.drawable.soundon);
-                startMusic();
-            }
-            ViewGroup.LayoutParams layoutParams = relUpper.getLayoutParams();
-            layoutParams.height = screenHeight / 10;
-            relUpper.setLayoutParams(layoutParams);
-            cardP2.setVisibility(View.INVISIBLE);
-            cardBigRight.setEnabled(false);
-            cardBigRight.setClickable(false);
-            cardP3.setVisibility(View.INVISIBLE);
-            cardBigLeft.setVisibility(View.INVISIBLE);
-            cardBigRight.setVisibility(View.INVISIBLE);
-            playAnimation();
-            myAnimFinal.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
+                    cardBack = (Button) findViewById(R.id.cardBack);
 
-                }
+                    l1.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            switch (motionEvent.getAction()){
+                                case MotionEvent.ACTION_DOWN:
+                                    l1.setBackgroundColor(Color.YELLOW);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    l1.setBackgroundColor(Color.WHITE);
+                                    clickoff();
+                                    areaSelect(cardBigLeft);
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
+                    l2.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            switch (motionEvent.getAction()){
+                                case MotionEvent.ACTION_DOWN:
+                                    l2.setBackgroundColor(Color.YELLOW);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    l2.setBackgroundColor(Color.WHITE);
+                                    clickoff();
+                                    populationSelect(cardBigLeft);
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
+                    l3.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            switch (motionEvent.getAction()){
+                                case MotionEvent.ACTION_DOWN:
+                                    l3.setBackgroundColor(Color.YELLOW);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    l3.setBackgroundColor(Color.WHITE);
+                                    clickoff();
+                                    coastSelect(cardBigLeft);
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
+                    l4.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            switch (motionEvent.getAction()){
+                                case MotionEvent.ACTION_DOWN:
+                                    l4.setBackgroundColor(Color.YELLOW);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    l4.setBackgroundColor(Color.WHITE);
+                                    clickoff();
+                                    aUnitSelect(cardBigLeft);
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
+                    l5.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            switch (motionEvent.getAction()){
+                                case MotionEvent.ACTION_DOWN:
+                                    l5.setBackgroundColor(Color.YELLOW);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    l5.setBackgroundColor(Color.WHITE);
+                                    clickoff();
+                                    bCountriesSelect(cardBigLeft);
+                                    break;
+                            }
+                            return true;
+                        }
+                    }); l6.setOnTouchListener(new View.OnTouchListener() {
+                        @Override
+                        public boolean onTouch(View view, MotionEvent motionEvent) {
+                            switch (motionEvent.getAction()){
+                                case MotionEvent.ACTION_DOWN:
+                                    l6.setBackgroundColor(Color.YELLOW);
+                                    break;
+                                case MotionEvent.ACTION_UP:
+                                    l6.setBackgroundColor(Color.WHITE);
+                                    clickoff();
+                                    hPointSelect(cardBigLeft);
+                                    break;
+                            }
+                            return true;
+                        }
+                    });
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    cardBigLeft.setVisibility(View.VISIBLE);
-                    cardBigRight.setVisibility(View.VISIBLE);
-                    txtMyVal.setText("" + myCard);
-                    txtOppVal.setText("" + oppCard);
-                    txtScoreVal.setText("" + score);
-                    clickoff();
-                    ShowRecord();
 
-
-                    if (playerNum == 1) {
-                        player = 1;
+                    if (flagInt == 1) {
+                        loudspeaker.setBackgroundResource(R.drawable.soundoff);
+                        stopMusic();
                     } else {
-                        flag = 1;
-                        player = 2;
-                        new CountDownTimer(1500, 100) {
-                            public void onTick(long ms) {
-                            }
-
-                            public void onFinish() {
-                                Animation animation1 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.to_middle2);
-                                animation2 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.from_middle2);
-                                cardBigRight.startAnimation(animation1);
-                                animation1.setAnimationListener(new Animation.AnimationListener() {
-                                    @Override
-                                    public void onAnimationStart(Animation animation) {
-
-                                    }
-
-                                    @Override
-                                    public void onAnimationEnd(Animation animation) {
-                                        cardBigRight.setVisibility(View.INVISIBLE);
-                                        cardP2.setVisibility(View.VISIBLE);
-                                        cardP2.startAnimation(animation2);
-                                        cardBigLeft.setEnabled(true);
-                                        cardBigLeft.setClickable(true);
-                                        flag = 0;
-                                        getBlinkAnimation();
-                                    }
-
-                                    @Override
-                                    public void onAnimationRepeat(Animation animation) {
-
-                                    }
-                                });
-
-                                int betField = controller.betDecisionComputer(modelClass1);
-                                switch (betField) {
-                                    case 1: {
-                                        areaSelect(cardP2);
-                                        break;
-                                    }
-                                    case 2: {
-                                        populationSelect(cardP2);
-                                        break;
-                                    }
-                                    case 3: {
-                                        coastSelect(cardP2);
-                                        break;
-                                    }
-                                    case 4: {
-                                        aUnitSelect(cardP2);
-                                        break;
-                                    }
-                                    case 5: {
-                                        bCountriesSelect(cardP2);
-                                        break;
-                                    }
-                                    case 6: {
-                                        hPointSelect(cardP2);
-                                        break;
-                                    }
-                                }
-                                flag = 0;
-                                cardBigLeft.setEnabled(true);
-                                cardBigLeft.setClickable(true);
-                            }
-                        }.start();
+                        loudspeaker.setBackgroundResource(R.drawable.soundon);
+                        startMusic();
                     }
-                    // Animation : Cards coming from both sides.
-                    AnimatorSet set = new AnimatorSet();
-                    set.playTogether(
-
-                            ObjectAnimator.ofFloat(cardBigLeft, "scaleX", 0.1f, 1f),
-                            ObjectAnimator.ofFloat(cardBigLeft, "scaleY", 0.1f, 1f)
-                    );
-                    set.setDuration(1000).start();
-
-                    Animation myAnim2 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.animation2);
-                    cardBigLeft.startAnimation(myAnim2);
-
-                    AnimatorSet set1 = new AnimatorSet();
-                    set1.playTogether(
-                            ObjectAnimator.ofFloat(cardBigRight, "scaleX", 0.1f, 1f),
-                            ObjectAnimator.ofFloat(cardBigRight, "scaleY", 0.1f, 1f)
-                    );
-                    set1.setDuration(1000).start();
-                    Animation myAnim1 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.animation1);
-                    cardBigRight.startAnimation(myAnim1);
-                    myAnim1.setAnimationListener(new Animation.AnimationListener() {
+                    ViewGroup.LayoutParams layoutParams = relUpper.getLayoutParams();
+                    layoutParams.height = screenHeight / 10;
+                    relUpper.setLayoutParams(layoutParams);
+                    cardP2.setVisibility(View.INVISIBLE);
+                    cardBigRight.setEnabled(false);
+                    cardBigRight.setClickable(false);
+                    cardP3.setVisibility(View.INVISIBLE);
+                    cardBigLeft.setVisibility(View.INVISIBLE);
+                    cardBigRight.setVisibility(View.INVISIBLE);
+                    playAnimation();
+                    myAnimFinal.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
 
@@ -431,9 +393,123 @@ public class LoadingScreen extends AppCompatActivity {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
-                            cardP3.setVisibility(View.VISIBLE);
-                            cardP3.setBackground(getResources().getDrawable(R.drawable.cardborder));
-                            getBlinkAnimation();
+                            cardBigLeft.setVisibility(View.VISIBLE);
+                            cardBigRight.setVisibility(View.VISIBLE);
+                            txtMyVal.setText("" + myCard);
+                            txtOppVal.setText("" + oppCard);
+                            txtScoreVal.setText("" + score);
+                            clickoff();
+                            ShowRecord();
+
+
+                            if (playerNum == 1) {
+                                player = 1;
+                            } else {
+                                flag = 1;
+                                player = 2;
+                                new CountDownTimer(1500, 100) {
+                                    public void onTick(long ms) {
+                                    }
+
+                                    public void onFinish() {
+                                        Animation animation1 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.to_middle2);
+                                        animation2 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.from_middle2);
+                                        cardBigRight.startAnimation(animation1);
+                                        animation1.setAnimationListener(new Animation.AnimationListener() {
+                                            @Override
+                                            public void onAnimationStart(Animation animation) {
+
+                                            }
+
+                                            @Override
+                                            public void onAnimationEnd(Animation animation) {
+                                                cardBigRight.setVisibility(View.INVISIBLE);
+                                                cardP2.setVisibility(View.VISIBLE);
+                                                cardP2.startAnimation(animation2);
+                                                cardBigLeft.setEnabled(true);
+                                                cardBigLeft.setClickable(true);
+                                                flag = 0;
+                                                getBlinkAnimation();
+                                            }
+
+                                            @Override
+                                            public void onAnimationRepeat(Animation animation) {
+
+                                            }
+                                        });
+
+                                        int betField = controller.betDecisionComputer(modelClass1);
+                                        switch (betField) {
+                                            case 1: {
+                                                areaSelect(cardP2);
+                                                break;
+                                            }
+                                            case 2: {
+                                                populationSelect(cardP2);
+                                                break;
+                                            }
+                                            case 3: {
+                                                coastSelect(cardP2);
+                                                break;
+                                            }
+                                            case 4: {
+                                                aUnitSelect(cardP2);
+                                                break;
+                                            }
+                                            case 5: {
+                                                bCountriesSelect(cardP2);
+                                                break;
+                                            }
+                                            case 6: {
+                                                hPointSelect(cardP2);
+                                                break;
+                                            }
+                                        }
+                                        flag = 0;
+                                        cardBigLeft.setEnabled(true);
+                                        cardBigLeft.setClickable(true);
+                                    }
+                                }.start();
+                            }
+                            // Animation : Cards coming from both sides.
+                            AnimatorSet set = new AnimatorSet();
+                            set.playTogether(
+
+                                    ObjectAnimator.ofFloat(cardBigLeft, "scaleX", 0.1f, 1f),
+                                    ObjectAnimator.ofFloat(cardBigLeft, "scaleY", 0.1f, 1f)
+                            );
+                            set.setDuration(1000).start();
+
+                            Animation myAnim2 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.animation2);
+                            cardBigLeft.startAnimation(myAnim2);
+
+                            AnimatorSet set1 = new AnimatorSet();
+                            set1.playTogether(
+                                    ObjectAnimator.ofFloat(cardBigRight, "scaleX", 0.1f, 1f),
+                                    ObjectAnimator.ofFloat(cardBigRight, "scaleY", 0.1f, 1f)
+                            );
+                            set1.setDuration(1000).start();
+                            Animation myAnim1 = AnimationUtils.loadAnimation(LoadingScreen.this, R.anim.animation1);
+                            cardBigRight.startAnimation(myAnim1);
+                            myAnim1.setAnimationListener(new Animation.AnimationListener() {
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    cardP3.setVisibility(View.VISIBLE);
+                                    cardP3.setBackground(getResources().getDrawable(R.drawable.cardborder));
+                                    getBlinkAnimation();
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+
                         }
 
                         @Override
@@ -441,16 +517,28 @@ public class LoadingScreen extends AppCompatActivity {
 
                         }
                     });
-
                 }
+            }.start();
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-
-                }
-            });
         }
 
+    }
+    public void touchOff(){
+        l1.setEnabled(false);
+        l2.setEnabled(false);
+        l3.setEnabled(false);
+        l4.setEnabled(false);
+        l5.setEnabled(false);
+        l6.setEnabled(false);
+    }
+
+    public void touchOn(){
+        l1.setEnabled(true);
+        l2.setEnabled(true);
+        l3.setEnabled(true);
+        l4.setEnabled(true);
+        l5.setEnabled(true);
+        l6.setEnabled(true);
     }
 
     public void playAnimation() {
@@ -587,9 +675,8 @@ public class LoadingScreen extends AppCompatActivity {
 
     /////// Method to be called when user clicks his card ////////
     public void showCard(View v) {
-        //cardBigLeft.setBackground(getResources().getDrawable(R.drawable.layout_white2));
         if (flag == 0) {
-            //Toast.makeText(this, "CLICKED", Toast.LENGTH_LONG);
+            touchOn();
             flag = 1;
             cardBigLeft.setClickable(false);
             cardBigLeft.setEnabled(false);
@@ -614,6 +701,7 @@ public class LoadingScreen extends AppCompatActivity {
                     clickon();
                     if (playerNum == 2) {
                         clickoff();
+                        touchOff();
                         flag = 1;
                         new CountDownTimer(1500, 100) {
                             public void onTick(long ms) {
@@ -639,17 +727,15 @@ public class LoadingScreen extends AppCompatActivity {
 
     /////////// Method to be called if user selects area for betting. ///////////////////////
     public void areaSelect(View v) {
+        touchOff();
         //Toast.makeText(this,"Area",Toast.LENGTH_LONG).show();
         betField = 1;
         cardBigLeft.setEnabled(false);
         flag = 1;
         clickoff();
         setColorWhite();
-        //l1.setBackgroundColor(Color.BLUE);
         getBlinkAnimation(l1, "BLUE");
         getBlinkAnimation(l11, "BLUE");
-        //l1.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        //l11.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
             flipCardRight();
         }
@@ -657,15 +743,12 @@ public class LoadingScreen extends AppCompatActivity {
 
     /////////// Method to be called if user selects population for betting. //////////////////////
     public void populationSelect(View v) {
+        touchOff();
         betField = 2;
         cardBigLeft.setEnabled(false);
         flag = 1;
         clickoff();
-        //Toast.makeText(this,"Pop",Toast.LENGTH_LONG).show();
         setColorWhite();
-        //l2.setBackgroundColor(Color.BLUE);
-        //l2.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        //l12.setBackgroundColor(getResources().getColor(R.color.colorLight));
         getBlinkAnimation(l2, "BLUE");
         getBlinkAnimation(l12, "BLUE");
         if (playerNum == 1) {
@@ -675,15 +758,12 @@ public class LoadingScreen extends AppCompatActivity {
 
     /////////// Method to be called if user selects coastline for betting. ////////////////////////////
     public void coastSelect(View v) {
-        //Toast.makeText(this,"Coast",Toast.LENGTH_LONG).show();
+        touchOff();
         betField = 3;
         cardBigLeft.setEnabled(false);
         flag = 1;
         clickoff();
         setColorWhite();
-        //l3.setBackgroundColor(Color.BLUE);
-        //l3.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        //l13.setBackgroundColor(getResources().getColor(R.color.colorLight));
         getBlinkAnimation(l3, "BLUE");
         getBlinkAnimation(l13, "BLUE");
         if (playerNum == 1) {
@@ -693,17 +773,14 @@ public class LoadingScreen extends AppCompatActivity {
 
     /////////// Method to be called if user selects administrative units for betting. //////////////////////////
     public void aUnitSelect(View v) {
+        touchOff();
         betField = 4;
         cardBigLeft.setEnabled(false);
         flag = 1;
         clickoff();
-        //l4.setBackgroundColor(Color.BLUE);
-        //Toast.makeText(this,"Aunit",Toast.LENGTH_LONG).show();
         setColorWhite();
         getBlinkAnimation(l4, "BLUE");
         getBlinkAnimation(l14, "BLUE");
-        //l4.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        //l14.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
             flipCardRight();
         }
@@ -711,17 +788,14 @@ public class LoadingScreen extends AppCompatActivity {
 
     /////////// Method to be called if user selects Bordering Countries for betting. //////////////////////////
     public void bCountriesSelect(View v) {
+        touchOff();
         betField = 5;
         cardBigLeft.setEnabled(false);
         flag = 1;
         clickoff();
-        //l5.setBackgroundColor(Color.BLUE);
-        //Toast.makeText(this,"bCountry",Toast.LENGTH_LONG).show();
         setColorWhite();
         getBlinkAnimation(l5, "BLUE");
         getBlinkAnimation(l15, "BLUE");
-        //l5.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        //l15.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
             flipCardRight();
         }
@@ -730,15 +804,13 @@ public class LoadingScreen extends AppCompatActivity {
 
     /////////// Method to be called if user selects highest point for betting. ////////////////////
     public void hPointSelect(View v) {
+        touchOff();
         betField = 6;
         flag = 1;
         l6.setBackgroundColor(Color.BLUE);
-        //Toast.makeText(this,"hPoint",Toast.LENGTH_LONG).show();
         setColorWhite();
         getBlinkAnimation(l6, "BLUE");
         getBlinkAnimation(l16, "BLUE");
-        //l6.setBackgroundColor(getResources().getColor(R.color.colorLight));
-        //l16.setBackgroundColor(getResources().getColor(R.color.colorLight));
         if (playerNum == 1) {
             flipCardRight();
         }
@@ -1061,14 +1133,12 @@ public class LoadingScreen extends AppCompatActivity {
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.custom);
+        dialog.setContentView(R.layout.game_won_popup);
 
-        // set the custom dialog components - text, image and button
-        ImageView image = (ImageView) dialog.findViewById(R.id.image);
-        image.setImageResource(R.drawable.icon_happy);
-        ImageView image2 = (ImageView) dialog.findViewById(R.id.image2);
+        // set the pause_popup dialog components - text, image and button
+        ImageView image2 = dialog.findViewById(R.id.image2);
         image2.setImageResource(R.drawable.retry);
-        ImageView image3 = (ImageView) dialog.findViewById(R.id.image3);
+        ImageView image3 = dialog.findViewById(R.id.image3);
         image3.setImageResource(R.drawable.home);
 
         // Load the game again
@@ -1095,14 +1165,12 @@ public class LoadingScreen extends AppCompatActivity {
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.custom);
+        dialog.setContentView(R.layout.game_lose_popup);
 
-        // set the custom dialog components - text, image and button
-        ImageView image = (ImageView) dialog.findViewById(R.id.image);
-        image.setImageResource(R.drawable.icon_sad);
-        ImageView image2 = (ImageView) dialog.findViewById(R.id.image2);
+        // set the pause_popup dialog components - text, image and button
+        ImageView image2 = dialog.findViewById(R.id.image2);
         image2.setImageResource(R.drawable.retry);
-        ImageView image3 = (ImageView) dialog.findViewById(R.id.image3);
+        ImageView image3 = dialog.findViewById(R.id.image3);
         image3.setImageResource(R.drawable.home);
 
         // Load the game again
@@ -1304,9 +1372,7 @@ public class LoadingScreen extends AppCompatActivity {
         final AnimationDrawable drawable = new AnimationDrawable();
         final Handler handler = new Handler();
         drawable.addFrame(getResources().getDrawable(R.drawable.layout_white), 100);
-        //drawable.addFrame(getDrawable(R.drawable.layoutgreen), 400);
         if (c1.equals("RED"))
-            //drawable.addFrame(new ColorDrawable(Color.RED), 400);
             drawable.addFrame(getResources().getDrawable(R.drawable.layout_red), 200);
         else if (c1.equals("BLUE"))
             drawable.addFrame(getResources().getDrawable(R.drawable.layout_blue), 200);
@@ -1344,52 +1410,178 @@ public class LoadingScreen extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-                takeScreenshot();
-        Intent intent=new Intent(LoadingScreen.this,Popup.class);
-        intent.putExtra("image",imageFile);
-        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
 
-
-    }
-
-    private void takeScreenshot() {
-        Date now = new Date();
-        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-
-        try {
-            // image naming and path  to include sd card  appending name you choose for file
-            mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-
-            // create bitmap screen capture
-            View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            v1.setDrawingCacheEnabled(false);
-
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-
-
-        } catch (Throwable e) {
-            // Several error may come out with file handling or OOM
-            e.printStackTrace();
+        if(flagBack==0) {
+            bitmap = captureScreen(rel1);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            fullrel.setVisibility(View.INVISIBLE);
+            relPopup.setVisibility(View.VISIBLE);
+            Drawable d=new BitmapDrawable(getResources(),bitmap);
+            relPopup.setBackground(d);
+            flagBack=1;
         }
+        else{
+            relPopup.setVisibility(View.INVISIBLE);
+            fullrel.setVisibility(View.VISIBLE);
+            flagBack=0;
+        }
+
+        if (gameOverFlag == 0) {
+            dialog = new Dialog(LoadingScreen.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.pause_popup);
+
+            // set the pause_popup dialog components - text, image and button
+            ImageView image = dialog.findViewById(R.id.image);
+            image.setImageResource(R.drawable.backp);
+            ImageView image2 = dialog.findViewById(R.id.image2);
+            image2.setImageResource(R.drawable.retry);
+            ImageView image3 = dialog.findViewById(R.id.image3);
+            image3.setImageResource(R.drawable.home);
+
+
+            // Close the pause_popup dialog
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    relPopup.setVisibility(View.INVISIBLE);
+                    fullrel.setVisibility(View.VISIBLE);
+                    flagBack=0;
+                }
+            });
+            // Load the game again
+            image2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent abc = new Intent(LoadingScreen.this, DeckSelect.class);
+                    startActivity(abc);
+                    finish();
+                }
+            });
+            // Show main menu
+            image3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent abc = new Intent(LoadingScreen.this, Options.class);
+                    startActivity(abc);
+                    abc.putExtra("int_value",flag);
+                    finish();
+                }
+            });
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        } else {
+            Intent intent = new Intent(LoadingScreen.this, Options.class);
+            startActivity(intent);
+            finish();
+        }
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
+            @Override
+            public void onCancel(DialogInterface dialog)
+            {
+                relPopup.setVisibility(View.INVISIBLE);
+                fullrel.setVisibility(View.VISIBLE);
+                flagBack=0;
+            }
+        });
     }
 
-    private void openScreenshot(File imageFile) {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        Uri uri = Uri.fromFile(imageFile);
-        intent.setDataAndType(uri, "image/*");
-        startActivity(intent);
+    public void backL(View v){
+        if(flagBack==0) {
+            bitmap = captureScreen(rel1);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            fullrel.setVisibility(View.INVISIBLE);
+            relPopup.setVisibility(View.VISIBLE);
+            Drawable d=new BitmapDrawable(getResources(),bitmap);
+            relPopup.setBackground(d);
+            flagBack=1;
+        }
+        else{
+            relPopup.setVisibility(View.INVISIBLE);
+            fullrel.setVisibility(View.VISIBLE);
+            flagBack=0;
+        }
+
+        if (gameOverFlag == 0) {
+            dialog = new Dialog(LoadingScreen.this);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.pause_popup);
+
+            // set the pause_popup dialog components - text, image and button
+            ImageView image = dialog.findViewById(R.id.image);
+            image.setImageResource(R.drawable.backp);
+            ImageView image2 = dialog.findViewById(R.id.image2);
+            image2.setImageResource(R.drawable.retry);
+            ImageView image3 = dialog.findViewById(R.id.image3);
+            image3.setImageResource(R.drawable.home);
+
+
+            // Close the pause_popup dialog
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    relPopup.setVisibility(View.INVISIBLE);
+                    fullrel.setVisibility(View.VISIBLE);
+                    flagBack=0;
+                }
+            });
+            // Load the game again
+            image2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent abc = new Intent(LoadingScreen.this, DeckSelect.class);
+                    startActivity(abc);
+                    finish();
+                }
+            });
+            // Show main menu
+            image3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent abc = new Intent(LoadingScreen.this, Options.class);
+                    startActivity(abc);
+                    finish();
+                }
+            });
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        } else {
+            Intent intent = new Intent(LoadingScreen.this, Options.class);
+            startActivity(intent);
+            finish();
+        }
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
+            @Override
+            public void onCancel(DialogInterface dialog)
+            {
+                relPopup.setVisibility(View.INVISIBLE);
+                fullrel.setVisibility(View.VISIBLE);
+                flagBack=0;
+            }
+        });
     }
+
+    public static Bitmap captureScreen(View v) {
+        Bitmap screenshot = null;
+        try {
+            if (v != null) {
+
+                screenshot = Bitmap.createBitmap(v.getMeasuredWidth(), v.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+                Canvas canvas = new Canvas(screenshot);
+                v.draw(canvas);
+            }
+
+        } catch (Exception e) {
+        }
+        return screenshot;
+    }
+
 
     @Override
     public void onStop() {

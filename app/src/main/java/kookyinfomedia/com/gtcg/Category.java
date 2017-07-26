@@ -11,6 +11,7 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -19,16 +20,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
-import com.google.android.gms.analytics.Tracker;
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 public class Category extends AppCompatActivity {
     private int flag;
     private boolean mIsBound = false;
     private MusicService mServ;
     public static String selectedContinent="";
-    private Tracker mTracker;
-    private FirebaseAnalytics mFirebaseAnalytics;
     LinearLayout pop;
     ImageView asia,southAmerica,northAmerica,europe,africa,australia,antarctica,asia2,img;
     private ServiceConnection Scon =new ServiceConnection(){
@@ -59,8 +55,6 @@ public class Category extends AppCompatActivity {
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Obtain the FirebaseAnalytics instance.
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -88,7 +82,7 @@ public class Category extends AppCompatActivity {
             startMusic();
         }
         initialize();
-}
+    }
     @Override
     public void onStop(){
         super.onStop();

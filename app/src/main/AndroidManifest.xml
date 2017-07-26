@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kookyinfomedia.com.gtcg">
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -24,8 +21,9 @@
         <activity
             android:name=".Options"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".Category"
-            android:screenOrientation="sensorLandscape"/>
+        <activity
+            android:name=".Category"
+            android:screenOrientation="sensorLandscape" />
 
         <service
             android:name=".MusicService"
@@ -34,18 +32,15 @@
         <activity
             android:name=".DeckSelect"
             android:screenOrientation="sensorLandscape" />
+
         <activity
             android:name=".Toss"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".LoadingScreen"
-            android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".Play"
-            android:screenOrientation="sensorLandscape">
 
-        </activity>
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="e44ccf9b19418f55c139dcea8a9c37887e9bc234" />
+        <activity
+            android:name=".LoadingScreen"
+            android:screenOrientation="sensorLandscape" />
+
     </application>
 
 </manifest>

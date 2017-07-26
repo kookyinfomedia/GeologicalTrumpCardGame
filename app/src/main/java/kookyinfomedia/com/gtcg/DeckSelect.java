@@ -1,5 +1,6 @@
 package kookyinfomedia.com.gtcg;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.ComponentName;
@@ -112,10 +113,15 @@ public class DeckSelect extends AppCompatActivity {
         finish();
     }
 
-
+public void clickOff(){
+    deck16.setClickable(false);
+    deck32.setClickable(false);
+    deck52.setClickable(false);
+}
 
 
     public void deckSelected16(View v){
+        clickOff();
         deck16.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -124,21 +130,40 @@ public class DeckSelect extends AppCompatActivity {
                 ObjectAnimator.ofFloat(deck16, "scaleY", 1f, 0.8f)
         );
         set.start();
-        new CountDownTimer(400,100){
-            public void onTick(long ms){
+        Intent intent = new Intent(DeckSelect.this,Toss.class);
+        deck=16;
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+        /*set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
             }
-            public void onFinish(){
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
                 Intent intent = new Intent(DeckSelect.this,Toss.class);
                 deck=16;
                 intent.putExtra("int_value",flag);
                 startActivity(intent);
                 finish();
             }
-        }.start();
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });*/
 
     }
     public void deckSelected32(View v){
+        clickOff();
         deck32.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -147,21 +172,40 @@ public class DeckSelect extends AppCompatActivity {
                 ObjectAnimator.ofFloat(deck32, "scaleY", 1f, 0.8f)
         );
         set.start();
-        new CountDownTimer(400,100){
-            public void onTick(long ms){
+        Intent intent = new Intent(DeckSelect.this,Toss.class);
+        deck=32;
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+        /*set.addListener(new Animator.AnimatorListener() {
+          @Override
+          public void onAnimationStart(Animator animator) {
 
-            }
-            public void onFinish(){
-                Intent intent = new Intent(DeckSelect.this,Toss.class);
-                deck=32;
-                intent.putExtra("int_value",flag);
-                startActivity(intent);
-                finish();
-            }
-        }.start();
+          }
+
+          @Override
+          public void onAnimationEnd(Animator animator) {
+              Intent intent = new Intent(DeckSelect.this,Toss.class);
+              deck=32;
+              intent.putExtra("int_value",flag);
+              startActivity(intent);
+              finish();
+          }
+
+          @Override
+          public void onAnimationCancel(Animator animator) {
+
+          }
+
+          @Override
+          public void onAnimationRepeat(Animator animator) {
+
+          }
+      });*/
 
     }
     public void deckSelected52(View v){
+        clickOff();
         deck52.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -170,18 +214,36 @@ public class DeckSelect extends AppCompatActivity {
                 ObjectAnimator.ofFloat(deck52, "scaleY", 1f, 0.8f)
         );
         set.start();
-        new CountDownTimer(400,100){
-            public void onTick(long ms){
+        Intent intent = new Intent(DeckSelect.this,Toss.class);
+        deck=52;
+        intent.putExtra("int_value",flag);
+        startActivity(intent);
+        finish();
+        /*set.addListener(new Animator.AnimatorListener() {
+           @Override
+           public void onAnimationStart(Animator animator) {
 
-            }
-            public void onFinish(){
-                Intent intent = new Intent(DeckSelect.this,Toss.class);
-                deck=52;
-                intent.putExtra("int_value",flag);
-                startActivity(intent);
-                finish();
-            }
-        }.start();
+           }
+
+           @Override
+           public void onAnimationEnd(Animator animator) {
+               Intent intent = new Intent(DeckSelect.this,Toss.class);
+               deck=52;
+               intent.putExtra("int_value",flag);
+               startActivity(intent);
+               finish();
+           }
+
+           @Override
+           public void onAnimationCancel(Animator animator) {
+
+           }
+
+           @Override
+           public void onAnimationRepeat(Animator animator) {
+
+           }
+       });*/
     }
     @Override
     public void onResume(){

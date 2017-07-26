@@ -1,5 +1,6 @@
 package kookyinfomedia.com.gtcg;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
@@ -171,6 +172,7 @@ public class Options extends AppCompatActivity{
 
     }
     public void openGPlus(View v){
+        clickOff();
         imgG.setAlpha(0.5f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -179,18 +181,35 @@ public class Options extends AppCompatActivity{
                 ObjectAnimator.ofFloat(imgG, "scaleY", 1f, 0.8f)
         );
         set.start();
-        new CountDownTimer(100,100){
-            public void onTick(long ms){
+        Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+       /*set.addListener(new Animator.AnimatorListener() {
+           @Override
+           public void onAnimationStart(Animator animator) {
 
-            }
-            public void onFinish(){
-                Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-        }.start();
+           }
+
+           @Override
+           public void onAnimationEnd(Animator animator) {
+               Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
+               Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+               startActivity(intent);
+           }
+
+           @Override
+           public void onAnimationCancel(Animator animator) {
+
+           }
+
+           @Override
+           public void onAnimationRepeat(Animator animator) {
+
+           }
+       });*/
     }
     public void openFb(View v){
+        clickOff();
         imgFb.setAlpha(0.5f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -199,19 +218,37 @@ public class Options extends AppCompatActivity{
                 ObjectAnimator.ofFloat(imgFb, "scaleY", 1f, 0.8f)
         );
         set.start();
-        new CountDownTimer(100,100){
-            public void onTick(long ms){
+        Uri uri = Uri.parse("https://www.facebook.com/kookyinfomedia/"); // missing 'http://' will cause crashed
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+        /*set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
             }
-            public void onFinish(){
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
                 Uri uri = Uri.parse("https://www.facebook.com/kookyinfomedia/"); // missing 'http://' will cause crashed
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
-        }.start();
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });*/
+
     }
 
     public void playGame(View v){
+        clickOff();
         btnPlay.setAlpha(0.5f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -220,16 +257,35 @@ public class Options extends AppCompatActivity{
                 ObjectAnimator.ofFloat(btnPlay, "scaleY", 1f, 0.8f)
         );
         set.start();
+        Intent intent = new Intent(Options.this, Category.class);
+        intent.putExtra("int_value", flag);
+        startActivity(intent);
+        finish();
+       /* set.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
 
+            }
 
-                Intent intent=new Intent(Options.this,Category.class);
-                intent.putExtra("int_value", flag);
-                startActivity(intent);
-                finish();
+            @Override
+            public void onAnimationEnd(Animator animator) {
 
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });*/
 
     }
     public void privacyPolicies(View v){
+        clickOff();
         btnPrivacy.setAlpha(0.5f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -238,16 +294,31 @@ public class Options extends AppCompatActivity{
                 ObjectAnimator.ofFloat(btnPrivacy, "scaleY", 1f, 0.8f)
         );
         set.start();
-        new CountDownTimer(100,100){
-            public void onTick(long ms){
+       /*set.addListener(new Animator.AnimatorListener() {
+           @Override
+           public void onAnimationStart(Animator animator) {
 
-            }
-            public void onFinish(){
-            }
-        }.start();
+           }
+
+           @Override
+           public void onAnimationEnd(Animator animator) {
+
+           }
+
+           @Override
+           public void onAnimationCancel(Animator animator) {
+
+           }
+
+           @Override
+           public void onAnimationRepeat(Animator animator) {
+
+           }
+       });*/
 
     }
     public void help(View v){
+        clickOff();
         btnHelp.setAlpha(0.5f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
@@ -256,36 +327,48 @@ public class Options extends AppCompatActivity{
                 ObjectAnimator.ofFloat(btnHelp, "scaleY", 1f, 0.8f)
         );
         set.start();
-        new CountDownTimer(100,100){
-            public void onTick(long ms){
+      /* set.addListener(new Animator.AnimatorListener() {
+           @Override
+           public void onAnimationStart(Animator animator) {
 
-            }
-            public void onFinish(){
-            }
-        }.start();
+           }
+
+           @Override
+           public void onAnimationEnd(Animator animator) {
+
+           }
+
+           @Override
+           public void onAnimationCancel(Animator animator) {
+
+           }
+
+           @Override
+           public void onAnimationRepeat(Animator animator) {
+
+           }
+       });*/
 
     }
     public void onBackPressed() {
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.custom2);
-        //dialog.setTitle("");
-
-        // set the custom dialog components - text, image and button
-
+        dialog.setContentView(R.layout.quit_popup);
+        // set the pause_popup dialog components - text, image and button
         ImageView image = (ImageView) dialog.findViewById(R.id.image);
         image.setImageResource(R.drawable.wrong);
         ImageView image2 = (ImageView) dialog.findViewById(R.id.image2);
         image2.setImageResource(R.drawable.righttick);
 
-
-        // if button is clicked, close the custom dialog
+        // if button is clicked, close the pause_popup dialog
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
+
+        //quit the game
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -307,6 +390,14 @@ public class Options extends AppCompatActivity{
         music.setClass(this,MusicService.class);
         stopService(music);
 
+    }
+    public void clickOff(){
+        btnHelp.setClickable(false);
+        btnPlay.setClickable(false);
+        btnPrivacy.setClickable(false);
+        imgFb.setClickable(false);
+        imgG.setClickable(false);
+        txtMoreGames.setClickable(false);
     }
 }
 

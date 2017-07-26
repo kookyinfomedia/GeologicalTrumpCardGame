@@ -77,10 +77,9 @@ public class Toss extends AppCompatActivity {
         doBindService();
         Random ran = new Random();
         res = ran.nextInt(2);//// will give 0 or 1 and chooses whether the turn would be of first player's or second's
-        spinSound = MediaPlayer.create(this,R.raw.spin);
-        spinSound.setLooping(true);
-        spinSound.setVolume(0,0.1f);
+        spinSound=new MediaPlayer();
         flag= getIntent().getIntExtra("int_value", 0);
+
 
         sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sm.registerListener(sensorListener,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
@@ -174,7 +173,10 @@ public class Toss extends AppCompatActivity {
 
             //on Device shake
             if(shake > 3  ) {
-
+                spinSound = MediaPlayer.create(Toss.this,R.raw.spin);
+                spinSound.setLooping(true);
+                spinSound.start();
+                spinSound.setVolume(0,0.1f);
                 sm.unregisterListener(sensorListener);
 
                 animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_middle);
@@ -232,6 +234,7 @@ public class Toss extends AppCompatActivity {
                                                 }
                                                 initialize();
                                                 spinSound.setLooping(false);
+                                                spinSound.reset();
                                                 toss=res;
                                             }
                                         }
