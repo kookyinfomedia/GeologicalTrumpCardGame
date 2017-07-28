@@ -38,6 +38,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -117,19 +118,18 @@ public class LoadingScreen extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_loading_screen);
-        flag = getIntent().getIntExtra("int_value", 0);
-        if(flag==1)
+        flagInt = getIntent().getIntExtra("int_value", 0);
+        if(flagInt==1)
         {
             stopMusic();
         }
-        else
-        {
+        else{
             startMusic();
         }
         fullrel = (RelativeLayout) findViewById(R.id.fullrel);
         relLoad = (RelativeLayout) findViewById(R.id.relLoad);
         relPopup=(RelativeLayout)findViewById(R.id.relPopup);
-        rel1=(RelativeLayout)findViewById(R.id.rel);
+        rel1=(RelativeLayout)findViewById(R.id.rel1);
         relLoad.setVisibility(View.VISIBLE);
         relPopup.setVisibility(View.INVISIBLE);
         fullrel.setVisibility(View.INVISIBLE);
@@ -1456,6 +1456,7 @@ public class LoadingScreen extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent abc = new Intent(LoadingScreen.this, DeckSelect.class);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1465,8 +1466,8 @@ public class LoadingScreen extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent abc = new Intent(LoadingScreen.this, Options.class);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
-                    abc.putExtra("int_value",flag);
                     finish();
                 }
             });
@@ -1474,6 +1475,7 @@ public class LoadingScreen extends AppCompatActivity {
             dialog.show();
         } else {
             Intent intent = new Intent(LoadingScreen.this, Options.class);
+            intent.putExtra("int_value",flagInt);
             startActivity(intent);
             finish();
         }

@@ -184,29 +184,6 @@ public class Options extends AppCompatActivity{
         Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
-       /*set.addListener(new Animator.AnimatorListener() {
-           @Override
-           public void onAnimationStart(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationEnd(Animator animator) {
-               Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
-               Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-               startActivity(intent);
-           }
-
-           @Override
-           public void onAnimationCancel(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationRepeat(Animator animator) {
-
-           }
-       });*/
     }
     public void openFb(View v){
         clickOff();
@@ -221,29 +198,6 @@ public class Options extends AppCompatActivity{
         Uri uri = Uri.parse("https://www.facebook.com/kookyinfomedia/"); // missing 'http://' will cause crashed
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
-        /*set.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                Uri uri = Uri.parse("https://www.facebook.com/kookyinfomedia/"); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });*/
 
     }
 
@@ -261,27 +215,6 @@ public class Options extends AppCompatActivity{
         intent.putExtra("int_value", flag);
         startActivity(intent);
         finish();
-       /* set.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });*/
 
     }
     public void privacyPolicies(View v){
@@ -294,28 +227,6 @@ public class Options extends AppCompatActivity{
                 ObjectAnimator.ofFloat(btnPrivacy, "scaleY", 1f, 0.8f)
         );
         set.start();
-       /*set.addListener(new Animator.AnimatorListener() {
-           @Override
-           public void onAnimationStart(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationEnd(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationCancel(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationRepeat(Animator animator) {
-
-           }
-       });*/
-
     }
     public void help(View v){
         clickOff();
@@ -327,27 +238,6 @@ public class Options extends AppCompatActivity{
                 ObjectAnimator.ofFloat(btnHelp, "scaleY", 1f, 0.8f)
         );
         set.start();
-      /* set.addListener(new Animator.AnimatorListener() {
-           @Override
-           public void onAnimationStart(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationEnd(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationCancel(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationRepeat(Animator animator) {
-
-           }
-       });*/
 
     }
     public void onBackPressed() {
