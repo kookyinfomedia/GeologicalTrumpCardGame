@@ -41,6 +41,10 @@
             android:name=".LoadingScreen"
             android:screenOrientation="sensorLandscape" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e44ccf9b19418f55c139dcea8a9c37887e9bc234" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
