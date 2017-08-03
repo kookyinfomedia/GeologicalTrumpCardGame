@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back"
-    >
+    android:background="@drawable/sky">
 
     <Button
         android:id="@+id/imgLoudspeaker"
@@ -42,49 +41,91 @@
         android:background="@drawable/help_button"
         android:onClick="help"/>
 
-    <Button
-        android:id="@+id/btnPrivacy"
-        android:layout_width="@dimen/dimen_180dp"
-        android:layout_height="@dimen/dimen_55dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/btnHelp"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/private_policies_button"
-        android:onClick="privacyPolicies"/>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:scaleX="2"
+        android:src="@drawable/cloud2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-
-    <Button
-        android:id="@+id/imgG"
-        android:layout_width="@dimen/dimen_60dp"
-        android:layout_height="@dimen/dimen_60dp"
-        android:layout_below="@+id/btnPrivacy"
-        android:layout_marginLeft="@dimen/dimen_5dp"
-        android:layout_marginRight="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_5dp"
-        android:layout_alignEnd="@+id/btnPrivacy"
-        android:onClick="openGPlus"
-        android:background="@drawable/google_plus" />
-
-    <Button
-        android:id="@+id/imgFb"
-        android:layout_width="@dimen/dimen_60dp"
-        android:layout_height="@dimen/dimen_60dp"
-        android:layout_alignTop="@+id/imgG"
-        android:layout_marginRight="@dimen/dimen_5dp"
-        android:onClick="openFb"
-        android:layout_toLeftOf="@+id/imgG"
-        android:background="@drawable/facebook" />
-
-    <Button
-        android:id="@+id/playMore"
-        android:layout_width="@dimen/dimen_60dp"
-        android:layout_height="@dimen/dimen_60dp"
+    <ImageView
+        android:id="@+id/pisa"
+        android:layout_width="100.0dip"
+        android:layout_height="200.0dip"
+        android:rotation="10.0"
+        android:scaleX="2.0"
+        android:scaleY="2.0"
+        android:src="@drawable/tower_of_pisa"
+        android:layout_marginRight="83dp"
+        android:layout_marginEnd="83dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="@dimen/dimen_8dp"
-        android:layout_marginRight="@dimen/dimen_10dp"
-        android:background="@drawable/play_more_games"/>
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView" />
+    <ImageView
+        android:id="@+id/tower"
+        android:layout_width="80.0dip"
+        android:layout_height="200.0dip"
+        android:scaleX="2.2"
+        android:scaleY="2.0"
+        android:rotation="340.0"
+        app:srcCompat="@drawable/eiffel_tower"
+        android:layout_marginBottom="14dp"
+        android:layout_marginLeft="95dp"
+        android:layout_marginStart="95dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView" />
+    <ImageView
+        android:id="@+id/liberty"
+        android:layout_width="180.0dip"
+        android:layout_height="150.0dip"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        android:rotation="340.0"
+        app:srcCompat="@drawable/statue_of_liberty"
+        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/taj"
+        android:layout_toStartOf="@+id/taj" />
+
+    <ImageView
+        android:id="@+id/taj"
+        android:layout_width="150.0dip"
+        android:layout_height="150.0dip"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:srcCompat="@drawable/taj_mahal"
+        android:layout_marginTop="12dp"
+        android:layout_alignTop="@+id/pisa"
+        android:layout_toRightOf="@+id/tower"
+        android:layout_toEndOf="@+id/tower" />
+    <ImageView
+        android:id="@+id/colosseum"
+        android:layout_width="130.0dip"
+        android:layout_height="130.0dip"
+        android:scaleX="1.5"
+        android:scaleY="1.8"
+        android:rotation="30.0"
+        app:srcCompat="@drawable/colosseum"
+        android:layout_marginLeft="55dp"
+        android:layout_marginStart="55dp"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_toRightOf="@+id/taj"
+        android:layout_toEndOf="@+id/taj"
+        android:layout_marginBottom="6dp" />
+    <ImageView
+        android:layout_width="480.0dip"
+        android:layout_height="80.0dip"
+        android:src="@drawable/earth"
+        android:scaleX="1.4"
+        android:scaleY="0.7"
+        android:id="@+id/imageView"
+        android:layout_marginBottom="-15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -1,6 +1,5 @@
 package kookyinfomedia.com.gtcg;
 
-import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.app.Dialog;
@@ -10,9 +9,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,13 +17,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 
 
 public class Options extends AppCompatActivity{
-    private static final String TAG = "";
     final Context context = this;
+    public ImageView wave1,wave2,wave3,wave4,wave5;
+    public Animation wave_anim, wave_anim_2, wave_anim_3, wave_anim_4, wave_anim_5;
 
     public int flag=0;
     //--------------------------------------Service Binding------------------------------------//
@@ -67,13 +66,59 @@ public class Options extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_options);
+        wave1 = (ImageView)findViewById(R.id.pisa);
+        wave2 = (ImageView)findViewById(R.id.tower);
+        wave3 = (ImageView)findViewById(R.id.taj);
+        wave4 = (ImageView)findViewById(R.id.liberty);
+        wave5 = (ImageView)findViewById(R.id.colosseum);
+
+        wave_anim = new TranslateAnimation(0, 0, 0, 9);
+        wave_anim.setDuration(850);
+        wave_anim.setFillAfter(true);
+        wave_anim.setRepeatCount(-1);
+        wave_anim.setRepeatMode(Animation.REVERSE);
+
+        wave_anim_2 = new TranslateAnimation(0, 0, 0, 8);
+        wave_anim_2.setDuration(830);
+        wave_anim_2.setFillAfter(true);
+        wave_anim_2.setRepeatCount(-1);
+        wave_anim_2.setRepeatMode(Animation.REVERSE);
+
+        wave_anim_3 = new TranslateAnimation(0, 0, 0, 9);
+        wave_anim_3.setDuration(800);
+        wave_anim_3.setFillAfter(true);
+        wave_anim_3.setRepeatCount(-1);
+        wave_anim_3.setRepeatMode(Animation.REVERSE);
+
+        wave_anim_4 = new TranslateAnimation(0, 0, 0, 6);
+        wave_anim_4.setDuration(800);
+        wave_anim_4.setFillAfter(true);
+        wave_anim_4.setRepeatCount(-1);
+        wave_anim_4.setRepeatMode(Animation.REVERSE);
+
+        wave_anim_5 = new TranslateAnimation(0, 0, 0, 10);
+        wave_anim_5.setDuration(800);
+        wave_anim_5.setFillAfter(true);
+        wave_anim_5.setRepeatCount(-1);
+        wave_anim_5.setRepeatMode(Animation.REVERSE);
+
+        wave1.setAnimation(wave_anim);
+        wave2.setAnimation(wave_anim_2);
+        wave3.setAnimation(wave_anim_3);
+        wave4.setAnimation(wave_anim_4);
+        wave5.setAnimation(wave_anim_5);
+        wave1.setVisibility(View.VISIBLE);
+        wave2.setVisibility(View.VISIBLE);
+        wave3.setVisibility(View.VISIBLE);
+        wave4.setVisibility(View.VISIBLE);
+        wave5.setVisibility(View.VISIBLE);
+
+        ImageView image = (ImageView)findViewById(R.id.imageView2);
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
+        image.startAnimation(animation);
         doBindService();
         btnPlay=(Button) findViewById(R.id.btnPlay);
         btnHelp=(Button) findViewById(R.id.btnHelp);
-        btnPrivacy=(Button) findViewById(R.id.btnPrivacy);
-        imgFb = (Button) findViewById(R.id.imgFb);
-        imgG = (Button) findViewById(R.id.imgG);
-        txtMoreGames=(Button) findViewById(R.id.playMore);
         imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
         playMenuAnimation();
         flag= getIntent().getIntExtra("int_value", 0);
@@ -131,7 +176,7 @@ public class Options extends AppCompatActivity{
 
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.4,20);
         myAnim.setInterpolator(interpolator);
-        myAnim.setStartOffset(200);
+        myAnim.setStartOffset(700);
         btnPlay.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
@@ -141,63 +186,10 @@ public class Options extends AppCompatActivity{
         btnHelp.startAnimation(myAnim);
 
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(900);
-        myAnim.setInterpolator(interpolator);
-        myAnim.setDuration(1000);
-        btnPrivacy.startAnimation(myAnim);
-
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1000);
-        myAnim.setInterpolator(interpolator);
-        myAnim.setDuration(1000);
-        imgFb.startAnimation(myAnim);
-
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1100);
-        myAnim.setInterpolator(interpolator);
-        myAnim.setDuration(1000);
-        imgG.startAnimation(myAnim);
-
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
         myAnim.setStartOffset(1200);
         myAnim.setInterpolator(interpolator);
         myAnim.setDuration(1000);
         imgLoudspeaker.startAnimation(myAnim);
-
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1300);
-        myAnim.setInterpolator(interpolator);
-        myAnim.setDuration(1000);
-        txtMoreGames.startAnimation(myAnim);
-
-    }
-    public void openGPlus(View v){
-        clickOff();
-        imgG.setAlpha(0.5f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(
-
-                ObjectAnimator.ofFloat(imgG, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(imgG, "scaleY", 1f, 0.8f)
-        );
-        set.start();
-        Uri uri = Uri.parse("https://plus.google.com/103871381378206728222"); // missing 'http://' will cause crashed
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
-    }
-    public void openFb(View v){
-        clickOff();
-        imgFb.setAlpha(0.5f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(
-
-                ObjectAnimator.ofFloat(imgFb, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(imgFb, "scaleY", 1f, 0.8f)
-        );
-        set.start();
-        Uri uri = Uri.parse("https://www.facebook.com/kookyinfomedia/"); // missing 'http://' will cause crashed
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        startActivity(intent);
 
     }
 
@@ -217,23 +209,12 @@ public class Options extends AppCompatActivity{
         finish();
 
     }
-    public void privacyPolicies(View v){
-        clickOff();
-        btnPrivacy.setAlpha(0.5f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(
 
-                ObjectAnimator.ofFloat(btnPrivacy, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(btnPrivacy, "scaleY", 1f, 0.8f)
-        );
-        set.start();
-    }
     public void help(View v){
         clickOff();
         btnHelp.setAlpha(0.5f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
-
                 ObjectAnimator.ofFloat(btnHelp, "scaleX", 1f, 0.8f),
                 ObjectAnimator.ofFloat(btnHelp, "scaleY", 1f, 0.8f)
         );
@@ -245,9 +226,9 @@ public class Options extends AppCompatActivity{
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.quit_popup);
         // set the pause_popup dialog components - text, image and button
-        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+        ImageView image = dialog.findViewById(R.id.image);
         image.setImageResource(R.drawable.wrong);
-        ImageView image2 = (ImageView) dialog.findViewById(R.id.image2);
+        ImageView image2 = dialog.findViewById(R.id.image2);
         image2.setImageResource(R.drawable.righttick);
 
         // if button is clicked, close the pause_popup dialog
@@ -284,10 +265,6 @@ public class Options extends AppCompatActivity{
     public void clickOff(){
         btnHelp.setClickable(false);
         btnPlay.setClickable(false);
-        btnPrivacy.setClickable(false);
-        imgFb.setClickable(false);
-        imgG.setClickable(false);
-        txtMoreGames.setClickable(false);
     }
 }
 
