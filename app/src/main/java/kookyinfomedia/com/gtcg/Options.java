@@ -31,7 +31,7 @@ public class Options extends AppCompatActivity{
     //--------------------------------------Service Binding------------------------------------//
     private boolean mIsBound = false;
     public MusicService mServ;
-    Button btnPlay,btnHelp,btnPrivacy,imgFb,imgG,txtMoreGames,imgLoudspeaker;
+    Button btnPlay,btnHelp,imgLoudspeaker;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
