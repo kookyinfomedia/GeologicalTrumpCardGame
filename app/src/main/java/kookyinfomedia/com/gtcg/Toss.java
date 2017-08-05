@@ -4,10 +4,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -25,9 +21,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Toss extends AppCompatActivity {
-    private SensorManager sm;
     int res;
-    private static final String TAG="";
+    private static final String TAG = "";
     Timer timer = new Timer();
     TimerTask timerTask;
     MediaPlayer spinSound;
@@ -37,15 +32,15 @@ public class Toss extends AppCompatActivity {
     private MusicService mServ;
     private Animation animation1;
     private Animation animation2;
-    private  float acelVal,acelLast,shake;
-    int i=0;
+    private float acelVal, acelLast, shake;
+    int i = 0;
     private boolean isBackOfCardShowing = true;
 
-    private ServiceConnection Scon =new ServiceConnection(){
+    private ServiceConnection Scon = new ServiceConnection() {
 
         public void onServiceConnected(ComponentName name, IBinder
                 binder) {
-            mServ = ((MusicService.ServiceBinder)binder).getService();
+            mServ = ((MusicService.ServiceBinder) binder).getService();
         }
 
         public void onServiceDisconnected(ComponentName name) {
@@ -53,20 +48,19 @@ public class Toss extends AppCompatActivity {
         }
     };
 
-    void doBindService(){
-        bindService(new Intent(this,MusicService.class),
+    void doBindService() {
+        bindService(new Intent(this, MusicService.class),
                 Scon, Context.BIND_AUTO_CREATE);
         mIsBound = true;
     }
 
-    void doUnbindService()
-    {
-        if(mIsBound)
-        {
+    void doUnbindService() {
+        if (mIsBound) {
             unbindService(Scon);
             mIsBound = false;
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,111 +71,24 @@ public class Toss extends AppCompatActivity {
         doBindService();
         Random ran = new Random();
         res = ran.nextInt(2);//// will give 0 or 1 and chooses whether the turn would be of first player's or second's
-        spinSound=new MediaPlayer();
-        flag= getIntent().getIntExtra("int_value", 0);
-
-
-        sm = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sm.registerListener(sensorListener,sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),SensorManager.SENSOR_DELAY_NORMAL);
-
-        acelVal =SensorManager.GRAVITY_EARTH;
-        acelLast =SensorManager.GRAVITY_EARTH;
-        shake = 0.00f;
-        if(flag==1)
-        {
+        spinSound = new MediaPlayer();
+        flag = getIntent().getIntExtra("int_value", 0);
+        if (flag == 1) {
             stopMusic();
-        }
-        else{
+        } else {
             startMusic();
         }
+        ImageView coin=(ImageView)findViewById(R.id.imgCoinFront);
 
-
-    }
-    public void initialize()
-    {
-        spinSound.stop();
-        timerTask = new TimerTask()
-        {
+        coin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run()
-            {
-                Intent intent = new Intent(Toss.this,LoadingScreen.class);
-                intent.putExtra("int_value",flag);
-                startActivity(intent);
-                doUnbindService();
-                stopMusic();
-                finish();
-            }
-        };
+            public void onClick(View view) {
 
-        timer.schedule(timerTask,3500);
-    }
-    @Override
-    public void onBackPressed(){
-        Intent intent=new Intent(this,Options.class);
-        intent.putExtra("int_value",flag);
-        startActivity(intent);
-        spinSound.stop();
-        timer.cancel();
-        finish();
-    }
-    @Override
-    public void onStop(){
-        super.onStop();
-        doUnbindService();
-        spinSound.stop();
-        stopMusic();
-    }
-    @Override
-    public void onResume(){
-        super.onResume();
-        doBindService();
-        if(flag==1)
-        {
-            spinSound.stop();
-            stopMusic();
-        }
-        else{
-            spinSound.start();
-            startMusic();
-        }
-    }
-    public void startMusic(){
-        Intent music = new Intent();
-        music.setClass(this,MusicService.class);
-        startService(music);
-
-    }
-    public void stopMusic(){
-        Intent music = new Intent();
-        music.setClass(this,MusicService.class);
-        stopService(music);
-
-    }
-    private final SensorEventListener sensorListener = new SensorEventListener() {
-        @Override
-        public void onSensorChanged(SensorEvent sensorEvent) {
-
-            float x = sensorEvent.values[0];
-            float y = sensorEvent.values[1];
-            float z = sensorEvent.values[2];
-
-            acelLast=acelVal;
-            acelVal=(float) Math.sqrt((double) (x*x + y*y + z*z));
-            float delta = acelVal - acelLast;
-            shake = shake * 0.980f + delta;
-
-            //on Device shake
-            if(shake > 3  ) {
-                if(flag!=1)
-                {
-                    spinSound = MediaPlayer.create(Toss.this,R.raw.spin);
-                    spinSound.setLooping(true);
-                    spinSound.start();
-                    spinSound.setVolume(0,0.1f);
-                }
-                sm.unregisterListener(sensorListener);
-
+                spinSound = MediaPlayer.create(Toss.this,R.raw.spin);
+                spinSound.setLooping(true);
+                spinSound.start();
+                spinSound.setVolume(0,0.1f);
+                view.setOnClickListener(null);
                 animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_middle);
                 animation2 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.from_middle);
                 new CountDownTimer(500,100){
@@ -260,16 +167,75 @@ public class Toss extends AppCompatActivity {
                     }
 
                 }.start();
+
             }
+        });
 
+    }
+
+    public void initialize() {
+        spinSound.stop();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(Toss.this, LoadingScreen.class);
+                intent.putExtra("int_value", flag);
+                startActivity(intent);
+                doUnbindService();
+                stopMusic();
+                finish();
+            }
+        };
+
+        timer.schedule(timerTask, 3500);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Options.class);
+        intent.putExtra("int_value", flag);
+        startActivity(intent);
+        spinSound.stop();
+        timer.cancel();
+        finish();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        doUnbindService();
+        spinSound.stop();
+        stopMusic();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        doBindService();
+        if (flag == 1) {
+            spinSound.stop();
+            stopMusic();
+        } else {
+            spinSound.start();
+            startMusic();
         }
+    }
 
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int i) {
+    public void startMusic() {
+        Intent music = new Intent();
+        music.setClass(this, MusicService.class);
+        startService(music);
 
-        }
+    }
 
-    };
+    public void stopMusic() {
+        Intent music = new Intent();
+        music.setClass(this, MusicService.class);
+        stopService(music);
+
+    }
+
+
     public void next(View v){
         Intent intent=new Intent(Toss.this,LoadingScreen.class);
         startActivity(intent);

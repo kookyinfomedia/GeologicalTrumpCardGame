@@ -91,7 +91,10 @@
             android:id="@+id/pop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dimen_30dp">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/dimen_105dp"
+            android:padding="@dimen/dimen_40dp">
 
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/gifImageView"
@@ -107,12 +110,13 @@
                 android:layout_marginStart="@dimen/dimen_10dp"
                 android:background="@drawable/chatbubble"
                 android:padding="@dimen/dimen_10dp"
-                android:textSize="@dimen/dimen_14dp"
                 android:text="Tap on any Continent to play."
                 android:textAlignment="center"
-                android:textColor="#FFFFFFFF" />
+                android:textColor="#FFFFFFFF"
+                android:textSize="@dimen/dimen_14dp" />
         </LinearLayout>
     </RelativeLayout>
+
     <ImageView
         android:layout_width="@dimen/dimen_100dp"
         android:layout_height="@dimen/dimen_100dp"

@@ -13,8 +13,8 @@
         android:repeatCount="infinite"
         android:repeatMode="restart"/>
     <alpha
-        android:fromAlpha="1"
-        android:toAlpha="0.5"
+        android:fromAlpha="0.8"
+        android:toAlpha="0.4"
         android:duration="30000"
         android:repeatCount="infinite"
         android:repeatMode="restart"/>

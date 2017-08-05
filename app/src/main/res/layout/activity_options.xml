@@ -19,27 +19,27 @@
 
     <Button
         android:id="@+id/btnPlay"
-        android:layout_width="@dimen/dimen_180dp"
+        android:layout_width="@dimen/dimen_160dp"
         android:layout_height="@dimen/dimen_55dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/dimen_20dp"
-        android:onClick="playGame"
         android:layout_marginRight="10dp"
-        android:background="@drawable/play_button" />
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:background="@drawable/play_button"
+        android:onClick="playGame" />
 
 
     <Button
         android:id="@+id/btnHelp"
-        android:layout_width="@dimen/dimen_180dp"
+        android:layout_width="@dimen/dimen_160dp"
         android:layout_height="@dimen/dimen_55dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btnPlay"
-        android:layout_marginTop="@dimen/dimen_10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
         android:background="@drawable/help_button"
-        android:onClick="help"/>
+        android:onClick="help" />
 
     <ImageView
         android:id="@+id/imageView2"

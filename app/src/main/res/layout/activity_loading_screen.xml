@@ -14,11 +14,14 @@
         android:id="@+id/relPopup"
         android:visibility="invisible">
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/relLoad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/relLoad"
+        android:background="@color/loadbackgreen"
         android:visibility="visible">
+
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="@dimen/dimen_40dp"
             android:layout_height="@dimen/dimen_40dp"
