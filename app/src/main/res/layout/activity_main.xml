@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#FFFFFF"
     android:animateLayoutChanges="true"
     android:animationCache="true">
 
@@ -11,24 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="cursive"
-        android:text="Kooky Infomedia"
-        android:textColor="@color/color_JellyFish"
-        android:textSize="@dimen/dimen_30dp" />
-
-    <TextView
-        android:id="@+id/subtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/title"
-        android:fontFamily="cursive"
-        android:text="Softwares"
-        android:textColor="@color/color_Teal"
-        android:textSize="@dimen/dimen_30dp" />
+  <ImageView
+      android:layout_width="@dimen/dimen_200dp"
+      android:layout_height="@dimen/dimen_300dp"
+      android:src="@drawable/splash"
+      android:rotation="0"/>
     </RelativeLayout>
 </RelativeLayout>

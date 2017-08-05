@@ -195,7 +195,7 @@ public class Options extends AppCompatActivity{
 
     public void playGame(View v){
         clickOff();
-        btnPlay.setAlpha(0.5f);
+        btnPlay.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
@@ -212,13 +212,16 @@ public class Options extends AppCompatActivity{
 
     public void help(View v){
         clickOff();
-        btnHelp.setAlpha(0.5f);
+        btnHelp.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
                 ObjectAnimator.ofFloat(btnHelp, "scaleX", 1f, 0.8f),
                 ObjectAnimator.ofFloat(btnHelp, "scaleY", 1f, 0.8f)
         );
         set.start();
+        Intent intent = new Intent(Options.this, Help.class);
+        intent.putExtra("int_value", flag);
+        startActivity(intent);
 
     }
     public void onBackPressed() {

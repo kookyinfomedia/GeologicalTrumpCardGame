@@ -19,7 +19,6 @@
         android:id="@+id/relLoad"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/loadbackgreen"
         android:visibility="visible">
 
         <pl.droidsonroids.gif.GifImageView
@@ -100,7 +99,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cardP1"
             android:layout_width="@dimen/dimen_170dp"
-            android:layout_height="@dimen/dimen_240dp"
+            android:layout_height="@dimen/dimen_260dp"
             android:layout_below="@id/relUpper"
             android:layout_toLeftOf="@+id/relUpper"
             android:background="#FFFFFF"
@@ -647,7 +646,7 @@
         <ImageView
             android:id="@+id/cardBigRight"
             android:layout_width="@dimen/dimen_170dp"
-            android:layout_height="@dimen/dimen_240dp"
+            android:layout_height="@dimen/dimen_260dp"
             android:layout_below="@id/relUpper"
             android:layout_toRightOf="@id/relUpper"
             android:onClick="showCard"

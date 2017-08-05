@@ -16,6 +16,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -270,102 +271,6 @@ public class LoadingScreen extends AppCompatActivity {
 
                     cardBack = (Button) findViewById(R.id.cardBack);
 
-                    l1.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View view, MotionEvent motionEvent) {
-                            switch (motionEvent.getAction()){
-                                case MotionEvent.ACTION_DOWN:
-                                    l1.setBackgroundColor(Color.YELLOW);
-                                    break;
-                                case MotionEvent.ACTION_UP:
-                                    l1.setBackgroundColor(Color.WHITE);
-                                    clickoff();
-                                    areaSelect(cardBigLeft);
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                    l2.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View view, MotionEvent motionEvent) {
-                            switch (motionEvent.getAction()){
-                                case MotionEvent.ACTION_DOWN:
-                                    l2.setBackgroundColor(Color.YELLOW);
-                                    break;
-                                case MotionEvent.ACTION_UP:
-                                    l2.setBackgroundColor(Color.WHITE);
-                                    clickoff();
-                                    populationSelect(cardBigLeft);
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                    l3.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View view, MotionEvent motionEvent) {
-                            switch (motionEvent.getAction()){
-                                case MotionEvent.ACTION_DOWN:
-                                    l3.setBackgroundColor(Color.YELLOW);
-                                    break;
-                                case MotionEvent.ACTION_UP:
-                                    l3.setBackgroundColor(Color.WHITE);
-                                    clickoff();
-                                    coastSelect(cardBigLeft);
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                    l4.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View view, MotionEvent motionEvent) {
-                            switch (motionEvent.getAction()){
-                                case MotionEvent.ACTION_DOWN:
-                                    l4.setBackgroundColor(Color.YELLOW);
-                                    break;
-                                case MotionEvent.ACTION_UP:
-                                    l4.setBackgroundColor(Color.WHITE);
-                                    clickoff();
-                                    aUnitSelect(cardBigLeft);
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-                    l5.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View view, MotionEvent motionEvent) {
-                            switch (motionEvent.getAction()){
-                                case MotionEvent.ACTION_DOWN:
-                                    l5.setBackgroundColor(Color.YELLOW);
-                                    break;
-                                case MotionEvent.ACTION_UP:
-                                    l5.setBackgroundColor(Color.WHITE);
-                                    clickoff();
-                                    bCountriesSelect(cardBigLeft);
-                                    break;
-                            }
-                            return true;
-                        }
-                    }); l6.setOnTouchListener(new View.OnTouchListener() {
-                        @Override
-                        public boolean onTouch(View view, MotionEvent motionEvent) {
-                            switch (motionEvent.getAction()){
-                                case MotionEvent.ACTION_DOWN:
-                                    l6.setBackgroundColor(Color.YELLOW);
-                                    break;
-                                case MotionEvent.ACTION_UP:
-                                    l6.setBackgroundColor(Color.WHITE);
-                                    clickoff();
-                                    hPointSelect(cardBigLeft);
-                                    break;
-                            }
-                            return true;
-                        }
-                    });
-
 
                     if (flagInt == 1) {
                         loudspeaker.setBackgroundResource(R.drawable.soundoff);
@@ -606,13 +511,29 @@ public class LoadingScreen extends AppCompatActivity {
         } while (x == y);
 
         txtCountry1.setText(arr.get(x).getCountry());
+        txtCountry1.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valArea.setText(arr.get(x).getArea());
+        valArea.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valPopulation.setText(arr.get(x).getPopulation());
+        valPopulation.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valCoastline.setText(arr.get(x).getCoastline());
+        valCoastline.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valAUnits.setText(arr.get(x).getaUnits());
+        valAUnits.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valBCountries.setText(arr.get(x).getbCountries());
+        valBCountries.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valHPoint.setText(arr.get(x).gethPoint());
-        imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
+        valHPoint.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
+        //imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
+        Drawable image = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(x).getFlag(), 0, arr.get(x).getFlag().length));
+        cardP1.setBackground(image);
         imgCard1_map.setImageBitmap(convertToBitmap(arr.get(x).getMap()));
 
         modelClass = new ModelClass();
@@ -629,14 +550,29 @@ public class LoadingScreen extends AppCompatActivity {
         modelClass.setMap(arr.get(x).getMap());
 
         txtCountry2.setText(arr.get(y).getCountry());
+        txtCountry2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valArea2.setText(arr.get(y).getArea());
+        valArea2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valPopulation2.setText(arr.get(y).getPopulation());
+        valPopulation2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valCoastline2.setText(arr.get(y).getCoastline());
+        valCoastline2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valAUnits2.setText(arr.get(y).getaUnits());
+        valAUnits2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valBCountries2.setText(arr.get(y).getbCountries());
+        valBCountries2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valHPoint2.setText(arr.get(y).gethPoint());
-        imgCard2_flag.setImageBitmap(convertToBitmap(arr.get(y).getFlag()));
+        valHPoint2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        //imgCard2_flag.setImageBitmap(convertToBitmap(arr.get(y).getFlag()));
         imgCard2_map.setImageBitmap(convertToBitmap(arr.get(y).getMap()));
+        Drawable image2 = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(y).getFlag(), 0, arr.get(y).getFlag().length));
+        cardP2.setBackground(image2);
 
         modelClass1.setCountry(arr.get(y).getCountry());
         modelClass1.setArea(arr.get(y).getArea());
@@ -1158,6 +1094,11 @@ public class LoadingScreen extends AppCompatActivity {
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+        if(flag==1){
+            MediaPlayer mp=MediaPlayer.create(this,R.raw.backmusic);
+            mp.start();
+            mp.setLooping(false);
+        }
     }
 
     public void showGameLoseDialog() {
@@ -1190,6 +1131,11 @@ public class LoadingScreen extends AppCompatActivity {
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+        if(flag==1){
+            MediaPlayer mp=MediaPlayer.create(this,R.raw.backmusic);
+            mp.start();
+            mp.setLooping(false);
+        }
     }
 
     public void repeatGame() {
@@ -1390,19 +1336,20 @@ public class LoadingScreen extends AppCompatActivity {
 
 
     public void setColorWhite() {
-        l1.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l2.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l3.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l4.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l5.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l6.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        l1.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l3.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l4.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l5.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l6.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        l11.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l12.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l13.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l14.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l15.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-        l16.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+        l11.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l12.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l13.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l14.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l15.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l16.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
 
 
     }

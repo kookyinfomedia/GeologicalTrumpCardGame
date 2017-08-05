@@ -75,6 +75,7 @@
 
     <dimen name="dimen_470dp">940dp</dimen>
     <dimen name="dimen_235dp">470dp</dimen>
+    <dimen name="dimen_480dp">960dp</dimen>
     <dimen name="dimen_231dp">462dp</dimen>
     <dimen name="dimen_2.5dp">5dp</dimen>
 </resources>
