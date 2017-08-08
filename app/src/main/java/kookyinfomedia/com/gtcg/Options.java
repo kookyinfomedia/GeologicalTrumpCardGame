@@ -222,6 +222,7 @@ public class Options extends AppCompatActivity{
         Intent intent = new Intent(Options.this, Help.class);
         intent.putExtra("int_value", flag);
         startActivity(intent);
+        finish();
 
     }
     public void onBackPressed() {

@@ -57,7 +57,6 @@ public class DBAdapter extends SQLiteOpenHelper {
         {
 
         }
-
         if(db==null)
         {
             return false;
@@ -113,51 +112,44 @@ public class DBAdapter extends SQLiteOpenHelper {
         {
             System.out.println(e);
         }
-
     }
 
     public ArrayList<ModelClass> getData() {
         continent = selectedContinent;
-        Cursor c1 = sdb.rawQuery("select * from " + continent, null);
+        Cursor c1 = sdb.rawQuery("select * from " + continent+"_view", null);
         a = new ArrayList<ModelClass>();
 
         try {
             while (c1.moveToNext()) {
                 ModelClass modelClass = new ModelClass();
                 String country = c1.getString(0);
-                String area = c1.getString(1);
-                String population = c1.getString(2);
-                String coastline = c1.getString(3);
-                String aUnits = c1.getString(4);
-                String bCountries = c1.getString(5);
-                String hPoint = c1.getString(6);
-                byte map[] = c1.getBlob(7);
-                byte flag[] = c1.getBlob(8);
+                String capital=c1.getString(1);
+                String area = c1.getString(2);
+                String population = c1.getString(3);
+                String coastline = c1.getString(4);
+                String aUnits = c1.getString(5);
+                String bCountries = c1.getString(6);
+                String hPoint = c1.getString(7);
+                String hPointName=c1.getString(8);
+                byte flag[] = c1.getBlob(9);
+                byte map[] = c1.getBlob(10);
+
 
 
                 /**************************** Splitting strings using the delimiter "space" ***********************************/
 
-                StringTokenizer tokens = new StringTokenizer(area, " ");
-                area = tokens.nextToken();
-
-                tokens = new StringTokenizer(population, " ");
-                population = tokens.nextToken();
-
-                // if(coastline!="LANDLOCKED") {
-                tokens = new StringTokenizer(coastline, " ");
-                coastline = tokens.nextToken();
-                //}
-
-                tokens = new StringTokenizer(hPoint, " ");
+                StringTokenizer tokens = new StringTokenizer(hPoint, " ");
                 hPoint = tokens.nextToken();
 
                 modelClass.setCountry(country);
+                modelClass.setCapital(capital);
                 modelClass.setArea(area);
                 modelClass.setPopulation(population);
                 modelClass.setCoastline(coastline);
                 modelClass.setaUnits(aUnits);
                 modelClass.setbCountries(bCountries);
                 modelClass.sethPoint(hPoint);
+                modelClass.sethPointName(hPointName);
                 modelClass.setMap(map);
                 modelClass.setFlag(flag);
                 a.add(modelClass);

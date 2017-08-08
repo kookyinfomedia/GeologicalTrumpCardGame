@@ -2,7 +2,7 @@ package kookyinfomedia.com.gtcg;
 
 
 public class ModelClass {
-    private String country,area,population,coastline,aUnits,bCountries,hPoint;
+    private String country,area,population,coastline,aUnits,bCountries,hPoint,capital,hPointName;
     private byte map[],flag[];
 
     public byte[] getMap(){
@@ -73,5 +73,21 @@ public class ModelClass {
 
     public void sethPoint(String hPoint) {
         this.hPoint = hPoint;
+    }
+
+    public String gethPointName() {
+        return hPointName;
+    }
+
+    public void sethPointName(String hPoint) {
+        this.hPointName = hPointName;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
+
+    public void setCapital(String hPoint) {
+        this.capital = capital;
     }
 }

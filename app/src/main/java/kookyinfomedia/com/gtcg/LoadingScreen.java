@@ -63,14 +63,15 @@ public class LoadingScreen extends AppCompatActivity {
     DBAdapter obj;
     ArrayList<ModelClass> arr = new ArrayList<ModelClass>();
     Controller controller;
-    ImageView imgCard1_flag, imgCard2_flag, imgCard1_map, imgCard2_map;
+    ImageView imgCard1_flag, imgCard2_flag;
+    RelativeLayout imgCard1_map,imgCard2_map;
     ModelClass modelClass, modelClass1;
     Button cardLoudspeaker, cardBack, loudspeaker;
     CardView cardP1, cardP2, Score, cardP3;
     int screenHeight;
     ImageView cardBigLeft, cardBigRight, cardSmallLeft, cardSmallRight, toast, cardCoinLeft, cardCoinRight;
-    TextView txtArea, txtPopulation, txtCoastline, txtAUnits, txtBcountries, txtHPoint, txtCountry1;
-    TextView valArea, valPopulation, valCoastline, valAUnits, valBCountries, valHPoint, txtCountry2;
+    TextView txtArea, txtPopulation, txtCoastline, txtAUnits, txtBcountries, txtHPoint, txtCountry1,txtCapital1;
+    TextView valArea, valPopulation, valCoastline, valAUnits, valBCountries, valHPoint, txtCountry2,txtCapital2;
     TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2;
     TextView txtArea2, txtPopulation2, txtCoastline2, txtAUnits2, txtBcountries2, txtHPoint2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
@@ -81,7 +82,7 @@ public class LoadingScreen extends AppCompatActivity {
     Animation myAnim, myAnimFinal;
 
     public static int gameOverFlag = 0;
-    int score = deck * 100, myCard = deck, oppCard = deck;
+    int score = 0, myCard = deck, oppCard = deck;
 
     private boolean mIsBound = false;
     public MusicService mServ;
@@ -187,10 +188,11 @@ public class LoadingScreen extends AppCompatActivity {
             cardP1 = (CardView) findViewById(R.id.cardP1);
             cardBigLeft = (ImageView) findViewById(R.id.cardBigLeft);
 
+            imgCard1_map = (RelativeLayout) findViewById(R.id.imgCard1_map);
             imgCard1_flag = (ImageView) findViewById(R.id.imgCard1_flag);
-            imgCard1_map = (ImageView) findViewById(R.id.imgCard1_map);
 
             txtCountry1 = (TextView) findViewById(R.id.txtCountry1);
+            txtCapital1=(TextView)findViewById(R.id.txtCapital);
             txtArea = (TextView) findViewById(R.id.txtArea);
             txtPopulation = (TextView) findViewById(R.id.txtPopulation);
             txtCoastline = (TextView) findViewById(R.id.txtCoastline);
@@ -218,10 +220,11 @@ public class LoadingScreen extends AppCompatActivity {
             cardP2 = (CardView) findViewById(R.id.cardP2);
             cardBigRight = (ImageView) findViewById(R.id.cardBigRight);
 
+            imgCard2_map = (RelativeLayout) findViewById(R.id.imgCard2_map);
             imgCard2_flag = (ImageView) findViewById(R.id.imgCard2_flag);
-            imgCard2_map = (ImageView) findViewById(R.id.imgCard2_map);
 
             txtCountry2 = (TextView) findViewById(R.id.txtCountry2);
+            txtCapital2=(TextView)findViewById(R.id.txtCapital2);
             txtArea2 = (TextView) findViewById(R.id.txtArea2);
             txtPopulation2 = (TextView) findViewById(R.id.txtPopulation2);
             txtCoastline2 = (TextView) findViewById(R.id.txtCoastline2);
@@ -263,6 +266,7 @@ public class LoadingScreen extends AppCompatActivity {
                 public void onTick(long ms){
                 }
                 public void onFinish(){
+                    txtScoreVal.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
                     relLoad.setVisibility(View.INVISIBLE);
                     final Dialog dialog = new Dialog(context);
@@ -297,11 +301,15 @@ public class LoadingScreen extends AppCompatActivity {
 
                         @Override
                         public void onAnimationEnd(Animation animation) {
+                            txtScoreVal.setVisibility(View.VISIBLE);
                             cardBigLeft.setVisibility(View.VISIBLE);
                             cardBigRight.setVisibility(View.VISIBLE);
                             txtMyVal.setText("" + myCard);
                             txtOppVal.setText("" + oppCard);
-                            txtScoreVal.setText("" + score);
+                            if(score!=0)
+                                txtScoreVal.setText("" + score);
+                            else
+                                txtScoreVal.setText("0000");
                             clickoff();
                             ShowRecord();
 
@@ -513,6 +521,9 @@ public class LoadingScreen extends AppCompatActivity {
         txtCountry1.setText(arr.get(x).getCountry());
         txtCountry1.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
+        txtCapital1.setText(arr.get(x).getCapital());
+        txtCapital1.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
         valArea.setText(arr.get(x).getArea());
         valArea.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
@@ -532,25 +543,31 @@ public class LoadingScreen extends AppCompatActivity {
         valHPoint.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
         //imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
-        Drawable image = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(x).getFlag(), 0, arr.get(x).getFlag().length));
+        Drawable image = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(x).getMap(), 0, arr.get(x).getMap().length));
+        image.setAlpha(180);
         cardP1.setBackground(image);
-        imgCard1_map.setImageBitmap(convertToBitmap(arr.get(x).getMap()));
+        imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
 
         modelClass = new ModelClass();
         modelClass1 = new ModelClass();
 
         modelClass.setCountry(arr.get(x).getCountry());
+        modelClass.setCapital(arr.get(x).getCapital());
         modelClass.setArea(arr.get(x).getArea());
         modelClass.setPopulation(arr.get(x).getPopulation());
         modelClass.setCoastline(arr.get(x).getCoastline());
         modelClass.setaUnits(arr.get(x).getaUnits());
         modelClass.setbCountries(arr.get(x).getbCountries());
         modelClass.sethPoint(arr.get(x).gethPoint());
+        modelClass.sethPointName(arr.get(x).gethPointName());
         modelClass.setFlag(arr.get(x).getFlag());
         modelClass.setMap(arr.get(x).getMap());
 
         txtCountry2.setText(arr.get(y).getCountry());
         txtCountry2.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
+        txtCapital2.setText(arr.get(y).getCapital());
+        txtCapital2.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
         valArea2.setText(arr.get(y).getArea());
         valArea2.setBackground(getResources().getDrawable(R.drawable.layout_white));
@@ -570,17 +587,20 @@ public class LoadingScreen extends AppCompatActivity {
         valHPoint2.setText(arr.get(y).gethPoint());
         valHPoint2.setBackground(getResources().getDrawable(R.drawable.layout_white));
         //imgCard2_flag.setImageBitmap(convertToBitmap(arr.get(y).getFlag()));
-        imgCard2_map.setImageBitmap(convertToBitmap(arr.get(y).getMap()));
-        Drawable image2 = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(y).getFlag(), 0, arr.get(y).getFlag().length));
+        imgCard2_flag.setImageBitmap(convertToBitmap(arr.get(y).getFlag()));
+        Drawable image2 = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(y).getMap(), 0, arr.get(y).getMap().length));
+        image2.setAlpha(180);
         cardP2.setBackground(image2);
 
         modelClass1.setCountry(arr.get(y).getCountry());
+        modelClass1.setCapital(arr.get(y).getCapital());
         modelClass1.setArea(arr.get(y).getArea());
         modelClass1.setPopulation(arr.get(y).getPopulation());
         modelClass1.setCoastline(arr.get(y).getCoastline());
         modelClass1.setaUnits(arr.get(y).getaUnits());
         modelClass1.setbCountries(arr.get(y).getbCountries());
         modelClass1.sethPoint(arr.get(y).gethPoint());
+        modelClass1.sethPointName(arr.get(y).gethPointName());
         modelClass.setFlag(arr.get(y).getFlag());
         modelClass.setMap(arr.get(y).getMap());
     }
@@ -860,7 +880,8 @@ public class LoadingScreen extends AppCompatActivity {
                     }
                 }.start();
             } else if (updatedScore == 0) {
-                score = score - 100;
+                if(score!=00)
+                    score = score - 100;
                 myCard = myCard - 1;
                 oppCard = oppCard + 1;
                 switch (betField) {
@@ -907,7 +928,10 @@ public class LoadingScreen extends AppCompatActivity {
                     }
                 }.start();
             }
-            txtScoreVal.setText("" + score);
+            if(score!=0)
+                txtScoreVal.setText("" + score);
+            else
+                txtScoreVal.setText("0000");
             txtMyVal.setText("" + myCard);
             txtOppVal.setText("" + oppCard);
             flag = 1;
@@ -1094,11 +1118,11 @@ public class LoadingScreen extends AppCompatActivity {
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-        if(flag==1){
+      /*  if(flag==1){
             MediaPlayer mp=MediaPlayer.create(this,R.raw.backmusic);
             mp.start();
             mp.setLooping(false);
-        }
+        }*/
     }
 
     public void showGameLoseDialog() {
@@ -1131,11 +1155,11 @@ public class LoadingScreen extends AppCompatActivity {
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-        if(flag==1){
+       /* if(flag==1){
             MediaPlayer mp=MediaPlayer.create(this,R.raw.backmusic);
             mp.start();
             mp.setLooping(false);
-        }
+        }*/
     }
 
     public void repeatGame() {
@@ -1296,7 +1320,7 @@ public class LoadingScreen extends AppCompatActivity {
         animation.setRepeatCount(0);
         final AnimationDrawable drawable = new AnimationDrawable();
         final Handler handler = new Handler();
-        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white2), 100);
+        drawable.addFrame(getResources().getDrawable(R.drawable.layout_white2), 200);
         drawable.addFrame(getResources().getDrawable(R.drawable.cardborder), 200);
         //drawable.addFrame(new ColorDrawable(Color.RED), 400);
         drawable.setOneShot(false);
@@ -1401,7 +1425,7 @@ public class LoadingScreen extends AppCompatActivity {
             image2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent abc = new Intent(LoadingScreen.this, DeckSelect.class);
+                    Intent abc = new Intent(LoadingScreen.this, Toss.class);
                     abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
@@ -1482,7 +1506,7 @@ public class LoadingScreen extends AppCompatActivity {
             image2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent abc = new Intent(LoadingScreen.this, DeckSelect.class);
+                    Intent abc = new Intent(LoadingScreen.this, Toss.class);
                     startActivity(abc);
                     finish();
                 }

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="dimen_minus">-3dp</dimen>
-
+    <dimen name="dimen_minus_3dp">-3dp</dimen>
+    <dimen name="dimen_minus_8dp">-8dp</dimen>
+    <dimen name="dimen_minus_10dp">-10dp</dimen>
+    <dimen name="dimen_minus_20dp">-20dp</dimen>
+    <dimen name="dimen_minus_60dp">-60dp</dimen>
+    <dimen name="dimen_minus_70dp">-70dp</dimen>
 
     <dimen name="dimen_1dp">1dp</dimen>
     <dimen name="dimen_2dp">2dp</dimen>
@@ -77,6 +81,7 @@
     <dimen name="dimen_470dp">470dp</dimen>
     <dimen name="dimen_480dp">480dp</dimen>
     <dimen name="dimen_235dp">235dp</dimen>
+    <dimen name="dimen_237dp">237dp</dimen>
     <dimen name="dimen_231dp">231dp</dimen>
     <dimen name="dimen_2.5dp">2.5dp</dimen>
 </resources>

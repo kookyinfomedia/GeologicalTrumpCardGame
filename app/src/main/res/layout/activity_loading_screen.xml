@@ -49,7 +49,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="@dimen/dimen_5dp"
             android:layout_marginTop="@dimen/dimen_5dp"
-            android:background="@drawable/backbtn"
+            android:background="@drawable/pause"
             android:onClick="backL">
 
         </Button>
@@ -78,6 +78,7 @@
             android:layout_marginLeft="-40dp"
             android:src="@drawable/card_left" />
 
+
         <ImageView
             android:id="@+id/cardSmallRight"
             android:layout_width="@dimen/dimen_100dp"
@@ -99,7 +100,7 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cardP1"
             android:layout_width="@dimen/dimen_170dp"
-            android:layout_height="@dimen/dimen_260dp"
+            android:layout_height="@dimen/dimen_240dp"
             android:layout_below="@id/relUpper"
             android:layout_toLeftOf="@+id/relUpper"
             android:background="#FFFFFF"
@@ -122,14 +123,25 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dimen_2dp">
 
-                    <ImageView
-                        android:id="@+id/imgCard1_flag"
+                    <RelativeLayout
+                        android:id="@+id/imgCard1_map"
                         android:layout_width="@dimen/dimen_70dp"
-                        android:layout_height="@dimen/dimen_50dp"
-                        android:layout_marginLeft="@dimen/dimen_10dp" />
+                        android:layout_height="@dimen/dimen_60dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimen_20dp"
+                            android:text="CAPITAL"
+                            android:id="@+id/txtCapital"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimen_20dp"
+                            android:layout_below="@+id/txtCapital"
+                            android:id="@+id/txtCapitalName"/>
+                        </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/imgCard1_map"
+                        android:id="@+id/imgCard1_flag"
                         android:layout_width="@dimen/dimen_70dp"
                         android:layout_height="@dimen/dimen_50dp"
                         android:layout_marginLeft="@dimen/dimen_10dp" />
@@ -374,8 +386,8 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cardP3"
             android:layout_width="@dimen/dimen_170dp"
-            android:layout_height="@dimen/dimen_231dp"
-            android:layout_marginTop="@dimen/dimen_4dp"
+            android:layout_height="@dimen/dimen_237dp"
+            android:layout_marginTop="@dimen/dimen_1dp"
             android:layout_below="@id/relUpper"
             android:layout_toLeftOf="@+id/relUpper"
             android:alpha="1"
@@ -412,14 +424,25 @@
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/dimen_2dp">
 
-                    <ImageView
-                        android:id="@+id/imgCard2_flag"
+                    <RelativeLayout
+                        android:id="@+id/imgCard2_map"
                         android:layout_width="@dimen/dimen_70dp"
-                        android:layout_height="@dimen/dimen_50dp"
-                        android:layout_marginLeft="@dimen/dimen_10dp" />
+                        android:layout_height="@dimen/dimen_60dp"
+                        android:layout_marginLeft="@dimen/dimen_10dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimen_20dp"
+                            android:text="CAPITAL"
+                            android:id="@+id/txtCapital2"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dimen_20dp"
+                            android:layout_below="@+id/txtCapital2"
+                            android:id="@+id/txtCapitalName2"/>
+                    </RelativeLayout>
 
                     <ImageView
-                        android:id="@+id/imgCard2_map"
+                        android:id="@+id/imgCard2_flag"
                         android:layout_width="@dimen/dimen_70dp"
                         android:layout_height="@dimen/dimen_50dp"
                         android:layout_marginLeft="@dimen/dimen_10dp" />
@@ -646,7 +669,7 @@
         <ImageView
             android:id="@+id/cardBigRight"
             android:layout_width="@dimen/dimen_170dp"
-            android:layout_height="@dimen/dimen_260dp"
+            android:layout_height="@dimen/dimen_240dp"
             android:layout_below="@id/relUpper"
             android:layout_toRightOf="@id/relUpper"
             android:onClick="showCard"
@@ -671,6 +694,8 @@
                 android:shape="ring"
                 android:thicknessRatio="0"
                 app:cardCornerRadius="@dimen/dimen_25dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="false"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true">
 
@@ -681,18 +706,15 @@
                     app:srcCompat="@drawable/score_ellipse" />
 
                 <TextView
-                    android:id="@+id/txtScoreVal"
+                    android:id="@+id/txtScoreVal2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/dimen_15dp"
-                    android:layout_marginTop="@dimen/dimen_25dp"
-                    android:text="0000"
+                    android:text=""
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="@dimen/dimen_9dp"
+                    android:textSize="@dimen/dimen_10dp"
                     android:textStyle="bold"/>
-
                 <TextView
                     android:id="@+id/txtScore"
                     android:layout_width="wrap_content"
@@ -753,7 +775,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Opponents Cards"
+                    android:text="Opponent Cards"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/dimen_13dp"
                     android:textStyle="bold" />
@@ -796,7 +818,17 @@
 
             </LinearLayout>
         </RelativeLayout>
-
+        <TextView
+            android:id="@+id/txtScoreVal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="0000"
+            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/dimen_10dp"
+            android:textStyle="bold"/>
     </RelativeLayout>
 
     <RelativeLayout

@@ -13,12 +13,15 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Display;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class Category extends AppCompatActivity {
     private int flag;
@@ -26,7 +29,8 @@ public class Category extends AppCompatActivity {
     private MusicService mServ;
     public static String selectedContinent="";
     LinearLayout pop;
-    ImageView asia,southAmerica,northAmerica,europe,africa,australia,antarctica,asia2,img;
+    TextView txt;
+    ImageView asia,southAmerica,northAmerica,europe,africa,australia,antarctica,img;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
@@ -56,11 +60,17 @@ public class Category extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int screenHeight;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_category);
         doBindService();
+        txt=(TextView)findViewById(R.id.txt);
+        Display display = getWindowManager().getDefaultDisplay();
+        screenHeight = display.getHeight();
+        ViewGroup.LayoutParams layoutParams = txt.getLayoutParams();
+        layoutParams.height = screenHeight / 10;
 
         asia=(ImageView)findViewById(R.id.asia);
         img=(ImageView)findViewById(R.id.img);

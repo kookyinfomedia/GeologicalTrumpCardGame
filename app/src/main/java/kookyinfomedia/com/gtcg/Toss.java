@@ -15,6 +15,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.Random;
 import java.util.Timer;
@@ -129,18 +130,59 @@ public class Toss extends AppCompatActivity {
                                             ((ImageView)findViewById(R.id.imgCoinFront)).setAnimation(animation1);
                                             ((ImageView)findViewById(R.id.imgCoinFront)).startAnimation(animation1);
                                             if(i>10) {
-                                                if(res==0) { // opponents turn
-                                                    Animation animation3 = AnimationUtils.loadAnimation(Toss.this, R.anim.from_middle);
-                                                    ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_back);
+                                                 if(res==0) { // opponents turn
+                                                    Animation animation3 = AnimationUtils.loadAnimation(Toss.this, R.anim.to_middle);
+                                                    ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_front);
                                                     ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
                                                     ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation3);
                                                     ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation3);
+                                                     animation3.setAnimationListener(new Animation.AnimationListener() {
+                                                         @Override
+                                                         public void onAnimationStart(Animation animation) {
+
+                                                         }
+
+                                                         @Override
+                                                         public void onAnimationEnd(Animation animation) {
+                                                             Animation animation4 = AnimationUtils.loadAnimation(Toss.this, R.anim.from_middle);
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_back);
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation4);
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation4);
+                                                         }
+
+                                                         @Override
+                                                         public void onAnimationRepeat(Animation animation) {
+
+                                                         }
+                                                     });
                                                 }
                                                 else{  // your turn
-                                                    Animation animation3 = AnimationUtils.loadAnimation(Toss.this, R.anim.to_middle);
-                                                    ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
-                                                    ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation3);
-                                                    ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation3);
+                                                     Animation animation3 = AnimationUtils.loadAnimation(Toss.this, R.anim.to_middle);
+                                                     ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_front);
+                                                     ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
+                                                     ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation3);
+                                                     ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation3);
+                                                     animation3.setAnimationListener(new Animation.AnimationListener() {
+                                                         @Override
+                                                         public void onAnimationStart(Animation animation) {
+
+                                                         }
+
+                                                         @Override
+                                                         public void onAnimationEnd(Animation animation) {
+                                                             Animation animation4 = AnimationUtils.loadAnimation(Toss.this, R.anim.from_middle);
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_front);
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation4);
+                                                             ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation4);
+                                                         }
+
+                                                         @Override
+                                                         public void onAnimationRepeat(Animation animation) {
+
+                                                         }
+                                                     });
                                                 }
                                                 initialize();
                                                 spinSound.setLooping(false);

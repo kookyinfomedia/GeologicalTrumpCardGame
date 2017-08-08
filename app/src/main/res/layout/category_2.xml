@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:padding="0dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/north_america2"
+            android:id="@+id/northAmerica"
+            android:onClick="openDeckNorthAmerica"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"/>
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:src="@drawable/south_america2"
+            android:id="@+id/southAmerica"
+            android:onClick="openDeckSouthAmerica"
+            android:layout_marginLeft="@dimen/dimen_50dp"
+            android:layout_below="@+id/northAmerica"/>
+
+        <ImageView
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:src="@drawable/africa2"
+            android:id="@+id/africa"
+            android:onClick="openDeckAfrica"
+            android:layout_marginTop="-20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/europe"
+            android:layout_toRightOf="@+id/southAmerica"/>
+
+        <ImageView
+            android:layout_width="175dp"
+            android:layout_height="230dp"
+            android:src="@drawable/asia2"
+            android:id="@+id/asia"
+            android:onClick="openDeckAsia"
+            android:layout_marginLeft="-60dp"
+            android:layout_marginTop="-10dp"
+            android:layout_toRightOf="@+id/europe"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/australia2"
+            android:id="@+id/australia"
+            android:onClick="openDeckAustralia"
+            android:layout_marginTop="-60dp"
+            android:layout_marginLeft="80dp"
+            android:layout_below="@+id/asia"
+            android:layout_toRightOf="@id/africa"/>
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="130dp"
+            android:src="@drawable/europe2"
+            android:id="@+id/europe"
+            android:onClick="openDeckEurope"
+            android:layout_toRightOf="@+id/northAmerica"/>
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:src="@drawable/antarctica2"
+            android:id="@+id/antarctica"
+            android:onClick="openDeckAntarctica"
+            android:layout_alignParentBottom="true"/>
+
+    </RelativeLayout>
+</RelativeLayout>
