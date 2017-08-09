@@ -2,8 +2,6 @@ package kookyinfomedia.com.gtcg;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -11,17 +9,12 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Display;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class Category extends AppCompatActivity {
     private int flag;
@@ -29,8 +22,7 @@ public class Category extends AppCompatActivity {
     private MusicService mServ;
     public static String selectedContinent="";
     LinearLayout pop;
-    TextView txt;
-    ImageView asia,southAmerica,northAmerica,europe,africa,australia,antarctica,img;
+    RelativeLayout img;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
@@ -60,26 +52,15 @@ public class Category extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int screenHeight;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_category);
         doBindService();
-        txt=(TextView)findViewById(R.id.txt);
-        Display display = getWindowManager().getDefaultDisplay();
-        screenHeight = display.getHeight();
-        ViewGroup.LayoutParams layoutParams = txt.getLayoutParams();
-        layoutParams.height = screenHeight / 10;
 
-        asia=(ImageView)findViewById(R.id.asia);
-        img=(ImageView)findViewById(R.id.img);
-        africa=(ImageView)findViewById(R.id.africa);
-        australia=(ImageView)findViewById(R.id.australia);
-        antarctica=(ImageView)findViewById(R.id.antarctica);
-        southAmerica=(ImageView)findViewById(R.id.southAmerica);
-        northAmerica=(ImageView)findViewById(R.id.northAmerica);
-        europe=(ImageView)findViewById(R.id.europe);
+
+        img=(RelativeLayout)findViewById(R.id.selected);
+
         pop=(LinearLayout)findViewById(R.id.pop);
 
 
@@ -96,13 +77,23 @@ public class Category extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
+        
         doUnbindService();
         stopMusic();
+    }
+    @Override
+    public void onPause(){
+        super.onPause();
+        mServ.stopMusic();
+        doUnbindService();
+        stopMusic();
+
     }
     @Override
     public void onResume(){
         super.onResume();
         doBindService();
+
         if(flag==1)
         {
             stopMusic();
@@ -129,28 +120,13 @@ public class Category extends AppCompatActivity {
         stopService(music);
     }
 
-    public void imageinvisible(){
-        asia.setVisibility(View.INVISIBLE);
-        africa.setVisibility(View.INVISIBLE);
-        australia.setVisibility(View.INVISIBLE);
-        europe.setVisibility(View.INVISIBLE);
-        southAmerica.setVisibility(View.INVISIBLE);
-        northAmerica.setVisibility(View.INVISIBLE);
-        antarctica.setVisibility(View.INVISIBLE);
-        pop.setVisibility(View.INVISIBLE);
-    }
+
 
     public void openDeckAsia(View view){
+        view.setClickable(false);
+        view.setEnabled(false);
         selectedContinent="asia";
-        imageinvisible();
-        img.setBackground(getResources().getDrawable(R.drawable.asia2));
-        AnimatorSet set1 = new AnimatorSet();
-        set1.playTogether(
-                ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-                ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-        );
-        set1.setDuration(500);
-        set1.start();
+        img.setBackground(getResources().getDrawable(R.drawable.asia));
         new CountDownTimer(1000,100){
             public void onTick(long ms){
 
@@ -166,17 +142,10 @@ public class Category extends AppCompatActivity {
 
     }
     public void openDeckNorthAmerica(View view){
-
+        view.setClickable(false);
+        view.setEnabled(false);
         selectedContinent="north_america";
-        imageinvisible();
-        img.setBackground(getResources().getDrawable(R.drawable.north_america2));
-        AnimatorSet set1 = new AnimatorSet();
-        set1.playTogether(
-                ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-                ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-        );
-        set1.setDuration(500);
-        set1.start();
+        img.setBackground(getResources().getDrawable(R.drawable.north_america));
         new CountDownTimer(1000,100){
             public void onTick(long ms){
 
@@ -190,17 +159,10 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckSouthAmerica(View view){
+        view.setClickable(false);
+        view.setEnabled(false);
         selectedContinent="south_america";
-
-        imageinvisible();
-        img.setBackground(getResources().getDrawable(R.drawable.south_america2));
-        AnimatorSet set1 = new AnimatorSet();
-        set1.playTogether(
-                ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-                ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-        );
-        set1.setDuration(500);
-        set1.start();
+        img.setBackground(getResources().getDrawable(R.drawable.south_america));
         new CountDownTimer(1000,100){
             public void onTick(long ms){
 
@@ -214,17 +176,10 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckAfrica(View view){
+        view.setClickable(false);
+        view.setEnabled(false);
         selectedContinent="africa";
-
-        imageinvisible();
-        img.setBackground(getResources().getDrawable(R.drawable.africa2));
-        AnimatorSet set1 = new AnimatorSet();
-        set1.playTogether(
-                ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-                ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-        );
-        set1.setDuration(500);
-        set1.start();
+        img.setBackground(getResources().getDrawable(R.drawable.africa));
         new CountDownTimer(1000,100){
             public void onTick(long ms){
 
@@ -238,17 +193,10 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckAntarctica(View view){
+        view.setClickable(false);
+        view.setEnabled(false);
         selectedContinent="antarctica";
-
-        imageinvisible();
-        img.setBackground(getResources().getDrawable(R.drawable.antarctica2));
-        AnimatorSet set1 = new AnimatorSet();
-        set1.playTogether(
-                ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-                ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-        );
-        set1.setDuration(500);
-        set1.start();
+        img.setBackground(getResources().getDrawable(R.drawable.antarctica));
         new CountDownTimer(1000,100){
             public void onTick(long ms){
 
@@ -262,17 +210,27 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckEurope(View view){
+        view.setClickable(false);
+        view.setEnabled(false);
         selectedContinent="europe";
+        img.setBackground(getResources().getDrawable(R.drawable.europe));
+        new CountDownTimer(1000,100){
+            public void onTick(long ms){
 
-        imageinvisible();
-        img.setBackground(getResources().getDrawable(R.drawable.europe2));
-        AnimatorSet set1 = new AnimatorSet();
-        set1.playTogether(
-                ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-                ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-        );
-        set1.setDuration(500);
-        set1.start();
+            }
+            public void onFinish(){
+                Intent intent =new Intent(Category.this,DeckSelect.class);
+                intent.putExtra("int_value",flag);
+                startActivity(intent);
+                finish();
+            }
+        }.start();
+    }
+    public void openDeckIndia(View view){
+        view.setClickable(false);
+        view.setEnabled(false);
+        selectedContinent="india";
+        img.setBackground(getResources().getDrawable(R.drawable.india));
         new CountDownTimer(1000,100){
             public void onTick(long ms){
 
@@ -286,17 +244,27 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckAustralia(View view){
+            view.setClickable(false);
+        view.setEnabled(false);
         selectedContinent="australia";
+        img.setBackground(getResources().getDrawable(R.drawable.australia));
+        new CountDownTimer(1000,100){
+            public void onTick(long ms){
 
-        imageinvisible();
-        img.setBackground(getResources().getDrawable(R.drawable.australia2));
-        AnimatorSet set1 = new AnimatorSet();
-        set1.playTogether(
-                ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-                ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-        );
-        set1.setDuration(500);
-        set1.start();
+            }
+            public void onFinish(){
+                Intent intent =new Intent(Category.this,DeckSelect.class);
+                intent.putExtra("int_value",flag);
+                startActivity(intent);
+                finish();
+            }
+        }.start();
+    }
+    public void openDeckWorld(View view){
+        view.setClickable(false);
+        view.setEnabled(false);
+        selectedContinent="world";
+        view.setBackground(getResources().getDrawable(R.drawable.earth_hov));
         new CountDownTimer(1000,100){
             public void onTick(long ms){
 

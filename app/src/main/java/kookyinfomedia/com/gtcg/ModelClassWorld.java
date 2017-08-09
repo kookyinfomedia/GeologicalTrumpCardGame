@@ -1,7 +1,7 @@
 package kookyinfomedia.com.gtcg;
 
 
-public class ModelClass {
+public class ModelClassWorld {
     private String country,area,population,coastline,aUnits,bCountries,hPoint,capital,hPointName;
     private byte map[],flag[];
 

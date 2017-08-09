@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/world_normal"
+    android:hapticFeedbackEnabled="false"
+    android:id="@+id/rel">
+
+
+    <RelativeLayout
+        android:id="@+id/selected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="false"
+        android:background="#00FFFFFF" >
+
+
+
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/australia"
+            android:layout_width="@dimen/dimen_90dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:onClick="openDeckAustralia"
+            android:layout_marginBottom="14dp"
+            android:layout_marginEnd="17dp"
+            android:layout_above="@+id/antarctica"
+            android:layout_alignEnd="@+id/asia" />
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/antarctica"
+            android:layout_width="@dimen/dimen_300dp"
+            android:layout_height="@dimen/dimen_30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:onClick="openDeckAntarctica"/>
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/northAmerica"
+            android:layout_width="@dimen/dimen_180dp"
+            android:layout_height="@dimen/dimen_170dp"
+            android:onClick="openDeckNorthAmerica"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/africa" />
+
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/africa"
+            android:layout_width="@dimen/dimen_100dp"
+            android:layout_height="@dimen/dimen_100dp"
+            android:onClick="openDeckAfrica"
+            android:layout_below="@id/europe"
+            android:layout_centerHorizontal="true" />
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/europe"
+            android:layout_width="@dimen/dimen_95dp"
+            android:layout_height="@dimen/dimen_85dp"
+            
+            android:onClick="openDeckEurope"
+            android:layout_marginTop="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/asia"
+            android:layout_width="@dimen/dimen_160dp"
+            android:layout_height="@dimen/dimen_200dp"
+            
+            android:onClick="openDeckAsia"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/europe"
+            android:layout_above="@+id/australia"/>
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/india"
+            android:layout_width="@dimen/dimen_50dp"
+            android:layout_height="@dimen/dimen_60dp"
+            android:layout_marginStart="5dp"
+
+            android:onClick="openDeckIndia"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/africa" />
+        <ImageButton
+            android:background="#00ffffff"
+            android:id="@+id/southAmerica"
+            android:layout_width="@dimen/dimen_70dp"
+            android:layout_height="@dimen/dimen_100dp"
+            android:onClick="openDeckSouthAmerica"
+            android:layout_above="@+id/antarctica"
+            android:layout_alignStart="@+id/antarctica"
+            android:layout_below="@+id/northAmerica" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/earth1"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="openDeckWorld"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="86dp"
+        android:layout_marginBottom="70dp">
+
+        <LinearLayout
+            android:id="@+id/pop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="@dimen/dimen_105dp"
+            android:padding="@dimen/dimen_40dp">
+
+            <pl.droidsonroids.gif.GifImageView
+                android:id="@+id/gifImageView"
+                android:layout_width="@dimen/dimen_55dp"
+                android:layout_height="@dimen/dimen_45dp"
+                android:background="@drawable/tap" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="@dimen/dimen_210dp"
+                android:layout_height="@dimen/dimen_40dp"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:background="@drawable/chatbubble"
+                android:padding="@dimen/dimen_10dp"
+                android:text="@string/tap_to_play"
+                android:textAlignment="center"
+                android:textColor="#FFFFFFFF"
+                android:textSize="@dimen/dimen_14sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

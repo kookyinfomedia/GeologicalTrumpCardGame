@@ -15,11 +15,12 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static kookyinfomedia.com.gtcg.Category.selectedContinent;
 
 public class Toss extends AppCompatActivity {
     int res;
@@ -220,12 +221,23 @@ public class Toss extends AppCompatActivity {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                Intent intent = new Intent(Toss.this, LoadingScreen.class);
-                intent.putExtra("int_value", flag);
-                startActivity(intent);
-                doUnbindService();
-                stopMusic();
-                finish();
+                if(selectedContinent=="india")
+                {
+                    Intent intent = new Intent(Toss.this, GamePlayIndia.class);
+                    intent.putExtra("int_value", flag);
+                    startActivity(intent);
+                    doUnbindService();
+                    stopMusic();
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(Toss.this, GamePlay.class);
+                    intent.putExtra("int_value", flag);
+                    startActivity(intent);
+                    doUnbindService();
+                    stopMusic();
+                    finish();
+                }
             }
         };
 
@@ -279,7 +291,7 @@ public class Toss extends AppCompatActivity {
 
 
     public void next(View v){
-        Intent intent=new Intent(Toss.this,LoadingScreen.class);
+        Intent intent=new Intent(Toss.this,GamePlay.class);
         startActivity(intent);
         finish();
     }
