@@ -1,7 +1,10 @@
 package kookyinfomedia.com.gtcg;
 
+import android.util.Log;
+
 import java.util.Random;
 
+import static java.sql.Types.NULL;
 import static kookyinfomedia.com.gtcg.GamePlay.player;
 
 /********************************* for controlling game logic (Checks the winner and changes the scores.) ****************************/
@@ -14,7 +17,7 @@ public class ControllerIndia {
     Random ran=new Random();
     String riverName,cropName,mineralName;
     /////andy get river,crop,mineral by poistion+1
-    public int checkWin(ModelClassIndia m1,ModelClassIndia m2,int betField,int river,int crop,int mineral){
+    public int checkWin(ModelClassIndia m1,ModelClassIndia m2,int betField,String riverName,String cropName,String mineralName,String[] arrRivers,String[] arrCrops,String[] arrMinerals){
         first=player;
         if(first==1)
             second=2;
@@ -42,9 +45,9 @@ public class ControllerIndia {
             }
             case 3:{
                 if(Integer.parseInt(m1.getDistricts())<Integer.parseInt(m2.getDistricts()))
-                    playerNum=first;
-                else if(Integer.parseInt(m1.getDistricts())>Integer.parseInt(m2.getDistricts()))
                     playerNum=second;
+                else if(Integer.parseInt(m1.getDistricts())>Integer.parseInt(m2.getDistricts()))
+                    playerNum=first;
                 else
                     playerNum=first;
                 break;
@@ -60,182 +63,37 @@ public class ControllerIndia {
                 break;
             }
             case 5:{
-                switch(river){
-                    case 1: {
-                        riverName = m1.getRiver1();
-                        break;
-                    }
-                    case 2: {
-                        riverName = m1.getRiver2();
-                        break;
-                    }
-                    case 3: {
-                        riverName = m1.getRiver3();
-                        break;
-                    }
-                    case 4: {
-                        riverName = m1.getRiver4();
-                        break;
-                    }
+                    for(int i=0;i<arrRivers.length;i++){
+                        if(riverName.equalsIgnoreCase(arrRivers[i])) {
+                            playerNum = first;
+                            break;
+                        }
+                        else
+                            playerNum=second;
                 }
-               if(riverName.equalsIgnoreCase(m2.getRiver1()))
-                   playerNum=first;
-                else if(riverName.equalsIgnoreCase(m2.getRiver2()))
-                   playerNum=first;
-               else if(riverName.equalsIgnoreCase(m2.getRiver3()))
-                   playerNum=first;
-               else if(riverName.equalsIgnoreCase(m2.getRiver4()))
-                   playerNum=first;
-                else
-                    playerNum=second;
                 break;
-
             }
             case 6:{
-                switch(crop){
-                    case 1: {
-                        cropName = m1.getCrop1();
+                for(int i=0;i<arrCrops.length;i++){
+                    if(cropName.equalsIgnoreCase(arrCrops[i])) {
+                        playerNum = first;
                         break;
                     }
-                    case 2: {
-                        cropName = m1.getCrop2();
-                        break;
-                    }
-                    case 3: {
-                        cropName = m1.getCrop3();
-                        break;
-                    }
-                    case 4: {
-                        cropName = m1.getCrop4();
-                        break;
-                    }
-                    case 5: {
-                        cropName = m1.getCrop5();
-                        break;
-                    }
-                    case 6: {
-                        cropName = m1.getCrop6();
-                        break;
-                    }
-                    case 7: {
-                        cropName = m1.getCrop7();
-                        break;
-                    }
-                    case 8: {
-                        cropName = m1.getCrop8();
-                        break;
-                    }
-                    case 9: {
-                        cropName = m1.getCrop9();
-                        break;
-                    }
-                    case 10: {
-                        cropName = m1.getCrop10();
-                        break;
-                    }
-                    case 11: {
-                        cropName = m1.getCrop11();
-                        break;
-                    }
-
+                    else
+                        playerNum=second;
                 }
-                if(cropName.equalsIgnoreCase(m2.getCrop1()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop2()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop3()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop4()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop5()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop6()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop7()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop8()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop9()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop10()))
-                    playerNum=first;
-                else if(cropName.equalsIgnoreCase(m2.getCrop11()))
-                    playerNum=first;
-                else
-                    playerNum=second;
                 break;
+
             }
             case 7:{
-                switch(mineral) {
-                    case 1: {
-                        mineralName = m1.getMineral1();
+                for(int i=0;i<arrMinerals.length;i++){
+                    if(mineralName.equalsIgnoreCase(arrMinerals[i])) {
+                        playerNum = first;
                         break;
                     }
-                    case 2: {
-                        mineralName = m1.getMineral2();
-                        break;
-                    }
-                    case 3: {
-                        mineralName = m1.getMineral3();
-                        break;
-                    }
-                    case 4: {
-                        mineralName = m1.getMineral4();
-                        break;
-                    }
-                    case 5: {
-                        mineralName = m1.getMineral5();
-                        break;
-                    }
-                    case 6: {
-                        mineralName = m1.getMineral6();
-                        break;
-                    }
-                    case 7: {
-                        mineralName = m1.getMineral7();
-                        break;
-                    }
-                    case 8: {
-                        mineralName = m1.getMineral8();
-                        break;
-                    }
-                    case 9: {
-                        mineralName = m1.getMineral9();
-                        break;
-                    }
-                    case 10: {
-                        mineralName = m1.getMineral10();
-                        break;
-                    }
-                    case 11: {
-                        mineralName = m1.getMineral11();
-                        break;
-                    }
+                    else
+                        playerNum=second;
                 }
-                if(mineralName.equalsIgnoreCase(m2.getMineral1()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral2()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral3()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral4()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral5()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral6()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral7()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral8()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral9()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral10()))
-                    playerNum=first;
-                else if(mineralName.equalsIgnoreCase(m2.getMineral11()))
-                    playerNum=first;
-                else
-                    playerNum=second;
                 break;
             }
 

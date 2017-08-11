@@ -73,7 +73,7 @@ public class GamePlay extends AppCompatActivity {
     TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2;
     TextView txtArea2, txtPopulation2, txtCoastline2, txtAUnits2, txtBcountries2, txtHPoint2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
-    RelativeLayout relUpper,relP2,relP1;
+    RelativeLayout relUpper,relP2,relP1,relP1_border,relP2_border;
     Dialog dialog;
     LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
     int betField, playerNum, updatedScore;
@@ -185,6 +185,7 @@ public class GamePlay extends AppCompatActivity {
             ////accessing everything ! ////for first player
             cardP1 = (CardView) findViewById(R.id.cardP1);
             relP1=(RelativeLayout)findViewById(R.id.relP1);
+            relP1_border=(RelativeLayout)findViewById(R.id.relP1_border);
             cardBigLeft = (ImageView) findViewById(R.id.cardBigLeft);
 
             imgCard1_map = (RelativeLayout) findViewById(R.id.imgCard1_map);
@@ -218,6 +219,7 @@ public class GamePlay extends AppCompatActivity {
             /////////////////  for second player
             cardP2 = (CardView) findViewById(R.id.cardP2);
             relP2=(RelativeLayout)findViewById(R.id.relP2);
+            relP2_border=(RelativeLayout)findViewById(R.id.relP2_border);
             cardBigRight = (ImageView) findViewById(R.id.cardBigRight);
 
             imgCard2_map = (RelativeLayout) findViewById(R.id.imgCard2_map);
@@ -546,7 +548,7 @@ public class GamePlay extends AppCompatActivity {
         Drawable image = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(x).getMap(), 0, arr.get(x).getMap().length));
         image.setAlpha(100);
         relP1.setBackground(image);
-       // cardP1.setBackground(image);
+        relP2.setBackground(getResources().getDrawable(R.drawable.layout_white_border));
         imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
 
         modelClass = new ModelClass();
@@ -592,8 +594,7 @@ public class GamePlay extends AppCompatActivity {
         Drawable image2 = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(y).getMap(), 0, arr.get(y).getMap().length));
        image2.setAlpha(100);
         relP2.setBackground(image2);
-       // cardP2.setBackground(image2);
-
+        relP2_border.setBackground(getResources().getDrawable(R.drawable.layout_white_border));
         modelClass1.setCountry(arr.get(y).getCountry());
         modelClass1.setCapital(arr.get(y).getCapital());
         modelClass1.setArea(arr.get(y).getArea());

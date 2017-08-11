@@ -116,6 +116,10 @@
                 android:layout_height="@dimen/dimen_240dp"
                 android:padding="@dimen/dimen_2dp"
                 android:id="@+id/relP1">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/dimen_240dp"
+                    android:id="@+id/relP1_border">
 
                 <LinearLayout
                     android:id="@+id/linLayImg"
@@ -373,6 +377,7 @@
                         android:textColor="@color/colorPrimaryDark"/>
 
                 </LinearLayout>
+                </RelativeLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 
@@ -404,22 +409,31 @@
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardP2"
-            android:layout_width="@dimen/dimen_170dp"
-            android:layout_height="@dimen/dimen_240dp"
+            android:layout_width="@dimen/dimen_180dp"
+            android:layout_height="@dimen/dimen_250dp"
             android:layout_below="@id/relUpper"
             android:layout_toRightOf="@+id/relUpper"
             android:background="#FFFFFF"
             android:innerRadius="0dp"
             android:padding="@dimen/dimen_2dp"
+            android:paddingLeft="@dimen/dimen_5dp"
+            android:paddingRight="@dimen/dimen_5dp"
             android:shape="ring"
             android:thicknessRatio="2"
             app:cardCornerRadius="@dimen/dimen_10dp">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dimen_240dp"
+                android:layout_height="@dimen/dimen_250dp"
                 android:padding="@dimen/dimen_2dp"
+                android:layout_margin="8dp"
                 android:id="@+id/relP2">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dimen_240dp"
+                android:id="@+id/relP2_border"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp">
 
                 <LinearLayout
                     android:id="@+id/linLayImg2"
@@ -666,6 +680,7 @@
                         android:textSize="@dimen/dimen_10dp"
                         android:textColor="@color/colorPrimaryDark"/>
                 </LinearLayout>
+            </RelativeLayout>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
 

@@ -39,15 +39,17 @@
             android:name=".Toss"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".LoadingScreen"
+            android:name=".GamePlay"
             android:screenOrientation="sensorLandscape" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="e44ccf9b19418f55c139dcea8a9c37887e9bc234" />
 
-        <activity android:name=".Help"
-            android:screenOrientation="sensorLandscape"></activity>
+        <activity
+            android:name=".Help"
+            android:screenOrientation="sensorLandscape" />
+        <activity android:name=".GamePlayIndia"></activity>
     </application>
 
 </manifest>

@@ -312,12 +312,7 @@
                         android:layout_width="@dimen/dimen_70dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/valNationalPark"
-                        android:layout_marginBottom="@dimen/dimen_5dp"
-                        android:layout_marginLeft="-3dp"
-                        android:layout_marginTop="@dimen/dimen_5dp"
-                        android:layout_toRightOf="@+id/txtBCountries"
-                        android:textSize="@dimen/dimen_10dp"
-                        android:textColor="@color/colorPrimaryDark"/>
+                        android:layout_toRightOf="@+id/txtBCountries" />
                 </LinearLayout>
 
                 <LinearLayout

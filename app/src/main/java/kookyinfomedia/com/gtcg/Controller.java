@@ -2,7 +2,7 @@ package kookyinfomedia.com.gtcg;
 
 import static kookyinfomedia.com.gtcg.GamePlay.player;
 
-/********************************* for controlling game logic (Checks the winner and changes the scores.) ****************************/
+/*for controlling game logic (Checks the winner and changes the scores.)*/
 
 
 public class Controller {

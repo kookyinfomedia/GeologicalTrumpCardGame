@@ -23,7 +23,9 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -40,6 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,33 +54,35 @@ import static kookyinfomedia.com.gtcg.Toss.toss;
 
 
 public class GamePlayIndia extends AppCompatActivity {
-    RelativeLayout fullrel, relLoad,rel1,relPopup;
+    RelativeLayout fullrel, relLoad, rel1, relPopup;
     private static final String TAG = "";
     public static int player;
     File imageFile;
     public static Bitmap bitmap;
     public static String mPath;
     final Context context = this;
-    int flag = 0,river,mineral,crop;
-    int flagInt,flagBack=0;
+    int flag = 0;
+    String riverName, cropName, mineralName;
+    String[] arrRivers, arrMinerals, arrCrops, arrRivers2, arrMinerals2, arrCrops2;
+    int flagInt, flagBack = 0;
     Animation animation2, animation;
     DBAdapter obj;
     ArrayList<ModelClassIndia> arr = new ArrayList<ModelClassIndia>();
     ControllerIndia controllerIndia;
     //ImageView imgCard1_flag, imgCard2_flag;
-    RelativeLayout imgCard1_State,imgCard2_State;
+    RelativeLayout imgCard1_State, imgCard2_State;
     ModelClassIndia modelClassIndia, modelClass1India;
     Button cardLoudspeaker, cardBack, loudspeaker;
     CardView cardP1, cardP2, Score, cardP3;
     int screenHeight;
     ImageView cardBigLeft, cardBigRight, cardSmallLeft, cardSmallRight, toast, cardCoinLeft, cardCoinRight;
-    TextView txtArea, txtPopulation, txtDistrict, txtNationalPark, txtRiver, txtCrop, txtMineral,txtState1;
-    TextView valArea, valPopulation, valDistrict, valNationalPark,txtState2;
-    Spinner spinRiver, spinCrop,spinMineral,spinRiver2, spinCrop2,spinMineral2;
+    TextView txtArea, txtPopulation, txtDistrict, txtNationalPark, txtRiver, txtCrop, txtMineral, txtState1;
+    TextView valArea, valPopulation, valDistrict, valNationalPark, txtState2;
+    Spinner spinRiver, spinCrop, spinMineral, spinRiver2, spinCrop2, spinMineral2;
     TextView txtArea2, txtPopulation2, txtDistrict2, txtNationalPark2, txtRiver2, txtCrop2, txtMineral2;
     TextView valArea2, valPopulation2, valDistrict2, valNationalPark2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
-    RelativeLayout relUpper,relP2,relP1;
+    RelativeLayout relUpper, relP2, relP1;
     Dialog dialog;
     LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
     int betField, playerNum, updatedScore;
@@ -122,17 +127,15 @@ public class GamePlayIndia extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_play_india);
         flagInt = getIntent().getIntExtra("int_value", 0);
-        if(flagInt==1)
-        {
+        if (flagInt == 1) {
             stopMusic();
-        }
-        else{
+        } else {
             startMusic();
         }
         fullrel = (RelativeLayout) findViewById(R.id.fullrel);
         relLoad = (RelativeLayout) findViewById(R.id.relLoad);
-        relPopup=(RelativeLayout)findViewById(R.id.relPopup);
-        rel1=(RelativeLayout)findViewById(R.id.rel1);
+        relPopup = (RelativeLayout) findViewById(R.id.relPopup);
+        rel1 = (RelativeLayout) findViewById(R.id.rel1);
         relLoad.setVisibility(View.VISIBLE);
         relPopup.setVisibility(View.INVISIBLE);
         fullrel.setVisibility(View.INVISIBLE);
@@ -188,20 +191,20 @@ public class GamePlayIndia extends AppCompatActivity {
 
             ////accessing everything ! ////for first player
             cardP1 = (CardView) findViewById(R.id.cardP1);
-            relP1=(RelativeLayout)findViewById(R.id.relP1);
+            relP1 = (RelativeLayout) findViewById(R.id.relP1);
             cardBigLeft = (ImageView) findViewById(R.id.cardBigLeft);
 
             imgCard1_State = (RelativeLayout) findViewById(R.id.imgCard1_State);
             //imgCard1_flag = (ImageView) findViewById(R.id.imgCard1_flag);
 
-            txtState1=(TextView)findViewById(R.id.txtStateName);
+            txtState1 = (TextView) findViewById(R.id.txtStateName);
             txtArea = (TextView) findViewById(R.id.txtArea);
             txtPopulation = (TextView) findViewById(R.id.txtPopulation);
             txtDistrict = (TextView) findViewById(R.id.txtDistrict);
             txtNationalPark = (TextView) findViewById(R.id.txtNationalPark);
             txtRiver = (TextView) findViewById(R.id.txtRiver);
             txtCrop = (TextView) findViewById(R.id.txtCrop);
-            txtMineral=(TextView)findViewById(R.id.txtMineral);
+            txtMineral = (TextView) findViewById(R.id.txtMineral);
 
             valArea = (TextView) findViewById(R.id.valArea);
             valPopulation = (TextView) findViewById(R.id.valPopulation);
@@ -209,7 +212,7 @@ public class GamePlayIndia extends AppCompatActivity {
             valNationalPark = (TextView) findViewById(R.id.valNationalPark);
             spinRiver = (Spinner) findViewById(R.id.spinRiver);
             spinCrop = (Spinner) findViewById(R.id.spinCrop);
-            spinMineral=(Spinner)findViewById(R.id.spinMineral);
+            spinMineral = (Spinner) findViewById(R.id.spinMineral);
 
             l1 = (LinearLayout) findViewById(R.id.linLay1);
             l2 = (LinearLayout) findViewById(R.id.linLay2);
@@ -222,20 +225,20 @@ public class GamePlayIndia extends AppCompatActivity {
 
             /////////////////  for second player
             cardP2 = (CardView) findViewById(R.id.cardP2);
-            relP2=(RelativeLayout)findViewById(R.id.relP2);
+            relP2 = (RelativeLayout) findViewById(R.id.relP2);
             cardBigRight = (ImageView) findViewById(R.id.cardBigRight);
 
             imgCard2_State = (RelativeLayout) findViewById(R.id.imgCard2_State);
-           // imgCard2_flag = (ImageView) findViewById(R.id.imgCard2_flag);
+            // imgCard2_flag = (ImageView) findViewById(R.id.imgCard2_flag);
 
-            txtState2=(TextView)findViewById(R.id.txtStateName2);
+            txtState2 = (TextView) findViewById(R.id.txtStateName2);
             txtArea2 = (TextView) findViewById(R.id.txtArea2);
             txtPopulation2 = (TextView) findViewById(R.id.txtPopulation2);
             txtDistrict2 = (TextView) findViewById(R.id.txtDistrict2);
             txtNationalPark2 = (TextView) findViewById(R.id.txtNationalPark2);
             txtRiver2 = (TextView) findViewById(R.id.txtRiver2);
             txtCrop2 = (TextView) findViewById(R.id.txtCrop2);
-            txtMineral2=(TextView)findViewById(R.id.txtMineral2);
+            txtMineral2 = (TextView) findViewById(R.id.txtMineral2);
 
             valArea2 = (TextView) findViewById(R.id.valArea2);
             valPopulation2 = (TextView) findViewById(R.id.valPopulation2);
@@ -243,7 +246,7 @@ public class GamePlayIndia extends AppCompatActivity {
             valNationalPark2 = (TextView) findViewById(R.id.valNationalPark2);
             spinRiver2 = (Spinner) findViewById(R.id.spinRiver2);
             spinCrop2 = (Spinner) findViewById(R.id.spinCrop2);
-            spinMineral2=(Spinner)findViewById(R.id.spinMineral2);
+            spinMineral2 = (Spinner) findViewById(R.id.spinMineral2);
 
             l11 = (LinearLayout) findViewById(R.id.linLay11);
             l12 = (LinearLayout) findViewById(R.id.linLay12);
@@ -268,10 +271,11 @@ public class GamePlayIndia extends AppCompatActivity {
         }
 
         protected void onPostExecute(ArrayList arr) {
-            new CountDownTimer(500,100){
-                public void onTick(long ms){
+            new CountDownTimer(500, 100) {
+                public void onTick(long ms) {
                 }
-                public void onFinish(){
+
+                public void onFinish() {
                     txtScoreVal.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
                     relLoad.setVisibility(View.INVISIBLE);
@@ -312,7 +316,7 @@ public class GamePlayIndia extends AppCompatActivity {
                             cardBigRight.setVisibility(View.VISIBLE);
                             txtMyVal.setText("" + myCard);
                             txtOppVal.setText("" + oppCard);
-                            if(score!=0)
+                            if (score != 0)
                                 txtScoreVal.setText("" + score);
                             else
                                 txtScoreVal.setText("0000");
@@ -445,7 +449,8 @@ public class GamePlayIndia extends AppCompatActivity {
         }
 
     }
-    public void touchOff(){
+
+    public void touchOff() {
         l1.setEnabled(false);
         l2.setEnabled(false);
         l3.setEnabled(false);
@@ -454,7 +459,7 @@ public class GamePlayIndia extends AppCompatActivity {
         l6.setEnabled(false);
     }
 
-    public void touchOn(){
+    public void touchOn() {
         l1.setEnabled(true);
         l2.setEnabled(true);
         l3.setEnabled(true);
@@ -520,15 +525,9 @@ public class GamePlayIndia extends AppCompatActivity {
         do {
             Random ran = new Random();
             x = ran.nextInt(arr.size());
-            if (x < 0 || x > arr.size())
-                x = 1;
             y = ran.nextInt(arr.size());
-            if (y < 0 || y > arr.size())
-                y = 1;
-            //valArea.setText(arr.get(count).getCountry());
+
         } while (x == y);
-
-
         txtState1.setText(arr.get(x).getState());
         //txtCapital1.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
@@ -545,32 +544,30 @@ public class GamePlayIndia extends AppCompatActivity {
         //valAUnits.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
 
-        String[] rivers = {arr.get(x).getRiver1(),arr.get(x).getRiver2(),arr.get(x).getRiver3(),arr.get(x).getRiver4()};
-        ArrayAdapter<String>adapter = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item,rivers);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinRiver.setAdapter(adapter);
+        String rivers = arr.get(x).getRiver();
+        arrRivers = rivers.split(",");
+        /*ArrayAdapter<String>adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,arrRivers);
+        adapter.setDropDownViewResource(R.layout.spinner_item);
+        spinRiver.setAdapter(adapter);*/
+        spinRiver.setAdapter(new MyAdapter(GamePlayIndia.this, R.layout.custom, arrRivers));
         //spinRiver.setOnItemSelectedListener(GamePlayIndiathis);
         //spinRiver.setText(arr.get(x).getRiver1());
         //valBCountries.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        String[] crops = {arr.get(x).getCrop1(),arr.get(x).getCrop2(),arr.get(x).getCrop3(),arr.get(x).getCrop4(),arr.get(x).getCrop5(),
-                arr.get(x).getCrop6(),arr.get(x).getCrop7(),arr.get(x).getCrop8(),arr.get(x).getCrop9(),arr.get(x).getCrop10(),
-                arr.get(x).getCrop11()};
-        ArrayAdapter<String>adapter2 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item,crops);
+        String crops = arr.get(x).getCrop();
+        arrCrops = crops.split(",");
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(GamePlayIndia.this,
+                android.R.layout.simple_spinner_item, arrCrops);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinCrop.setAdapter(adapter2);
         //valHPoint.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        String[] minerals = {arr.get(x).getMineral1(),arr.get(x).getMineral2(),arr.get(x).getMineral3(),arr.get(x).getMineral4(),
-                arr.get(x).getMineral5(),arr.get(x).getMineral6(),arr.get(x).getMineral7(),arr.get(x).getMineral8(),
-                arr.get(x).getMineral9(),arr.get(x).getMineral10(),arr.get(x).getMineral11()};
-        ArrayAdapter<String>adapter3 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item,minerals);
+        String minerals = arr.get(x).getMineral();
+        arrMinerals = minerals.split(",");
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(GamePlayIndia.this,
+                android.R.layout.simple_spinner_item, arrMinerals);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinCrop.setAdapter(adapter3);
+        spinMineral.setAdapter(adapter3);
 
 
         //imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
@@ -590,39 +587,15 @@ public class GamePlayIndia extends AppCompatActivity {
         modelClassIndia.setDistricts(arr.get(x).getDistricts());
         modelClassIndia.setNational_parks(arr.get(x).getNational_parks());
 
-        modelClassIndia.setRiver1(arr.get(x).getRiver1());
-        modelClassIndia.setRiver2(arr.get(x).getRiver2());
-        modelClassIndia.setRiver3(arr.get(x).getRiver3());
-        modelClassIndia.setRiver4(arr.get(x).getRiver4());
+        modelClassIndia.setRiver(arr.get(x).getRiver());
 
-        modelClassIndia.setCrop1(arr.get(x).getCrop1());
-        modelClassIndia.setCrop2(arr.get(x).getCrop2());
-        modelClassIndia.setCrop3(arr.get(x).getCrop3());
-        modelClassIndia.setCrop4(arr.get(x).getCrop4());
-        modelClassIndia.setCrop5(arr.get(x).getCrop5());
-        modelClassIndia.setCrop6(arr.get(x).getCrop6());
-        modelClassIndia.setCrop7(arr.get(x).getCrop7());
-        modelClassIndia.setCrop8(arr.get(x).getCrop8());
-        modelClassIndia.setCrop9(arr.get(x).getCrop9());
-        modelClassIndia.setCrop10(arr.get(x).getCrop10());
-        modelClassIndia.setCrop11(arr.get(x).getCrop11());
+        modelClassIndia.setCrop(arr.get(x).getCrop());
 
 
-        modelClassIndia.setMineral1(arr.get(x).getMineral1());
-        modelClassIndia.setMineral2(arr.get(x).getMineral2());
-        modelClassIndia.setMineral3(arr.get(x).getMineral3());
-        modelClassIndia.setMineral4(arr.get(x).getMineral4());
-        modelClassIndia.setMineral5(arr.get(x).getMineral5());
-        modelClassIndia.setMineral6(arr.get(x).getMineral6());
-        modelClassIndia.setMineral7(arr.get(x).getMineral7());
-        modelClassIndia.setMineral8(arr.get(x).getMineral8());
-        modelClassIndia.setMineral9(arr.get(x).getMineral9());
-        modelClassIndia.setMineral10(arr.get(x).getMineral10());
-        modelClassIndia.setMineral11(arr.get(x).getMineral11());
+        modelClassIndia.setMineral(arr.get(x).getMineral());
 
 
         //modelClassIndia.setMap(arr.get(x).getMap());
-
 
 
         txtState2.setText(arr.get(y).getState());
@@ -641,30 +614,29 @@ public class GamePlayIndia extends AppCompatActivity {
         //valAUnits.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
 
-        String[] rivers2 = {arr.get(y).getRiver1(),arr.get(y).getRiver2(),arr.get(y).getRiver3(),arr.get(y).getRiver4()};
-        ArrayAdapter<String>adapter4 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item,rivers2);
+        String rivers2 = arr.get(y).getRiver();
+        arrRivers2 = rivers2.split(",");
+        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(GamePlayIndia.this,
+                android.R.layout.simple_spinner_item, arrRivers2);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinRiver.setAdapter(adapter4);
+        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinRiver2.setAdapter(adapter4);
         //spinRiver.setOnItemSelectedListener(GamePlayIndiathis);
 
-        String[] crops2 = {arr.get(y).getCrop1(),arr.get(y).getCrop2(),arr.get(y).getCrop3(),arr.get(y).getCrop4(),arr.get(y).getCrop5(),
-                arr.get(y).getCrop6(),arr.get(y).getCrop7(),arr.get(y).getCrop8(),arr.get(y).getCrop9(),arr.get(y).getCrop10(),
-                arr.get(y).getCrop11()};
-        ArrayAdapter<String>adapter5 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item,crops2);
+        String crops2 = arr.get(y).getCrop();
+        arrCrops2 = crops2.split(",");
+        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(GamePlayIndia.this,
+                android.R.layout.simple_spinner_item, arrCrops2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinCrop.setAdapter(adapter5);
+        spinCrop2.setAdapter(adapter5);
         //valHPoint.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        String[] minerals2 = {arr.get(y).getMineral1(),arr.get(y).getMineral2(),arr.get(y).getMineral3(),arr.get(y).getMineral4(),
-                arr.get(y).getMineral5(),arr.get(y).getMineral6(),arr.get(y).getMineral7(),arr.get(y).getMineral8(),
-                arr.get(y).getMineral9(),arr.get(y).getMineral10(),arr.get(y).getMineral11()};
-        ArrayAdapter<String>adapter6 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item,minerals2);
+        String minerals2 = arr.get(y).getMineral();
+        arrMinerals2 = minerals2.split(",");
+        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(GamePlayIndia.this,
+                android.R.layout.simple_spinner_item, arrMinerals2);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinCrop.setAdapter(adapter6);
+        spinMineral2.setAdapter(adapter6);
 
 
         //imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
@@ -675,42 +647,18 @@ public class GamePlayIndia extends AppCompatActivity {
         relP2.setBackground(image2);*/
 
 
-
         modelClass1India.setState(arr.get(y).getState());
         modelClass1India.setArea(arr.get(y).getArea());
         modelClass1India.setPopulation(arr.get(y).getPopulation());
         modelClass1India.setDistricts(arr.get(y).getDistricts());
         modelClass1India.setNational_parks(arr.get(y).getNational_parks());
 
-        modelClass1India.setRiver1(arr.get(y).getRiver1());
-        modelClass1India.setRiver2(arr.get(y).getRiver2());
-        modelClass1India.setRiver3(arr.get(y).getRiver3());
-        modelClass1India.setRiver4(arr.get(y).getRiver4());
+        modelClass1India.setRiver(arr.get(y).getRiver());
 
-        modelClass1India.setCrop1(arr.get(y).getCrop1());
-        modelClass1India.setCrop2(arr.get(y).getCrop2());
-        modelClass1India.setCrop3(arr.get(y).getCrop3());
-        modelClass1India.setCrop4(arr.get(y).getCrop4());
-        modelClass1India.setCrop5(arr.get(y).getCrop5());
-        modelClass1India.setCrop6(arr.get(y).getCrop6());
-        modelClass1India.setCrop7(arr.get(y).getCrop7());
-        modelClass1India.setCrop8(arr.get(y).getCrop8());
-        modelClass1India.setCrop9(arr.get(y).getCrop9());
-        modelClass1India.setCrop10(arr.get(y).getCrop10());
-        modelClass1India.setCrop11(arr.get(y).getCrop11());
+        modelClass1India.setCrop(arr.get(y).getCrop());
 
 
-        modelClass1India.setMineral1(arr.get(y).getMineral1());
-        modelClass1India.setMineral2(arr.get(y).getMineral2());
-        modelClass1India.setMineral3(arr.get(y).getMineral3());
-        modelClass1India.setMineral4(arr.get(y).getMineral4());
-        modelClass1India.setMineral5(arr.get(y).getMineral5());
-        modelClass1India.setMineral6(arr.get(y).getMineral6());
-        modelClass1India.setMineral7(arr.get(y).getMineral7());
-        modelClass1India.setMineral8(arr.get(y).getMineral8());
-        modelClass1India.setMineral9(arr.get(y).getMineral9());
-        modelClass1India.setMineral10(arr.get(y).getMineral10());
-        modelClass1India.setMineral11(arr.get(y).getMineral11());
+        modelClass1India.setMineral(arr.get(y).getMineral());
 
 
         //modelClass1India.setMap(arr.get(y).getMap());
@@ -854,22 +802,23 @@ public class GamePlayIndia extends AppCompatActivity {
 
     /////////// Method to be called if user selects Bordering Countries for betting. //////////////////////////
     public void riverSelectI(View v) {
-        if(playerNum==2){
-            Random random=new Random();
-            int r=random.nextInt(3);
+        if (playerNum == 2) {
+            Random random = new Random();
+            int r = random.nextInt(4);
             spinRiver2.setSelection(r);
-        }
-        else {
+            riverName = arrRivers2[r];
+        } else {
             //spinRiver.performClick();
+            riverName = arrRivers[0];
             spinRiver.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    river=i+1;
+                    riverName = arrRivers[i];
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
-                    river=1;
+                    riverName = arrRivers[0];
                 }
             });
 
@@ -890,22 +839,22 @@ public class GamePlayIndia extends AppCompatActivity {
 
     /////////// Method to be called if user selects highest point for betting. ////////////////////
     public void cropSelectI(View v) {
-        if(playerNum==2){
-            Random random=new Random();
-            int r=random.nextInt(10);
+        if (playerNum == 2) {
+            Random random = new Random();
+            int r = random.nextInt(11);
             spinCrop2.setSelection(r);
-        }
-        else {
+            cropName = arrCrops2[r];
+        } else {
             //spinCrop.performClick();
             spinCrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    crop=i+1;
+                    cropName = arrCrops[i];
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
-                    crop=1;
+                    cropName = arrCrops[0];
                 }
             });
         }
@@ -922,22 +871,22 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
     public void mineralSelectI(View v) {
-        if(playerNum==2){
-            Random random=new Random();
-            int r=random.nextInt(10);
+        if (playerNum == 2) {
+            Random random = new Random();
+            int r = random.nextInt(11);
             spinMineral2.setSelection(r);
-        }
-        else {
+            mineralName = arrMinerals2[r];
+        } else {
             //spinMineral.performClick();
             spinMineral.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    mineral=i+1;
+                    mineralName = arrMinerals[i];
                 }
 
                 @Override
                 public void onNothingSelected(AdapterView<?> adapterView) {
-                    mineral=1;
+                    mineralName = arrMinerals[0];
                 }
             });
         }
@@ -1010,9 +959,9 @@ public class GamePlayIndia extends AppCompatActivity {
         if (myCard != 0 && oppCard != 0) {
             playerNum = 0;
             if (player == 1)
-                playerNum = controllerIndia.checkWin(modelClassIndia, modelClass1India, betField,river,crop,mineral);
+                playerNum = controllerIndia.checkWin(modelClassIndia, modelClass1India, betField, riverName, cropName, mineralName, arrRivers2, arrCrops2, arrMinerals2);
             else
-                playerNum = controllerIndia.checkWin(modelClass1India, modelClassIndia, betField,river,crop,mineral);
+                playerNum = controllerIndia.checkWin(modelClass1India, modelClassIndia, betField, riverName, cropName, mineralName, arrRivers, arrCrops, arrMinerals);
             updatedScore = controllerIndia.updateScore(playerNum);
             if (updatedScore == 1) {
                 score = score + 100;
@@ -1062,7 +1011,7 @@ public class GamePlayIndia extends AppCompatActivity {
                     }
                 }.start();
             } else if (updatedScore == 0) {
-                if(score!=00)
+                if (score != 0)
                     score = score - 100;
                 myCard = myCard - 1;
                 oppCard = oppCard + 1;
@@ -1110,7 +1059,7 @@ public class GamePlayIndia extends AppCompatActivity {
                     }
                 }.start();
             }
-            if(score!=0)
+            if (score != 0)
                 txtScoreVal.setText("" + score);
             else
                 txtScoreVal.setText("0000");
@@ -1561,26 +1510,24 @@ public class GamePlayIndia extends AppCompatActivity {
         l16.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
 
-
     }
 
     @Override
     public void onBackPressed() {
 
-        if(flagBack==0) {
+        if (flagBack == 0) {
             bitmap = captureScreen(rel1);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             fullrel.setVisibility(View.INVISIBLE);
             relPopup.setVisibility(View.VISIBLE);
-            Drawable d=new BitmapDrawable(getResources(),bitmap);
+            Drawable d = new BitmapDrawable(getResources(), bitmap);
             relPopup.setBackground(d);
-            flagBack=1;
-        }
-        else{
+            flagBack = 1;
+        } else {
             relPopup.setVisibility(View.INVISIBLE);
             fullrel.setVisibility(View.VISIBLE);
-            flagBack=0;
+            flagBack = 0;
         }
 
         if (gameOverFlag == 0) {
@@ -1604,7 +1551,7 @@ public class GamePlayIndia extends AppCompatActivity {
                     dialog.dismiss();
                     relPopup.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
-                    flagBack=0;
+                    flagBack = 0;
                 }
             });
             // Load the game again
@@ -1612,7 +1559,7 @@ public class GamePlayIndia extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent abc = new Intent(GamePlayIndia.this, Toss.class);
-                    abc.putExtra("int_value",flagInt);
+                    abc.putExtra("int_value", flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1622,7 +1569,7 @@ public class GamePlayIndia extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent abc = new Intent(GamePlayIndia.this, Options.class);
-                    abc.putExtra("int_value",flagInt);
+                    abc.putExtra("int_value", flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1631,37 +1578,34 @@ public class GamePlayIndia extends AppCompatActivity {
             dialog.show();
         } else {
             Intent intent = new Intent(GamePlayIndia.this, Options.class);
-            intent.putExtra("int_value",flagInt);
+            intent.putExtra("int_value", flagInt);
             startActivity(intent);
             finish();
         }
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
-        {
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
-            public void onCancel(DialogInterface dialog)
-            {
+            public void onCancel(DialogInterface dialog) {
                 relPopup.setVisibility(View.INVISIBLE);
                 fullrel.setVisibility(View.VISIBLE);
-                flagBack=0;
+                flagBack = 0;
             }
         });
     }
 
-    public void backLI(View v){
-        if(flagBack==0) {
+    public void backLI(View v) {
+        if (flagBack == 0) {
             bitmap = captureScreen(rel1);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             fullrel.setVisibility(View.INVISIBLE);
             relPopup.setVisibility(View.VISIBLE);
-            Drawable d=new BitmapDrawable(getResources(),bitmap);
+            Drawable d = new BitmapDrawable(getResources(), bitmap);
             relPopup.setBackground(d);
-            flagBack=1;
-        }
-        else{
+            flagBack = 1;
+        } else {
             relPopup.setVisibility(View.INVISIBLE);
             fullrel.setVisibility(View.VISIBLE);
-            flagBack=0;
+            flagBack = 0;
         }
 
         if (gameOverFlag == 0) {
@@ -1685,7 +1629,7 @@ public class GamePlayIndia extends AppCompatActivity {
                     dialog.dismiss();
                     relPopup.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
-                    flagBack=0;
+                    flagBack = 0;
                 }
             });
             // Load the game again
@@ -1713,14 +1657,12 @@ public class GamePlayIndia extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
-        {
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
-            public void onCancel(DialogInterface dialog)
-            {
+            public void onCancel(DialogInterface dialog) {
                 relPopup.setVisibility(View.INVISIBLE);
                 fullrel.setVisibility(View.VISIBLE);
-                flagBack=0;
+                flagBack = 0;
             }
         });
     }
@@ -1789,4 +1731,55 @@ public class GamePlayIndia extends AppCompatActivity {
         }
     }
 
+
+    public class MyAdapter extends ArrayAdapter {
+
+        public MyAdapter(Context context, int textViewResourceId, String[] objects) {
+            super(context, textViewResourceId, objects);
+        }
+
+       public View getCustomView(int position, View convertView,
+                                  ViewGroup parent) {
+
+// Inflating the layout for the custom Spinner
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.custom, parent, false);
+
+// Declaring and Typecasting the textview in the inflated layout
+            TextView tvLanguage = (TextView) layout
+                    .findViewById(R.id.tvLanguage);
+
+// Setting the text using the array
+           for(int i=0;i<arrRivers.length;i++){
+               tvLanguage.setText(arrRivers[i]);
+           }
+
+// Setting the color of the text
+            tvLanguage.setTextColor(getResources().getColor(R.color.colorLight));
+
+// Setting Special atrributes for 1st element
+            if (position == 0) {
+// Setting the size of the text
+                tvLanguage.setTextSize(20f);
+// Setting the text Color
+                tvLanguage.setTextColor(Color.BLACK);
+
+            }
+
+            return layout;
+        }
+
+        // It gets a View that displays in the drop down popup the data at the specified position
+        @Override
+        public View getDropDownView(int position, View convertView,
+                                    ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+
+        // It gets a View that displays the data at the specified position
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getCustomView(position, convertView, parent);
+        }
+    }
 }
