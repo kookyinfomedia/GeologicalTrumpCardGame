@@ -1,15 +1,17 @@
 package kookyinfomedia.com.gtcg;
 
 import android.animation.Animator;
+import android.os.CountDownTimer;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -29,6 +31,7 @@ public class DeckSelect extends AppCompatActivity {
     int flag=0;
     public static int deck;
     Button deck16,deck32,deck52;
+    MediaPlayer clicksound;
     //------------------------------------------Service Binding------------------------------------//
     private boolean mIsBound = false;
     private MusicService mServ;
@@ -67,6 +70,7 @@ public class DeckSelect extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_deck_select);
+        clicksound= MediaPlayer.create(this, R.raw.clicksound);
         playMenuAnimation();
         deck16=(Button)findViewById(R.id.deck16);
         deck32=(Button)findViewById(R.id.deck32);
@@ -86,7 +90,7 @@ public class DeckSelect extends AppCompatActivity {
     public void soundDeck(View view)
     {
         Button speaker =(Button) view;
-
+        clicksound.start();
         if(flag==0)
         {
             speaker.setBackgroundResource(R.drawable.soundoff);
@@ -100,6 +104,7 @@ public class DeckSelect extends AppCompatActivity {
 
     }
     public void back(View view){
+        clicksound.start();
         Intent intent = new Intent(DeckSelect.this,Options.class);
         intent.putExtra("int_value",flag);
         startActivity(intent);
@@ -107,6 +112,7 @@ public class DeckSelect extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
+        clicksound.start();
         Intent intent=new Intent(this,Options.class);
         intent.putExtra("int_value",flag);
         startActivity(intent);
@@ -121,6 +127,7 @@ public void clickOff(){
 
 
     public void deckSelected16(View v){
+        clicksound.start();
         clickOff();
         deck16.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
@@ -163,6 +170,7 @@ public void clickOff(){
 
     }
     public void deckSelected32(View v){
+        clicksound.start();
         clickOff();
         deck32.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
@@ -205,6 +213,7 @@ public void clickOff(){
 
     }
     public void deckSelected52(View v){
+        clicksound.start();
         clickOff();
         deck52.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
@@ -262,14 +271,30 @@ public void clickOff(){
         }
 
     }
-
     @Override
     public void onStop(){
         super.onStop();
         doUnbindService();
         stopMusic();
     }
+    @Override
+    public  void onPause()
+    {
+        super.onPause();
+        // If the screen is off then the device has been locked
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        boolean isScreenOn = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
+            isScreenOn = powerManager.isInteractive();
+        }else{
+            isScreenOn = powerManager.isScreenOn();
+        }
+        if (!isScreenOn) {
 
+            doUnbindService();
+            stopMusic();
+        }
+    }
 
     private void playMenuAnimation() {
         Button btnBack = (Button)findViewById(R.id.back);

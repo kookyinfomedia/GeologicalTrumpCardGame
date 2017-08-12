@@ -16,11 +16,13 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.Display;
@@ -73,11 +75,14 @@ public class GamePlay extends AppCompatActivity {
     TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2;
     TextView txtArea2, txtPopulation2, txtCoastline2, txtAUnits2, txtBcountries2, txtHPoint2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
-    RelativeLayout relUpper,relP2,relP1,relP1_border,relP2_border;
+    RelativeLayout relUpper,relP2,relP1;
     Dialog dialog;
+    RelativeLayout relUpper,relP2,relP1,relP1_border,relP2_border;
     LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
     int betField, playerNum, updatedScore;
     Animation myAnim, myAnimFinal;
+    MediaPlayer cardTap,cardWoosh,clicksound;;
+
 
     public static int gameOverFlag = 0;
     int score = 0, myCard = deck, oppCard = deck;
@@ -117,6 +122,12 @@ public class GamePlay extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_play);
+        cardTap = MediaPlayer.create(GamePlay.this,R.raw.card_flip);
+        cardWoosh = MediaPlayer.create(GamePlay.this,R.raw.card_woosh);
+        cardWoosh.setVolume(0.8f,0.8f);
+        cardTap.setVolume(0.8f,0.8f);
+        clicksound= MediaPlayer.create(this, R.raw.clicksound);
+
         flagInt = getIntent().getIntExtra("int_value", 0);
         if(flagInt==1)
         {
@@ -137,17 +148,23 @@ public class GamePlay extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        finish();
-    }
-
-    @Override
-    public void onPause() {
+    public  void onPause()
+    {
         super.onPause();
+        // If the screen is off then the device has been locked
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        boolean isScreenOn = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
+            isScreenOn = powerManager.isInteractive();
+        }else{
+            isScreenOn = powerManager.isScreenOn();
+        }
+        if (!isScreenOn) {
 
+            doUnbindService();
+            stopMusic();
+        }
     }
-
     private class MyAsyncTask extends AsyncTask<Void, Void, ArrayList> {
         protected ArrayList doInBackground(Void... voids) {
             try {
@@ -332,7 +349,7 @@ public class GamePlay extends AppCompatActivity {
                                         animation1.setAnimationListener(new Animation.AnimationListener() {
                                             @Override
                                             public void onAnimationStart(Animation animation) {
-
+                                                    cardWoosh.start();
                                             }
 
                                             @Override
@@ -408,7 +425,7 @@ public class GamePlay extends AppCompatActivity {
                             myAnim1.setAnimationListener(new Animation.AnimationListener() {
                                 @Override
                                 public void onAnimationStart(Animation animation) {
-
+                                    cardWoosh.start();
                                 }
 
                                 @Override
@@ -595,6 +612,7 @@ public class GamePlay extends AppCompatActivity {
        image2.setAlpha(100);
         relP2.setBackground(image2);
         relP2_border.setBackground(getResources().getDrawable(R.drawable.layout_white_border));
+
         modelClass1.setCountry(arr.get(y).getCountry());
         modelClass1.setCapital(arr.get(y).getCapital());
         modelClass1.setArea(arr.get(y).getArea());
@@ -647,7 +665,7 @@ public class GamePlay extends AppCompatActivity {
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-
+                   cardTap.start();
                 }
 
                 @Override
@@ -782,7 +800,7 @@ public class GamePlay extends AppCompatActivity {
         animation1.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-
+                    cardTap.start();
             }
 
             @Override
@@ -956,7 +974,7 @@ public class GamePlay extends AppCompatActivity {
                     animation1.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
-
+                            cardWoosh.start();
                         }
 
                         @Override
@@ -1107,7 +1125,9 @@ public class GamePlay extends AppCompatActivity {
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlay.this, DeckSelect.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1115,7 +1135,9 @@ public class GamePlay extends AppCompatActivity {
         image3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlay.this, Options.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1144,7 +1166,9 @@ public class GamePlay extends AppCompatActivity {
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlay.this, DeckSelect.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1152,7 +1176,9 @@ public class GamePlay extends AppCompatActivity {
         image3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlay.this, Options.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1312,6 +1338,24 @@ public class GamePlay extends AppCompatActivity {
             set1.setDuration(1000).start();
             Animation myAnim1 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation1);
             cardBigRight.startAnimation(myAnim1);
+            myAnim1.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                    cardWoosh.start();
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    cardP3.setVisibility(View.VISIBLE);
+                    cardP3.setBackground(getResources().getDrawable(R.drawable.cardborder));
+                    getBlinkAnimation();
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
         }
     }
 
@@ -1383,7 +1427,7 @@ public class GamePlay extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        clicksound.start();
         if(flagBack==0) {
             bitmap = captureScreen(rel1);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -1418,6 +1462,7 @@ public class GamePlay extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     dialog.dismiss();
                     relPopup.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
@@ -1428,6 +1473,7 @@ public class GamePlay extends AppCompatActivity {
             image2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlay.this, Toss.class);
                     abc.putExtra("int_value",flagInt);
                     startActivity(abc);
@@ -1438,6 +1484,7 @@ public class GamePlay extends AppCompatActivity {
             image3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlay.this, Options.class);
                     abc.putExtra("int_value",flagInt);
                     startActivity(abc);
@@ -1465,6 +1512,7 @@ public class GamePlay extends AppCompatActivity {
     }
 
     public void backL(View v){
+        clicksound.start();
         if(flagBack==0) {
             bitmap = captureScreen(rel1);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -1499,6 +1547,7 @@ public class GamePlay extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     dialog.dismiss();
                     relPopup.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
@@ -1509,7 +1558,9 @@ public class GamePlay extends AppCompatActivity {
             image2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlay.this, Toss.class);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1518,7 +1569,9 @@ public class GamePlay extends AppCompatActivity {
             image3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlay.this, Options.class);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1527,6 +1580,7 @@ public class GamePlay extends AppCompatActivity {
             dialog.show();
         } else {
             Intent intent = new Intent(GamePlay.this, Options.class);
+            intent.putExtra("int_value",flagInt);
             startActivity(intent);
             finish();
         }
@@ -1546,7 +1600,6 @@ public class GamePlay extends AppCompatActivity {
         Bitmap screenshot = null;
         try {
             if (v != null) {
-
                 screenshot = Bitmap.createBitmap(v.getMeasuredWidth(), v.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
                 Canvas canvas = new Canvas(screenshot);
                 v.draw(canvas);
@@ -1595,6 +1648,7 @@ public class GamePlay extends AppCompatActivity {
 
     public void soundOpt(View view) {
         Button speaker = (Button) view;
+        clicksound.start();
         if (flagInt == 0) {
             speaker.setBackgroundResource(R.drawable.soundoff);
             mServ.pauseMusic();

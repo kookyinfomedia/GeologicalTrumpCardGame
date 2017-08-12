@@ -35,7 +35,7 @@
             android:layout_height="@dimen/dimen_30dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:onClick="openDeckAntarctica"/>
+            />
         <ImageButton
             android:background="#00ffffff"
             android:id="@+id/northAmerica"

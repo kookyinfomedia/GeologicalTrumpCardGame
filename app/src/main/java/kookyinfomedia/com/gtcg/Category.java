@@ -6,9 +6,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -23,6 +25,7 @@ public class Category extends AppCompatActivity {
     public static String selectedContinent="";
     LinearLayout pop;
     RelativeLayout img;
+    MediaPlayer clicksound;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
@@ -56,11 +59,9 @@ public class Category extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_category);
+        clicksound= MediaPlayer.create(this, R.raw.clicksound);
         doBindService();
-
-
         img=(RelativeLayout)findViewById(R.id.selected);
-
         pop=(LinearLayout)findViewById(R.id.pop);
 
 
@@ -77,18 +78,10 @@ public class Category extends AppCompatActivity {
     @Override
     public void onStop(){
         super.onStop();
-        
         doUnbindService();
         stopMusic();
     }
-    @Override
-    public void onPause(){
-        super.onPause();
-        mServ.stopMusic();
-        doUnbindService();
-        stopMusic();
 
-    }
     @Override
     public void onResume(){
         super.onResume();
@@ -103,7 +96,26 @@ public class Category extends AppCompatActivity {
         }
     }
     @Override
+    public  void onPause()
+    {
+        super.onPause();
+        // If the screen is off then the device has been locked
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        boolean isScreenOn = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
+            isScreenOn = powerManager.isScreenOn();
+        }else{
+            isScreenOn = powerManager.isScreenOn();
+        }
+        if (!isScreenOn) {
+
+            doUnbindService();
+            stopMusic();
+        }
+    }
+    @Override
     public void onBackPressed(){
+        clicksound.start();
         Intent intent=new Intent(this,Options.class);
         intent.putExtra("int_value",flag);
         startActivity(intent);
@@ -123,6 +135,7 @@ public class Category extends AppCompatActivity {
 
 
     public void openDeckAsia(View view){
+        clicksound.start();
         view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="asia";
@@ -142,6 +155,7 @@ public class Category extends AppCompatActivity {
 
     }
     public void openDeckNorthAmerica(View view){
+        clicksound.start();
         view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="north_america";
@@ -159,6 +173,7 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckSouthAmerica(View view){
+        clicksound.start();
         view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="south_america";
@@ -176,6 +191,7 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckAfrica(View view){
+        clicksound.start();
         view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="africa";
@@ -192,24 +208,9 @@ public class Category extends AppCompatActivity {
             }
         }.start();
     }
-    public void openDeckAntarctica(View view){
-        view.setClickable(false);
-        view.setEnabled(false);
-        selectedContinent="antarctica";
-        img.setBackground(getResources().getDrawable(R.drawable.antarctica));
-        new CountDownTimer(1000,100){
-            public void onTick(long ms){
 
-            }
-            public void onFinish(){
-                Intent intent =new Intent(Category.this,DeckSelect.class);
-                intent.putExtra("int_value",flag);
-                startActivity(intent);
-                finish();
-            }
-        }.start();
-    }
     public void openDeckEurope(View view){
+        clicksound.start();
         view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="europe";
@@ -227,6 +228,7 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckIndia(View view){
+        clicksound.start();
         view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="india";
@@ -244,7 +246,8 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckAustralia(View view){
-            view.setClickable(false);
+        clicksound.start();
+        view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="australia";
         img.setBackground(getResources().getDrawable(R.drawable.australia));
@@ -261,6 +264,7 @@ public class Category extends AppCompatActivity {
         }.start();
     }
     public void openDeckWorld(View view){
+        clicksound.start();
         view.setClickable(false);
         view.setEnabled(false);
         selectedContinent="world";
