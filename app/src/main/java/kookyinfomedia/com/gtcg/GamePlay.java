@@ -41,7 +41,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -51,17 +50,14 @@ import static kookyinfomedia.com.gtcg.Toss.toss;
 
 public class GamePlay extends AppCompatActivity {
     RelativeLayout fullrel, relLoad,rel1,relPopup;
-    private static final String TAG = "";
     public static int player;
-    File imageFile;
     public static Bitmap bitmap;
-    public static String mPath;
     final Context context = this;
     int flag = 0;
     int flagInt,flagBack=0;
     Animation animation2, animation;
     DBAdapter obj;
-    ArrayList<ModelClass> arr = new ArrayList<ModelClass>();
+    ArrayList<ModelClass> arr = new ArrayList<>();
     Controller controller;
     ImageView imgCard1_flag, imgCard2_flag;
     RelativeLayout imgCard1_map,imgCard2_map;
@@ -80,7 +76,7 @@ public class GamePlay extends AppCompatActivity {
     LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
     int betField, playerNum, updatedScore;
     Animation myAnim, myAnimFinal;
-    MediaPlayer cardTap,cardWoosh,clicksound;;
+    MediaPlayer cardTap,cardWoosh,clicksound;
 
 
     public static int gameOverFlag = 0;
@@ -168,7 +164,7 @@ public class GamePlay extends AppCompatActivity {
         protected ArrayList doInBackground(Void... voids) {
             try {
                 obj = DBAdapter.getDBAdapter(getApplicationContext());
-                if (obj.checkDatabase() == false)
+                if (!obj.checkDatabase())
                     obj.createDatabase(getApplicationContext());
                 obj.openDatabase();
                 arr = obj.getData();
@@ -900,7 +896,7 @@ public class GamePlay extends AppCompatActivity {
                     }
                 }.start();
             } else if (updatedScore == 0) {
-                if(score!=00)
+                if(score!= 0)
                     score = score - 100;
                 myCard = myCard - 1;
                 oppCard = oppCard + 1;
@@ -1099,7 +1095,7 @@ public class GamePlay extends AppCompatActivity {
                     });
                 }
             }.start();
-        } else if (myCard == 0 || oppCard == 0) {
+        } else {
             if (myCard != 0) {
                 showGameWonDialog();
             } else {
@@ -1604,7 +1600,7 @@ public class GamePlay extends AppCompatActivity {
                 v.draw(canvas);
             }
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         return screenshot;
     }

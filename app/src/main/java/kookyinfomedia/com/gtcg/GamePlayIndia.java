@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.Display;
@@ -43,7 +44,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -53,11 +53,8 @@ import static kookyinfomedia.com.gtcg.Toss.toss;
 
 public class GamePlayIndia extends AppCompatActivity {
     RelativeLayout fullrel, relLoad, rel1, relPopup;
-    private static final String TAG = "";
     public static int player;
-    File imageFile;
     public static Bitmap bitmap;
-    public static String mPath;
     final Context context = this;
     int flag = 0;
     String riverName, cropName, mineralName;
@@ -1736,8 +1733,8 @@ public class GamePlayIndia extends AppCompatActivity {
             super(context, textViewResourceId, objects);
         }
 
-       public View getCustomView(int position, View convertView,
-                                  ViewGroup parent) {
+       View getCustomView(int position, View convertView,
+                          ViewGroup parent) {
 
 // Inflating the layout for the custom Spinner
             LayoutInflater inflater = getLayoutInflater();
@@ -1775,6 +1772,7 @@ public class GamePlayIndia extends AppCompatActivity {
         }
 
         // It gets a View that displays the data at the specified position
+        @NonNull
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             return getCustomView(position, convertView, parent);
