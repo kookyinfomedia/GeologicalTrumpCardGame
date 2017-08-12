@@ -75,7 +75,6 @@ public class GamePlay extends AppCompatActivity {
     TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2;
     TextView txtArea2, txtPopulation2, txtCoastline2, txtAUnits2, txtBcountries2, txtHPoint2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
-    RelativeLayout relUpper,relP2,relP1;
     Dialog dialog;
     RelativeLayout relUpper,relP2,relP1,relP1_border,relP2_border;
     LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
