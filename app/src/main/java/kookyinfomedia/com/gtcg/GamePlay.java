@@ -76,7 +76,7 @@ public class GamePlay extends AppCompatActivity {
     LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
     int betField, playerNum, updatedScore;
     Animation myAnim, myAnimFinal;
-    MediaPlayer cardTap,cardWoosh,clicksound;
+    MediaPlayer cardTap,cardWoosh,clicksound,soundYouWon,soundYouLose;
 
 
     public static int gameOverFlag = 0;
@@ -119,10 +119,11 @@ public class GamePlay extends AppCompatActivity {
         setContentView(R.layout.activity_game_play);
         cardTap = MediaPlayer.create(GamePlay.this,R.raw.card_flip);
         cardWoosh = MediaPlayer.create(GamePlay.this,R.raw.card_woosh);
-        cardWoosh.setVolume(0.8f,0.8f);
+        cardWoosh.setVolume(1.5f,1.5f);
         cardTap.setVolume(0.8f,0.8f);
         clicksound= MediaPlayer.create(this, R.raw.clicksound);
-
+        soundYouLose= MediaPlayer.create(this, R.raw.you_lose);
+        soundYouWon= MediaPlayer.create(this, R.raw.you_win);
         flagInt = getIntent().getIntExtra("int_value", 0);
         if(flagInt==1)
         {
@@ -140,6 +141,7 @@ public class GamePlay extends AppCompatActivity {
         fullrel.setVisibility(View.INVISIBLE);
         MyAsyncTask myAsyncTask = new MyAsyncTask();
         myAsyncTask.execute();
+
     }
 
     @Override
@@ -148,7 +150,7 @@ public class GamePlay extends AppCompatActivity {
         super.onPause();
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        boolean isScreenOn = false;
+        boolean isScreenOn;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
             isScreenOn = powerManager.isInteractive();
         }else{
@@ -182,9 +184,8 @@ public class GamePlay extends AppCompatActivity {
             screenHeight = display.getHeight();
             controller = new Controller();
 
-            ////// acessing elements for animations: bottom linear layouts,back button, sound button
+            //Accessing elements for animations: bottom linear layouts,back button, sound button
             cardLoudspeaker = (Button) findViewById(R.id.cardLoudspeaker);
-            //imgLoudspeaker=(ImageView)findViewById(R.id.imgLoudspeaker);
             cardBack = (Button) findViewById(R.id.cardBack);
             cardCoinLeft = (ImageView) findViewById(R.id.cardCoinLeft);
             cardCoinRight = (ImageView) findViewById(R.id.cardCoinRight);
@@ -344,7 +345,7 @@ public class GamePlay extends AppCompatActivity {
                                         animation1.setAnimationListener(new Animation.AnimationListener() {
                                             @Override
                                             public void onAnimationStart(Animation animation) {
-                                                    cardWoosh.start();
+                                                    cardTap.start();
                                             }
 
                                             @Override
@@ -397,6 +398,7 @@ public class GamePlay extends AppCompatActivity {
                                     }
                                 }.start();
                             }
+                            cardWoosh.start();
                             // Animation : Cards coming from both sides.
                             AnimatorSet set = new AnimatorSet();
                             set.playTogether(
@@ -420,7 +422,7 @@ public class GamePlay extends AppCompatActivity {
                             myAnim1.setAnimationListener(new Animation.AnimationListener() {
                                 @Override
                                 public void onAnimationStart(Animation animation) {
-                                    cardWoosh.start();
+                                    
                                 }
 
                                 @Override
@@ -647,6 +649,7 @@ public class GamePlay extends AppCompatActivity {
     /////// Method to be called when user clicks his card ////////
     public void showCard(View v) {
         if (flag == 0) {
+            cardTap.start();
             touchOn();
             flag = 1;
             cardBigLeft.setClickable(false);
@@ -660,7 +663,7 @@ public class GamePlay extends AppCompatActivity {
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-                   cardTap.start();
+                   
                 }
 
                 @Override
@@ -789,13 +792,14 @@ public class GamePlay extends AppCompatActivity {
 
 
     public void flipCardRight() {
+        cardTap.start();
         Animation animation1 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.to_middle2);
         animation2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.from_middle2);
         cardBigRight.startAnimation(animation1);
         animation1.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                    cardTap.start();
+                    
             }
 
             @Override
@@ -952,7 +956,7 @@ public class GamePlay extends AppCompatActivity {
             txtOppVal.setText("" + oppCard);
             flag = 1;
 
-            /////// Timer to hold the cards for few seconds before animation.
+            //Timer to hold the cards for few seconds before animation.
             new CountDownTimer(2000, 1000) {
 
                 public void onTick(long millisUntilFinished) {
@@ -960,6 +964,7 @@ public class GamePlay extends AppCompatActivity {
 
                 public void onFinish() {
                     // After one round ..send cards back to the respective places.
+                    cardTap.start();
                     Animation animation1 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.to_middle2);
                     animation2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.from_middle2);
                     cardP1.startAnimation(animation1);
@@ -969,7 +974,7 @@ public class GamePlay extends AppCompatActivity {
                     animation1.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
-                            cardWoosh.start();
+                            
                         }
 
                         @Override
@@ -989,6 +994,7 @@ public class GamePlay extends AppCompatActivity {
 
                                 @Override
                                 public void onAnimationEnd(Animation animation) {
+                                    cardWoosh.start();
                                     Animation animation3 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation3);
                                     Animation animation4 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation4);
                                     // animation4.setStartOffset(3000);
@@ -1017,6 +1023,7 @@ public class GamePlay extends AppCompatActivity {
                                     set1.start();
                                     if (playerNum == 2) {
                                         player = 2;
+                                        cardWoosh.start();
                                         Animation animation5 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation5);
                                         animation5.setDuration(1000);
                                         animation5.setStartOffset(1000);
@@ -1030,7 +1037,8 @@ public class GamePlay extends AppCompatActivity {
 
                                             @Override
                                             public void onAnimationEnd(Animation animation) {
-                                                if (myCard != 0 && oppCard != 0) {// Game not over then start next round
+                                                if (myCard != 0 && oppCard != 0) {
+                                                    //Game not over then start next round
                                                     repeatGame();
                                                 } else if (myCard == 0 || oppCard == 0) {
                                                     if (myCard != 0) {
@@ -1105,6 +1113,7 @@ public class GamePlay extends AppCompatActivity {
     }
 
     public void showGameWonDialog() {
+        soundYouWon.start();
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1146,6 +1155,7 @@ public class GamePlay extends AppCompatActivity {
     }
 
     public void showGameLoseDialog() {
+        soundYouLose.start();
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1209,7 +1219,7 @@ public class GamePlay extends AppCompatActivity {
                     ObjectAnimator.ofFloat(cardBigRight, "scaleY", 0.1f, 1f)
             );
             set1.setDuration(1000).start();
-
+            cardWoosh.start();
 
             Animation myAnim1 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation1);
             cardBigRight.startAnimation(myAnim1);
@@ -1336,7 +1346,7 @@ public class GamePlay extends AppCompatActivity {
             myAnim1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-                    cardWoosh.start();
+                    
                 }
 
                 @Override

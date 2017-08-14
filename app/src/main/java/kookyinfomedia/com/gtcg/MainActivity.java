@@ -1,4 +1,4 @@
-///////////// Splash Screen Code /////////////
+//Splash Screen Code
 
 package kookyinfomedia.com.gtcg;
 
@@ -7,15 +7,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 import android.view.WindowManager;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import com.crashlytics.android.Crashlytics;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "";
     Timer timer;
     TimerTask timerTask;
     @Override

@@ -17,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import java.util.Objects;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,17 +25,15 @@ import static kookyinfomedia.com.gtcg.Category.selectedContinent;
 
 public class Toss extends AppCompatActivity {
     int res;
-    private static final String TAG = "";
     Timer timer = new Timer();
     TimerTask timerTask;
     MediaPlayer spinSound,clicksound;
     private int flag;
     private boolean mIsBound = false;
     public static int toss;
-    private MusicService mServ;
     private Animation animation1;
     private Animation animation2;
-    private float acelVal, acelLast, shake;
+    private MusicService mServ;
     int i = 0;
     private boolean isBackOfCardShowing = true;
 
@@ -49,6 +48,9 @@ public class Toss extends AppCompatActivity {
             mServ = null;
         }
     };
+
+    public Toss() {
+    }
 
     void doBindService() {
         bindService(new Intent(this, MusicService.class),
@@ -99,9 +101,9 @@ public class Toss extends AppCompatActivity {
 
                     }
                     public void onFinish(){
-                        ((ImageView)findViewById(R.id.imgCoinFront)).clearAnimation();
-                        ((ImageView)findViewById(R.id.imgCoinFront)).setAnimation(animation1);
-                        ((ImageView)findViewById(R.id.imgCoinFront)).startAnimation(animation1);
+                        findViewById(R.id.imgCoinFront).clearAnimation();
+                        findViewById(R.id.imgCoinFront).setAnimation(animation1);
+                        findViewById(R.id.imgCoinFront).startAnimation(animation1);
                         animation1.setAnimationListener(new Animation.AnimationListener() {
                             @Override
                             public void onAnimationStart(Animation animation) {
@@ -116,9 +118,9 @@ public class Toss extends AppCompatActivity {
                                     } else {
                                         ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_back);
                                     }
-                                    ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
-                                    ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation2);
-                                    ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation2);
+                                    findViewById(R.id.imgCoinFront).clearAnimation();
+                                    findViewById(R.id.imgCoinFront).setAnimation(animation2);
+                                    findViewById(R.id.imgCoinFront).startAnimation(animation2);
                                     animation2.setAnimationListener(new Animation.AnimationListener() {
                                         @Override
                                         public void onAnimationStart(Animation animation) {
@@ -128,16 +130,16 @@ public class Toss extends AppCompatActivity {
                                         @Override
                                         public void onAnimationEnd(Animation animation) {
                                             isBackOfCardShowing = !isBackOfCardShowing;
-                                            ((ImageView)findViewById(R.id.imgCoinFront)).clearAnimation();
-                                            ((ImageView)findViewById(R.id.imgCoinFront)).setAnimation(animation1);
-                                            ((ImageView)findViewById(R.id.imgCoinFront)).startAnimation(animation1);
+                                            findViewById(R.id.imgCoinFront).clearAnimation();
+                                            findViewById(R.id.imgCoinFront).setAnimation(animation1);
+                                            findViewById(R.id.imgCoinFront).startAnimation(animation1);
                                             if(i>10) {
                                                 if(res==0) { // opponents turn
                                                     Animation animation3 = AnimationUtils.loadAnimation(Toss.this, R.anim.to_middle);
                                                     ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_front);
-                                                    ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
-                                                    ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation3);
-                                                    ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation3);
+                                                    findViewById(R.id.imgCoinFront).clearAnimation();
+                                                    findViewById(R.id.imgCoinFront).setAnimation(animation3);
+                                                    findViewById(R.id.imgCoinFront).startAnimation(animation3);
 							                        animation3.setAnimationListener(new Animation.AnimationListener() {
                                                          @Override
                                                          public void onAnimationStart(Animation animation) {
@@ -146,9 +148,9 @@ public class Toss extends AppCompatActivity {
                                                          public void onAnimationEnd(Animation animation) {
                                                              Animation animation4 = AnimationUtils.loadAnimation(Toss.this, R.anim.from_middle);
                                                              ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_back);
-                                                             ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
-                                                             ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation4);
-                                                             ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation4);
+                                                             findViewById(R.id.imgCoinFront).clearAnimation();
+                                                             findViewById(R.id.imgCoinFront).setAnimation(animation4);
+                                                             findViewById(R.id.imgCoinFront).startAnimation(animation4);
                                                          }
                                                          @Override
                                                          public void onAnimationRepeat(Animation animation) {
@@ -158,9 +160,9 @@ public class Toss extends AppCompatActivity {
                                                 else{  // your turn
                                                     Animation animation3 = AnimationUtils.loadAnimation(Toss.this, R.anim.to_middle);
                                                     ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource							(R.drawable.coin_front);
-							((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
-							((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation3);
-                                                     ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation3);
+							findViewById(R.id.imgCoinFront).clearAnimation();
+							findViewById(R.id.imgCoinFront).setAnimation(animation3);
+                                                     findViewById(R.id.imgCoinFront).startAnimation(animation3);
                                                      animation3.setAnimationListener(new Animation.AnimationListener() {
                                                          @Override
                                                          public void onAnimationStart(Animation animation) {
@@ -169,9 +171,9 @@ public class Toss extends AppCompatActivity {
                                                          public void onAnimationEnd(Animation animation) {
                                                              Animation animation4 = AnimationUtils.loadAnimation(Toss.this, R.anim.from_middle);
                                                              ((ImageView) findViewById(R.id.imgCoinFront)).setImageResource(R.drawable.coin_front);
-                                                             ((ImageView) findViewById(R.id.imgCoinFront)).clearAnimation();
-                                                             ((ImageView) findViewById(R.id.imgCoinFront)).setAnimation(animation4);
-                                                             ((ImageView) findViewById(R.id.imgCoinFront)).startAnimation(animation4);
+                                                             findViewById(R.id.imgCoinFront).clearAnimation();
+                                                             findViewById(R.id.imgCoinFront).setAnimation(animation4);
+                                                             findViewById(R.id.imgCoinFront).startAnimation(animation4);
                                                          }
                                                          @Override
                                                          public void onAnimationRepeat(Animation animation) {
@@ -214,7 +216,7 @@ public class Toss extends AppCompatActivity {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-                if(selectedContinent=="india"){
+                if(Objects.equals(selectedContinent, "india")){
 			Intent intent = new Intent(Toss.this, GamePlayIndia.class);
 			intent.putExtra("int_value", flag);
 			startActivity(intent);

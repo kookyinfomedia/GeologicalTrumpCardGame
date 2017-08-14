@@ -1,98 +1,92 @@
 package kookyinfomedia.com.gtcg;
 
-import android.util.Log;
-
 import java.util.Random;
 
-import static java.sql.Types.NULL;
 import static kookyinfomedia.com.gtcg.GamePlay.player;
 
-/********************************* for controlling game logic (Checks the winner and changes the scores.) ****************************/
+/*for controlling game logic (Checks the winner and changes the scores.)*/
 
 
-public class ControllerIndia {
+class ControllerIndia {
 
-    public int playerNum,score=0;
-    int first,second,temp;
-    Random ran=new Random();
-    String riverName,cropName,mineralName;
-    /////andy get river,crop,mineral by poistion+1
-    public int checkWin(ModelClassIndia m1,ModelClassIndia m2,int betField,String riverName,String cropName,String mineralName,String[] arrRivers,String[] arrCrops,String[] arrMinerals){
-        first=player;
-        if(first==1)
-            second=2;
+    private int playerNum,score=0;
+    private Random ran=new Random();
+
+    //andy get river,crop,mineral by position+1
+    int checkWin(ModelClassIndia m1, ModelClassIndia m2, int betField, String riverName, String cropName, String mineralName, String[] arrRivers, String[] arrCrops, String[] arrMinerals){
+        int first = player;
+        int second;
+        if(first ==1)
+            second =2;
         else
-            second=1;
+            second =1;
 
         switch(betField){
             case 1:{
                 if((Integer.parseInt(m1.getArea()))<(Integer.parseInt(m2.getArea())))
-                    playerNum=first;
+                    playerNum= first;
                 else if((Integer.parseInt(m1.getArea()))>(Integer.parseInt(m2.getArea())))
-                    playerNum=second;
+                    playerNum= second;
                 else
-                    playerNum=first;
+                    playerNum= first;
                 break;
             }
             case 2:{
                 if(Integer.parseInt(m1.getPopulation())<Integer.parseInt(m2.getPopulation()))
-                    playerNum=first;
+                    playerNum= first;
                 else if(Integer.parseInt(m1.getPopulation())>Integer.parseInt(m2.getPopulation()))
-                    playerNum=second;
+                    playerNum= second;
                 else
-                    playerNum=first;
+                    playerNum= first;
                 break;
             }
             case 3:{
                 if(Integer.parseInt(m1.getDistricts())<Integer.parseInt(m2.getDistricts()))
-                    playerNum=second;
+                    playerNum= second;
                 else if(Integer.parseInt(m1.getDistricts())>Integer.parseInt(m2.getDistricts()))
-                    playerNum=first;
+                    playerNum= first;
                 else
-                    playerNum=first;
+                    playerNum= first;
                 break;
                 }
 
             case 4:{
                 if(Integer.parseInt(m1.getNational_parks())<Integer.parseInt(m2.getNational_parks()))
-                    playerNum=second;
+                    playerNum= second;
                 else if(Integer.parseInt(m1.getNational_parks())>Integer.parseInt(m2.getNational_parks()))
-                    playerNum=first;
+                    playerNum= first;
                 else
-                    playerNum=first;
+                    playerNum= first;
                 break;
             }
             case 5:{
-                    for(int i=0;i<arrRivers.length;i++){
-                        if(riverName.equalsIgnoreCase(arrRivers[i])) {
-                            playerNum = first;
-                            break;
-                        }
-                        else
-                            playerNum=second;
+                for (String arrRiver : arrRivers) {
+                    if (riverName.equalsIgnoreCase(arrRiver)) {
+                        playerNum = first;
+                        break;
+                    } else
+                        playerNum = second;
                 }
                 break;
             }
             case 6:{
-                for(int i=0;i<arrCrops.length;i++){
-                    if(cropName.equalsIgnoreCase(arrCrops[i])) {
+                for (String arrCrop : arrCrops) {
+                    if (cropName.equalsIgnoreCase(arrCrop)) {
                         playerNum = first;
                         break;
-                    }
-                    else
-                        playerNum=second;
+                    } else
+                        playerNum = second;
                 }
                 break;
 
             }
             case 7:{
-                for(int i=0;i<arrMinerals.length;i++){
-                    if(mineralName.equalsIgnoreCase(arrMinerals[i])) {
+                for (String arrMineral : arrMinerals) {
+                    if (mineralName.equalsIgnoreCase(arrMineral)) {
                         playerNum = first;
                         break;
-                    }
-                    else
-                        playerNum=second;
+                    } else
+                        playerNum = second;
                 }
                 break;
             }
@@ -100,7 +94,7 @@ public class ControllerIndia {
         }
         return playerNum;
     }
-    public int updateScore(int playerNum){
+    int updateScore(int playerNum){
         if(playerNum==1)
             score=1;
         else if(playerNum==2)
@@ -108,8 +102,8 @@ public class ControllerIndia {
         return score;
     }
 
-    public int betDecisionComputer(ModelClassIndia m2){
-        int betField,area,population,districts,national_park,crop,river,mineral;
+    int betDecisionComputer(ModelClassIndia m2){
+        int betField,area,population,districts,national_park;
         area=Integer.parseInt(m2.getArea());
         population=Integer.parseInt(m2.getPopulation());
         districts=Integer.parseInt(m2.getDistricts());
@@ -127,16 +121,18 @@ public class ControllerIndia {
         else
             betField=4;
         switch(betField){
-            case 1:{
-                temp=-1;
+            case 1:
+                int temp;
+            {
+                temp =-1;
                 if(area<=10)
                     betField=1;
                 else
                     temp = ran.nextInt(3);
-                if(temp!=-1){
-                    if(temp==0)
+                if(temp !=-1){
+                    if(temp ==0)
                         betField=5;
-                    else if(temp==1)
+                    else if(temp ==1)
                         betField=6;
                     else
                         betField=7;
@@ -144,15 +140,15 @@ public class ControllerIndia {
                 break;
             }
             case 2:{
-                temp=-1;
+                temp =-1;
                 if(population<=10)
                     betField=2;
                 else
                     temp = ran.nextInt(3);
-                if(temp!=-1){
-                    if(temp==0)
+                if(temp !=-1){
+                    if(temp ==0)
                         betField=5;
-                    else if(temp==1)
+                    else if(temp ==1)
                         betField=6;
                     else
                         betField=7;
@@ -160,15 +156,15 @@ public class ControllerIndia {
                 break;
             }
             case 3:{
-                temp=-1;
+                temp =-1;
                 if(districts<=10)
                     betField=3;
                 else
                     temp = ran.nextInt(3);
-                if(temp!=-1){
-                    if(temp==0)
+                if(temp !=-1){
+                    if(temp ==0)
                         betField=5;
-                    else if(temp==1)
+                    else if(temp ==1)
                         betField=6;
                     else
                         betField=7;
@@ -176,15 +172,15 @@ public class ControllerIndia {
                 break;
             }
             case 4:{
-                temp=-1;
+                temp =-1;
                 if(national_park<=10)
                     betField=4;
                 else
                     temp = ran.nextInt(3);
-                if(temp!=-1){
-                    if(temp==0)
+                if(temp !=-1){
+                    if(temp ==0)
                         betField=5;
-                    else if(temp==1)
+                    else if(temp ==1)
                         betField=6;
                     else
                         betField=7;

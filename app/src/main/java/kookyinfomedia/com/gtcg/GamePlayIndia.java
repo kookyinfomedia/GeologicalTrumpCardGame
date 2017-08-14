@@ -16,16 +16,16 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -42,8 +42,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.view.LayoutInflater;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -52,9 +54,12 @@ import static kookyinfomedia.com.gtcg.Toss.toss;
 
 
 public class GamePlayIndia extends AppCompatActivity {
-    RelativeLayout fullrel, relLoad, rel1, relPopup;
+    RelativeLayout fullrel, relLoad,rel1,relPopup;
+    private static final String TAG = "";
     public static int player;
+    File imageFile;
     public static Bitmap bitmap;
+    public static String mPath;
     final Context context = this;
     int flag = 0;
     String riverName, cropName, mineralName;
@@ -65,23 +70,24 @@ public class GamePlayIndia extends AppCompatActivity {
     ArrayList<ModelClassIndia> arr = new ArrayList<ModelClassIndia>();
     ControllerIndia controllerIndia;
     //ImageView imgCard1_flag, imgCard2_flag;
-    RelativeLayout imgCard1_State, imgCard2_State;
+    RelativeLayout imgCard1_State,imgCard2_State;
     ModelClassIndia modelClassIndia, modelClass1India;
     Button cardLoudspeaker, cardBack, loudspeaker;
     CardView cardP1, cardP2, Score, cardP3;
     int screenHeight;
     ImageView cardBigLeft, cardBigRight, cardSmallLeft, cardSmallRight, toast, cardCoinLeft, cardCoinRight;
-    TextView txtArea, txtPopulation, txtDistrict, txtNationalPark, txtRiver, txtCrop, txtMineral, txtState1;
-    TextView valArea, valPopulation, valDistrict, valNationalPark, txtState2;
-    Spinner spinRiver, spinCrop, spinMineral, spinRiver2, spinCrop2, spinMineral2;
+    TextView txtArea, txtPopulation, txtDistrict, txtNationalPark, txtRiver, txtCrop, txtMineral,txtState1;
+    TextView valArea, valPopulation, valDistrict, valNationalPark,txtState2;
+    Spinner spinRiver, spinCrop,spinMineral,spinRiver2, spinCrop2,spinMineral2;
     TextView txtArea2, txtPopulation2, txtDistrict2, txtNationalPark2, txtRiver2, txtCrop2, txtMineral2;
     TextView valArea2, valPopulation2, valDistrict2, valNationalPark2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
-    RelativeLayout relUpper, relP2, relP1;
+    RelativeLayout relUpper,relP2,relP1;
     Dialog dialog;
-    LinearLayout l1, l2, l3, l4, l5, l6, l11, l12, l13, l14, l15, l16, linLayBottomLeft, linLayBottomRight;
+    LinearLayout l1, l2, l3, l4, l5, l6,l7, l11, l12, l13, l14, l15, l16, l17, linLayBottomLeft, linLayBottomRight;
     int betField, playerNum, updatedScore;
     Animation myAnim, myAnimFinal;
+    MediaPlayer cardTap,cardWoosh,clicksound,soundYouWon,soundYouLose;
 
     public static int gameOverFlag = 0;
     int score = 0, myCard = deck, oppCard = deck;
@@ -121,16 +127,25 @@ public class GamePlayIndia extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_play_india);
+        cardTap = MediaPlayer.create(GamePlayIndia.this,R.raw.card_flip);
+        cardWoosh = MediaPlayer.create(GamePlayIndia.this,R.raw.card_woosh);
+        soundYouLose= MediaPlayer.create(this, R.raw.you_lose);
+        soundYouWon= MediaPlayer.create(this, R.raw.you_win);
+        cardWoosh.setVolume(1.5f,1.5f);
+        cardTap.setVolume(0.8f,0.8f);
+        clicksound= MediaPlayer.create(this, R.raw.clicksound);
         flagInt = getIntent().getIntExtra("int_value", 0);
-        if (flagInt == 1) {
+        if(flagInt==1)
+        {
             stopMusic();
-        } else {
+        }
+        else{
             startMusic();
         }
         fullrel = (RelativeLayout) findViewById(R.id.fullrel);
         relLoad = (RelativeLayout) findViewById(R.id.relLoad);
-        relPopup = (RelativeLayout) findViewById(R.id.relPopup);
-        rel1 = (RelativeLayout) findViewById(R.id.rel1);
+        relPopup=(RelativeLayout)findViewById(R.id.relPopup);
+        rel1=(RelativeLayout)findViewById(R.id.rel1);
         relLoad.setVisibility(View.VISIBLE);
         relPopup.setVisibility(View.INVISIBLE);
         fullrel.setVisibility(View.INVISIBLE);
@@ -139,15 +154,22 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        finish();
-    }
-
-    @Override
-    public void onPause() {
+    public  void onPause()
+    {
         super.onPause();
+        // If the screen is off then the device has been locked
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        boolean isScreenOn = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
+            isScreenOn = powerManager.isInteractive();
+        }else{
+            isScreenOn = powerManager.isScreenOn();
+        }
+        if (!isScreenOn) {
 
+            doUnbindService();
+            stopMusic();
+        }
     }
 
     private class MyAsyncTask extends AsyncTask<Void, Void, ArrayList> {
@@ -186,20 +208,20 @@ public class GamePlayIndia extends AppCompatActivity {
 
             ////accessing everything ! ////for first player
             cardP1 = (CardView) findViewById(R.id.cardP1);
-            relP1 = (RelativeLayout) findViewById(R.id.relP1);
+            relP1=(RelativeLayout)findViewById(R.id.relP1);
             cardBigLeft = (ImageView) findViewById(R.id.cardBigLeft);
 
             imgCard1_State = (RelativeLayout) findViewById(R.id.imgCard1_State);
             //imgCard1_flag = (ImageView) findViewById(R.id.imgCard1_flag);
 
-            txtState1 = (TextView) findViewById(R.id.txtStateName);
+            txtState1=(TextView)findViewById(R.id.txtStateName);
             txtArea = (TextView) findViewById(R.id.txtArea);
             txtPopulation = (TextView) findViewById(R.id.txtPopulation);
             txtDistrict = (TextView) findViewById(R.id.txtDistrict);
             txtNationalPark = (TextView) findViewById(R.id.txtNationalPark);
             txtRiver = (TextView) findViewById(R.id.txtRiver);
             txtCrop = (TextView) findViewById(R.id.txtCrop);
-            txtMineral = (TextView) findViewById(R.id.txtMineral);
+            txtMineral=(TextView)findViewById(R.id.txtMineral);
 
             valArea = (TextView) findViewById(R.id.valArea);
             valPopulation = (TextView) findViewById(R.id.valPopulation);
@@ -207,7 +229,7 @@ public class GamePlayIndia extends AppCompatActivity {
             valNationalPark = (TextView) findViewById(R.id.valNationalPark);
             spinRiver = (Spinner) findViewById(R.id.spinRiver);
             spinCrop = (Spinner) findViewById(R.id.spinCrop);
-            spinMineral = (Spinner) findViewById(R.id.spinMineral);
+            spinMineral=(Spinner)findViewById(R.id.spinMineral);
 
             l1 = (LinearLayout) findViewById(R.id.linLay1);
             l2 = (LinearLayout) findViewById(R.id.linLay2);
@@ -215,25 +237,26 @@ public class GamePlayIndia extends AppCompatActivity {
             l4 = (LinearLayout) findViewById(R.id.linLay4);
             l5 = (LinearLayout) findViewById(R.id.linLay5);
             l6 = (LinearLayout) findViewById(R.id.linLay6);
+            l7=(LinearLayout)findViewById(R.id.linLay7);
 
             cardP3 = (CardView) findViewById(R.id.cardP3);
 
             /////////////////  for second player
             cardP2 = (CardView) findViewById(R.id.cardP2);
-            relP2 = (RelativeLayout) findViewById(R.id.relP2);
+            relP2=(RelativeLayout)findViewById(R.id.relP2);
             cardBigRight = (ImageView) findViewById(R.id.cardBigRight);
 
             imgCard2_State = (RelativeLayout) findViewById(R.id.imgCard2_State);
-            // imgCard2_flag = (ImageView) findViewById(R.id.imgCard2_flag);
+           // imgCard2_flag = (ImageView) findViewById(R.id.imgCard2_flag);
 
-            txtState2 = (TextView) findViewById(R.id.txtStateName2);
+            txtState2=(TextView)findViewById(R.id.txtStateName2);
             txtArea2 = (TextView) findViewById(R.id.txtArea2);
             txtPopulation2 = (TextView) findViewById(R.id.txtPopulation2);
             txtDistrict2 = (TextView) findViewById(R.id.txtDistrict2);
             txtNationalPark2 = (TextView) findViewById(R.id.txtNationalPark2);
             txtRiver2 = (TextView) findViewById(R.id.txtRiver2);
             txtCrop2 = (TextView) findViewById(R.id.txtCrop2);
-            txtMineral2 = (TextView) findViewById(R.id.txtMineral2);
+            txtMineral2=(TextView)findViewById(R.id.txtMineral2);
 
             valArea2 = (TextView) findViewById(R.id.valArea2);
             valPopulation2 = (TextView) findViewById(R.id.valPopulation2);
@@ -241,7 +264,7 @@ public class GamePlayIndia extends AppCompatActivity {
             valNationalPark2 = (TextView) findViewById(R.id.valNationalPark2);
             spinRiver2 = (Spinner) findViewById(R.id.spinRiver2);
             spinCrop2 = (Spinner) findViewById(R.id.spinCrop2);
-            spinMineral2 = (Spinner) findViewById(R.id.spinMineral2);
+            spinMineral2=(Spinner)findViewById(R.id.spinMineral2);
 
             l11 = (LinearLayout) findViewById(R.id.linLay11);
             l12 = (LinearLayout) findViewById(R.id.linLay12);
@@ -249,6 +272,7 @@ public class GamePlayIndia extends AppCompatActivity {
             l14 = (LinearLayout) findViewById(R.id.linLay14);
             l15 = (LinearLayout) findViewById(R.id.linLay15);
             l16 = (LinearLayout) findViewById(R.id.linLay16);
+            l7=(LinearLayout)findViewById(R.id.linLay7);
 
             ////////// acessing scores and cards for both players
             txtMyCards = (TextView) findViewById(R.id.txtMyCards);
@@ -266,11 +290,10 @@ public class GamePlayIndia extends AppCompatActivity {
         }
 
         protected void onPostExecute(ArrayList arr) {
-            new CountDownTimer(500, 100) {
-                public void onTick(long ms) {
+            new CountDownTimer(500,100){
+                public void onTick(long ms){
                 }
-
-                public void onFinish() {
+                public void onFinish(){
                     txtScoreVal.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
                     relLoad.setVisibility(View.INVISIBLE);
@@ -311,7 +334,7 @@ public class GamePlayIndia extends AppCompatActivity {
                             cardBigRight.setVisibility(View.VISIBLE);
                             txtMyVal.setText("" + myCard);
                             txtOppVal.setText("" + oppCard);
-                            if (score != 0)
+                            if(score!=0)
                                 txtScoreVal.setText("" + score);
                             else
                                 txtScoreVal.setText("0000");
@@ -335,7 +358,7 @@ public class GamePlayIndia extends AppCompatActivity {
                                         animation1.setAnimationListener(new Animation.AnimationListener() {
                                             @Override
                                             public void onAnimationStart(Animation animation) {
-
+                                                cardTap.start();
                                             }
 
                                             @Override
@@ -393,6 +416,7 @@ public class GamePlayIndia extends AppCompatActivity {
                                 }.start();
                             }
                             // Animation : Cards coming from both sides.
+                            cardWoosh.start();
                             AnimatorSet set = new AnimatorSet();
                             set.playTogether(
 
@@ -444,23 +468,24 @@ public class GamePlayIndia extends AppCompatActivity {
         }
 
     }
-
-    public void touchOff() {
+    public void touchOff(){
         l1.setEnabled(false);
         l2.setEnabled(false);
         l3.setEnabled(false);
         l4.setEnabled(false);
         l5.setEnabled(false);
         l6.setEnabled(false);
+        l7.setEnabled(false);
     }
 
-    public void touchOn() {
+    public void touchOn(){
         l1.setEnabled(true);
         l2.setEnabled(true);
         l3.setEnabled(true);
         l4.setEnabled(true);
         l5.setEnabled(true);
         l6.setEnabled(true);
+        l7.setEnabled(true);
     }
 
     public void playAnimation() {
@@ -520,9 +545,9 @@ public class GamePlayIndia extends AppCompatActivity {
         do {
             Random ran = new Random();
             x = ran.nextInt(arr.size());
+            
             y = ran.nextInt(arr.size());
-
-        } while (x == y);
+            } while (x == y);
         txtState1.setText(arr.get(x).getState());
         //txtCapital1.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
@@ -539,39 +564,30 @@ public class GamePlayIndia extends AppCompatActivity {
         //valAUnits.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
 
-        String rivers = arr.get(x).getRiver();
+        String rivers = arr.get(x).getRiver().toUpperCase();
         arrRivers = rivers.split(",");
-        /*ArrayAdapter<String>adapter = new ArrayAdapter<String>(this, R.layout.spinner_item,arrRivers);
-        adapter.setDropDownViewResource(R.layout.spinner_item);
-        spinRiver.setAdapter(adapter);*/
-        spinRiver.setAdapter(new MyAdapter(GamePlayIndia.this, R.layout.custom, arrRivers));
-        //spinRiver.setOnItemSelectedListener(GamePlayIndiathis);
-        //spinRiver.setText(arr.get(x).getRiver1());
-        //valBCountries.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(GamePlayIndia.this, R.layout.spinner_item, arrRivers);
 
-        String crops = arr.get(x).getCrop();
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown);
+        spinRiver.setAdapter(adapter);
+        String crops = arr.get(x).getCrop().toUpperCase();
         arrCrops = crops.split(",");
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item, arrCrops);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(GamePlayIndia.this, R.layout.spinner_item, arrCrops);
+        adapter2.setDropDownViewResource(R.layout.spinner_dropdown);
+
         spinCrop.setAdapter(adapter2);
         //valHPoint.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        String minerals = arr.get(x).getMineral();
+        String minerals = arr.get(x).getMineral().toUpperCase();
         arrMinerals = minerals.split(",");
-        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item, arrMinerals);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<>(GamePlayIndia.this, R.layout.spinner_item, arrMinerals);
+
+        adapter2.setDropDownViewResource(R.layout.spinner_dropdown);
         spinMineral.setAdapter(adapter3);
 
-
-        //imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
-
-
-
-       /*/////////////// Drawable image = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(x).getMap(), 0, arr.get(x).getMap().length));
+        Drawable image = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(x).getMap(), 0, arr.get(x).getMap().length));
         image.setAlpha(100);
-        relP1.setBackground(image);*/
+        relP1.setBackground(image);
 
         modelClassIndia = new ModelClassIndia();
         modelClass1India = new ModelClassIndia();
@@ -586,11 +602,11 @@ public class GamePlayIndia extends AppCompatActivity {
 
         modelClassIndia.setCrop(arr.get(x).getCrop());
 
-
         modelClassIndia.setMineral(arr.get(x).getMineral());
 
 
         //modelClassIndia.setMap(arr.get(x).getMap());
+
 
 
         txtState2.setText(arr.get(y).getState());
@@ -609,37 +625,29 @@ public class GamePlayIndia extends AppCompatActivity {
         //valAUnits.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
 
-        String rivers2 = arr.get(y).getRiver();
-        arrRivers2 = rivers2.split(",");
-        ArrayAdapter<String> adapter4 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item, arrRivers2);
+        String rivers2 = arr.get(y).getRiver().toUpperCase();
+	    arrRivers2 = rivers2.split(",");
+	    ArrayAdapter<String> adapter4 = new ArrayAdapter<>(GamePlayIndia.this, R.layout.spinner_item, arrRivers2);
 
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter4.setDropDownViewResource(R.layout.spinner_dropdown);
+        spinRiver2.setClickable(false);
+        spinRiver2.setEnabled(false);
         spinRiver2.setAdapter(adapter4);
         //spinRiver.setOnItemSelectedListener(GamePlayIndiathis);
 
-        String crops2 = arr.get(y).getCrop();
-        arrCrops2 = crops2.split(",");
-        ArrayAdapter<String> adapter5 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item, arrCrops2);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        String crops2 = arr.get(y).getCrop().toUpperCase();
+	    arrCrops2 = crops2.split(",");
+	    ArrayAdapter<String> adapter5 = new ArrayAdapter<>(GamePlayIndia.this, R.layout.spinner_item, arrCrops2);
+
+        adapter2.setDropDownViewResource(R.layout.spinner_dropdown);
+        spinCrop2.setClickable(false);
+        spinCrop2.setEnabled(false);
         spinCrop2.setAdapter(adapter5);
         //valHPoint.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        String minerals2 = arr.get(y).getMineral();
-        arrMinerals2 = minerals2.split(",");
-        ArrayAdapter<String> adapter6 = new ArrayAdapter<String>(GamePlayIndia.this,
-                android.R.layout.simple_spinner_item, arrMinerals2);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinMineral2.setAdapter(adapter6);
-
-
-        //imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
-
-
-        /*/////////////////Drawable image2 = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(y).getMap(), 0, arr.get(y).getMap().length));
-        image2.setAlpha(100);
-        relP2.setBackground(image2);*/
+        String minerals2 = arr.get(y).getMineral().toUpperCase();
+    	arrMinerals2 = minerals2.split(",");
+    	ArrayAdapter<String> adapter6 = new ArrayAdapter<>(GamePlayIndia.this, R.layout.spinner_item, arrMinerals2);
 
 
         modelClass1India.setState(arr.get(y).getState());
@@ -652,8 +660,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
         modelClass1India.setCrop(arr.get(y).getCrop());
 
-
-        modelClass1India.setMineral(arr.get(y).getMineral());
+	modelClass1India.setMineral(arr.get(y).getMineral());
 
 
         //modelClass1India.setMap(arr.get(y).getMap());
@@ -671,6 +678,17 @@ public class GamePlayIndia extends AppCompatActivity {
         l4.setClickable(false);
         l5.setClickable(false);
         l6.setClickable(false);
+        l7.setClickable(false);
+        l11.setClickable(false);
+        l12.setClickable(false);
+        l13.setClickable(false);
+        l14.setClickable(false);
+        l15.setClickable(false);
+        l16.setClickable(false);
+        l17.setClickable(false);
+        spinMineral.setEnabled(false);
+        spinRiver.setEnabled(false);
+        spinCrop.setEnabled(false);
     }
 
     public void clickon() {
@@ -680,11 +698,16 @@ public class GamePlayIndia extends AppCompatActivity {
         l4.setClickable(true);
         l5.setClickable(true);
         l6.setClickable(true);
+        l7.setClickable(true);
+        spinCrop.setEnabled(true);
+        spinRiver.setEnabled(true);
+        spinMineral.setEnabled(true);
     }
 
-    /////// Method to be called when user clicks his card ////////
+    //Method to be called when user clicks his card
     public void showCardI(View v) {
         if (flag == 0) {
+            cardTap.start();
             touchOn();
             flag = 1;
             cardBigLeft.setClickable(false);
@@ -698,7 +721,6 @@ public class GamePlayIndia extends AppCompatActivity {
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-
                 }
 
                 @Override
@@ -734,7 +756,7 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
 
-    /////////// Method to be called if user selects area for betting. ///////////////////////
+    //Method to be called if user selects area for betting.
     public void areaSelectI(View v) {
         touchOff();
         //Toast.makeText(this,"Area",Toast.LENGTH_LONG).show();
@@ -750,7 +772,7 @@ public class GamePlayIndia extends AppCompatActivity {
         }
     }
 
-    /////////// Method to be called if user selects population for betting. //////////////////////
+    //Method to be called if user selects population for betting.
     public void populationSelectI(View v) {
         touchOff();
         betField = 2;
@@ -765,7 +787,7 @@ public class GamePlayIndia extends AppCompatActivity {
         }
     }
 
-    /////////// Method to be called if user selects district for betting. ////////////////////////////
+    //Method to be called if user selects district for betting.
     public void districtSelectI(View v) {
         touchOff();
         betField = 3;
@@ -780,7 +802,7 @@ public class GamePlayIndia extends AppCompatActivity {
         }
     }
 
-    /////////// Method to be called if user selects administrative units for betting. //////////////////////////
+    //Method to be called if user selects administrative units for betting.
     public void nationalParkSelectI(View v) {
         touchOff();
         betField = 4;
@@ -795,16 +817,17 @@ public class GamePlayIndia extends AppCompatActivity {
         }
     }
 
-    /////////// Method to be called if user selects Bordering Countries for betting. //////////////////////////
+    //Method to be called if user selects Bordering Countries for betting.
     public void riverSelectI(View v) {
-        if (playerNum == 2) {
-            Random random = new Random();
-            int r = random.nextInt(4);
+        if(playerNum==2){
+            Random random=new Random();
+            int r = random.nextInt(arrRivers2.length);
             spinRiver2.setSelection(r);
-            riverName = arrRivers2[r];
-        } else {
+	    riverName = arrRivers2[r];
+        }
+        else {
             //spinRiver.performClick();
-            riverName = arrRivers[0];
+	    riverName = arrRivers[0];
             spinRiver.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -832,15 +855,17 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
 
-    /////////// Method to be called if user selects highest point for betting. ////////////////////
+    //Method to be called if user selects highest point for betting.
     public void cropSelectI(View v) {
-        if (playerNum == 2) {
-            Random random = new Random();
-            int r = random.nextInt(11);
+        if(playerNum==2){
+            Random random=new Random();
+            int r = random.nextInt(arrCrops2.length);
             spinCrop2.setSelection(r);
             cropName = arrCrops2[r];
-        } else {
+        }
+        else {
             //spinCrop.performClick();
+            cropName=arrCrops[0];
             spinCrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -866,12 +891,14 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
     public void mineralSelectI(View v) {
-        if (playerNum == 2) {
-            Random random = new Random();
-            int r = random.nextInt(11);
+        if(playerNum==2){
+            Random random=new Random();
+            int r = random.nextInt(arrMinerals2.length);
             spinMineral2.setSelection(r);
             mineralName = arrMinerals2[r];
-        } else {
+        }
+        else {
+            mineralName=arrMinerals[0];
             //spinMineral.performClick();
             spinMineral.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
@@ -886,12 +913,12 @@ public class GamePlayIndia extends AppCompatActivity {
             });
         }
         touchOff();
-        betField = 6;
+        betField = 7;
         flag = 1;
-        l6.setBackgroundColor(Color.BLUE);
+        l7.setBackgroundColor(Color.BLUE);
         setColorWhite();
-        getBlinkAnimation(l6, "BLUE");
-        getBlinkAnimation(l16, "BLUE");
+        getBlinkAnimation(l7, "BLUE");
+        getBlinkAnimation(l17, "BLUE");
         if (playerNum == 1) {
             flipCardRight();
         }
@@ -899,6 +926,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
 
     public void flipCardRight() {
+        cardTap.start();
         Animation animation1 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.to_middle2);
         animation2 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.from_middle2);
         cardBigRight.startAnimation(animation1);
@@ -949,14 +977,14 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
 
-    ///////////// Method for implementing the game logic. //////////////////
+    //Method for implementing the game logic.
     public void updates() {
         if (myCard != 0 && oppCard != 0) {
             playerNum = 0;
             if (player == 1)
-                playerNum = controllerIndia.checkWin(modelClassIndia, modelClass1India, betField, riverName, cropName, mineralName, arrRivers2, arrCrops2, arrMinerals2);
+                playerNum = controllerIndia.checkWin(modelClassIndia, modelClass1India, betField,riverName, cropName, mineralName, arrRivers2, arrCrops2, arrMinerals2);
             else
-                playerNum = controllerIndia.checkWin(modelClass1India, modelClassIndia, betField, riverName, cropName, mineralName, arrRivers, arrCrops, arrMinerals);
+                playerNum = controllerIndia.checkWin(modelClass1India, modelClassIndia, betField,riverName, cropName, mineralName, arrRivers, arrCrops, arrMinerals);
             updatedScore = controllerIndia.updateScore(playerNum);
             if (updatedScore == 1) {
                 score = score + 100;
@@ -993,6 +1021,11 @@ public class GamePlayIndia extends AppCompatActivity {
                         getBlinkAnimation(l16, "RED");
                         break;
                     }
+                    case 7: {
+                        getBlinkAnimation(l7, "GREEN");
+                        getBlinkAnimation(l17, "RED");
+                        break;
+                    }
                 }
                 toast.setVisibility(View.VISIBLE);
                 toast.setImageResource(R.drawable.youwon);
@@ -1006,7 +1039,7 @@ public class GamePlayIndia extends AppCompatActivity {
                     }
                 }.start();
             } else if (updatedScore == 0) {
-                if (score != 0)
+                if(score!=0)
                     score = score - 100;
                 myCard = myCard - 1;
                 oppCard = oppCard + 1;
@@ -1041,6 +1074,11 @@ public class GamePlayIndia extends AppCompatActivity {
                         getBlinkAnimation(l6, "RED");
                         break;
                     }
+                    case 7: {
+                        getBlinkAnimation(l17, "GREEN");
+                        getBlinkAnimation(l7, "RED");
+                        break;
+                    }
                 }
                 toast.setVisibility(View.VISIBLE);
                 toast.setImageResource(R.drawable.youlose);
@@ -1054,7 +1092,7 @@ public class GamePlayIndia extends AppCompatActivity {
                     }
                 }.start();
             }
-            if (score != 0)
+            if(score!=0)
                 txtScoreVal.setText("" + score);
             else
                 txtScoreVal.setText("0000");
@@ -1070,6 +1108,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
                 public void onFinish() {
                     // After one round ..send cards back to the respective places.
+                    cardTap.start();
                     Animation animation1 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.to_middle2);
                     animation2 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.from_middle2);
                     cardP1.startAnimation(animation1);
@@ -1099,6 +1138,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
                                 @Override
                                 public void onAnimationEnd(Animation animation) {
+                                    cardWoosh.start();
                                     Animation animation3 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.animation3);
                                     Animation animation4 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.animation4);
                                     // animation4.setStartOffset(3000);
@@ -1127,6 +1167,7 @@ public class GamePlayIndia extends AppCompatActivity {
                                     set1.start();
                                     if (playerNum == 2) {
                                         player = 2;
+                                        cardWoosh.start();
                                         Animation animation5 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.animation5);
                                         animation5.setDuration(1000);
                                         animation5.setStartOffset(1000);
@@ -1215,6 +1256,7 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
     public void showGameWonDialog() {
+        soundYouWon.start();
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1230,7 +1272,9 @@ public class GamePlayIndia extends AppCompatActivity {
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlayIndia.this, DeckSelect.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1238,7 +1282,9 @@ public class GamePlayIndia extends AppCompatActivity {
         image3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlayIndia.this, Options.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1252,6 +1298,7 @@ public class GamePlayIndia extends AppCompatActivity {
     }
 
     public void showGameLoseDialog() {
+        soundYouLose.start();
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1267,7 +1314,9 @@ public class GamePlayIndia extends AppCompatActivity {
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlayIndia.this, DeckSelect.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1275,7 +1324,9 @@ public class GamePlayIndia extends AppCompatActivity {
         image3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 Intent abc = new Intent(GamePlayIndia.this, Options.class);
+                abc.putExtra("int_value",flagInt);
                 startActivity(abc);
             }
         });
@@ -1311,6 +1362,7 @@ public class GamePlayIndia extends AppCompatActivity {
                     ObjectAnimator.ofFloat(cardBigRight, "scaleY", 0.1f, 1f)
             );
             set1.setDuration(1000).start();
+            cardWoosh.start();
 
 
             Animation myAnim1 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.animation1);
@@ -1319,6 +1371,7 @@ public class GamePlayIndia extends AppCompatActivity {
                 @Override
                 public void onAnimationStart(Animation animation) {
                     flag = 1;
+
                 }
 
                 @Override
@@ -1496,6 +1549,7 @@ public class GamePlayIndia extends AppCompatActivity {
         l4.setBackground(getResources().getDrawable(R.drawable.layout_white));
         l5.setBackground(getResources().getDrawable(R.drawable.layout_white));
         l6.setBackground(getResources().getDrawable(R.drawable.layout_white));
+        l7.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
         l11.setBackground(getResources().getDrawable(R.drawable.layout_white));
         l12.setBackground(getResources().getDrawable(R.drawable.layout_white));
@@ -1503,26 +1557,26 @@ public class GamePlayIndia extends AppCompatActivity {
         l14.setBackground(getResources().getDrawable(R.drawable.layout_white));
         l15.setBackground(getResources().getDrawable(R.drawable.layout_white));
         l16.setBackground(getResources().getDrawable(R.drawable.layout_white));
-
-
+        l17.setBackground(getResources().getDrawable(R.drawable.layout_white));
     }
 
     @Override
     public void onBackPressed() {
-
-        if (flagBack == 0) {
+        clicksound.start();
+        if(flagBack==0) {
             bitmap = captureScreen(rel1);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             fullrel.setVisibility(View.INVISIBLE);
             relPopup.setVisibility(View.VISIBLE);
-            Drawable d = new BitmapDrawable(getResources(), bitmap);
+            Drawable d=new BitmapDrawable(getResources(),bitmap);
             relPopup.setBackground(d);
-            flagBack = 1;
-        } else {
+            flagBack=1;
+        }
+        else{
             relPopup.setVisibility(View.INVISIBLE);
             fullrel.setVisibility(View.VISIBLE);
-            flagBack = 0;
+            flagBack=0;
         }
 
         if (gameOverFlag == 0) {
@@ -1543,18 +1597,20 @@ public class GamePlayIndia extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     dialog.dismiss();
                     relPopup.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
-                    flagBack = 0;
+                    flagBack=0;
                 }
             });
             // Load the game again
             image2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlayIndia.this, Toss.class);
-                    abc.putExtra("int_value", flagInt);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1563,8 +1619,9 @@ public class GamePlayIndia extends AppCompatActivity {
             image3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlayIndia.this, Options.class);
-                    abc.putExtra("int_value", flagInt);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1573,34 +1630,38 @@ public class GamePlayIndia extends AppCompatActivity {
             dialog.show();
         } else {
             Intent intent = new Intent(GamePlayIndia.this, Options.class);
-            intent.putExtra("int_value", flagInt);
+            intent.putExtra("int_value",flagInt);
             startActivity(intent);
             finish();
         }
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
             @Override
-            public void onCancel(DialogInterface dialog) {
+            public void onCancel(DialogInterface dialog)
+            {
                 relPopup.setVisibility(View.INVISIBLE);
                 fullrel.setVisibility(View.VISIBLE);
-                flagBack = 0;
+                flagBack=0;
             }
         });
     }
 
-    public void backLI(View v) {
-        if (flagBack == 0) {
+    public void backLI(View v){
+        clicksound.start();
+        if(flagBack==0) {
             bitmap = captureScreen(rel1);
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             fullrel.setVisibility(View.INVISIBLE);
             relPopup.setVisibility(View.VISIBLE);
-            Drawable d = new BitmapDrawable(getResources(), bitmap);
+            Drawable d=new BitmapDrawable(getResources(),bitmap);
             relPopup.setBackground(d);
-            flagBack = 1;
-        } else {
+            flagBack=1;
+        }
+        else{
             relPopup.setVisibility(View.INVISIBLE);
             fullrel.setVisibility(View.VISIBLE);
-            flagBack = 0;
+            flagBack=0;
         }
 
         if (gameOverFlag == 0) {
@@ -1621,17 +1682,20 @@ public class GamePlayIndia extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     dialog.dismiss();
                     relPopup.setVisibility(View.INVISIBLE);
                     fullrel.setVisibility(View.VISIBLE);
-                    flagBack = 0;
+                    flagBack=0;
                 }
             });
             // Load the game again
             image2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlayIndia.this, Toss.class);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1640,7 +1704,9 @@ public class GamePlayIndia extends AppCompatActivity {
             image3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    clicksound.start();
                     Intent abc = new Intent(GamePlayIndia.this, Options.class);
+                    abc.putExtra("int_value",flagInt);
                     startActivity(abc);
                     finish();
                 }
@@ -1649,15 +1715,18 @@ public class GamePlayIndia extends AppCompatActivity {
             dialog.show();
         } else {
             Intent intent = new Intent(GamePlayIndia.this, Options.class);
+            intent.putExtra("int_value",flagInt);
             startActivity(intent);
             finish();
         }
-        dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        dialog.setOnCancelListener(new DialogInterface.OnCancelListener()
+        {
             @Override
-            public void onCancel(DialogInterface dialog) {
+            public void onCancel(DialogInterface dialog)
+            {
                 relPopup.setVisibility(View.INVISIBLE);
                 fullrel.setVisibility(View.VISIBLE);
-                flagBack = 0;
+                flagBack=0;
             }
         });
     }
@@ -1715,6 +1784,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
     public void soundOptI(View view) {
         Button speaker = (Button) view;
+        clicksound.start();
         if (flagInt == 0) {
             speaker.setBackgroundResource(R.drawable.soundoff);
             mServ.pauseMusic();
@@ -1726,53 +1796,40 @@ public class GamePlayIndia extends AppCompatActivity {
         }
     }
 
-
-    public class MyAdapter extends ArrayAdapter {
-
+public class MyAdapter extends ArrayAdapter {
         public MyAdapter(Context context, int textViewResourceId, String[] objects) {
             super(context, textViewResourceId, objects);
         }
-
-       View getCustomView(int position, View convertView,
-                          ViewGroup parent) {
-
+       public View getCustomView(int position, View convertView,
+                                  ViewGroup parent) {
 // Inflating the layout for the custom Spinner
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.custom, parent, false);
-
 // Declaring and Typecasting the textview in the inflated layout
             TextView tvLanguage = (TextView) layout
                     .findViewById(R.id.tvLanguage);
-
 // Setting the text using the array
            for(int i=0;i<arrRivers.length;i++){
                tvLanguage.setText(arrRivers[i]);
            }
-
 // Setting the color of the text
             tvLanguage.setTextColor(getResources().getColor(R.color.colorLight));
-
 // Setting Special atrributes for 1st element
             if (position == 0) {
 // Setting the size of the text
                 tvLanguage.setTextSize(20f);
 // Setting the text Color
                 tvLanguage.setTextColor(Color.BLACK);
-
             }
-
             return layout;
         }
-
         // It gets a View that displays in the drop down popup the data at the specified position
         @Override
         public View getDropDownView(int position, View convertView,
                                     ViewGroup parent) {
             return getCustomView(position, convertView, parent);
         }
-
         // It gets a View that displays the data at the specified position
-        @NonNull
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             return getCustomView(position, convertView, parent);

@@ -9,8 +9,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -22,16 +24,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 
+
 public class Options extends AppCompatActivity{
     final Context context = this;
-    public ImageView wave1,wave2,wave3,wave4,wave5;
-    public Animation wave_anim, wave_anim_2, wave_anim_3, wave_anim_4, wave_anim_5;
+    public ImageView wave1,wave2,wave3,wave4,wave5,waveTitle;
+    public Animation wave_anim, wave_anim_2, wave_anim_3, wave_anim_4, wave_anim_5,wave_anim_title;
 
     public int flag=0;
-    //--------------------------------------Service Binding------------------------------------//
+    //Service Binding
     private boolean mIsBound = false;
     public MusicService mServ;
     Button btnPlay,btnHelp,imgLoudspeaker;
+    MediaPlayer clicksound;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
@@ -66,11 +70,13 @@ public class Options extends AppCompatActivity{
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_options);
+        clicksound= MediaPlayer.create(this, R.raw.clicksound);
         wave1 = (ImageView)findViewById(R.id.pisa);
         wave2 = (ImageView)findViewById(R.id.tower);
         wave3 = (ImageView)findViewById(R.id.taj);
         wave4 = (ImageView)findViewById(R.id.liberty);
         wave5 = (ImageView)findViewById(R.id.colosseum);
+        waveTitle=(ImageView)findViewById(R.id.title);
 
         wave_anim = new TranslateAnimation(0, 0, 0, 9);
         wave_anim.setDuration(850);
@@ -102,17 +108,25 @@ public class Options extends AppCompatActivity{
         wave_anim_5.setRepeatCount(-1);
         wave_anim_5.setRepeatMode(Animation.REVERSE);
 
+        wave_anim_title= new TranslateAnimation(0, 0, 0,4);
+        wave_anim_title.setDuration(1000);
+        wave_anim_title.setFillAfter(true);
+        wave_anim_title.setRepeatCount(-1);
+        wave_anim_title.setRepeatMode(Animation.REVERSE);
+
         wave1.setAnimation(wave_anim);
         wave2.setAnimation(wave_anim_2);
         wave3.setAnimation(wave_anim_3);
         wave4.setAnimation(wave_anim_4);
         wave5.setAnimation(wave_anim_5);
+        waveTitle.setAnimation(wave_anim_title);
+
         wave1.setVisibility(View.VISIBLE);
         wave2.setVisibility(View.VISIBLE);
         wave3.setVisibility(View.VISIBLE);
         wave4.setVisibility(View.VISIBLE);
         wave5.setVisibility(View.VISIBLE);
-
+        waveTitle.setVisibility(View.VISIBLE);
         ImageView image = (ImageView)findViewById(R.id.imageView2);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
         image.startAnimation(animation);
@@ -155,9 +169,28 @@ public class Options extends AppCompatActivity{
         stopMusic();
     }
 
+    @Override
+    public  void onPause()
+    {
+        super.onPause();
+        // If the screen is off then the device has been locked
+        PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+        boolean isScreenOn = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
+            isScreenOn = powerManager.isInteractive();
+        }else{
+            isScreenOn = powerManager.isScreenOn();
+        }
+        if (!isScreenOn) {
+            doUnbindService();
+            stopMusic();
+        }
+    }
+
     public void soundOpt(View view)
     {
         Button speaker =(Button) view;
+        clicksound.start();
         if(flag==0)
         {
             speaker.setBackgroundResource(R.drawable.soundoff);
@@ -194,6 +227,7 @@ public class Options extends AppCompatActivity{
     }
 
     public void playGame(View v){
+        clicksound.start();
         clickOff();
         btnPlay.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
@@ -211,6 +245,7 @@ public class Options extends AppCompatActivity{
     }
 
     public void help(View v){
+        clicksound.start();
         clickOff();
         btnHelp.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
@@ -226,6 +261,7 @@ public class Options extends AppCompatActivity{
 
     }
     public void onBackPressed() {
+        clicksound.start();
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.quit_popup);
@@ -239,6 +275,7 @@ public class Options extends AppCompatActivity{
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 dialog.dismiss();
             }
         });
@@ -247,12 +284,12 @@ public class Options extends AppCompatActivity{
         image2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                clicksound.start();
                 finishAffinity();
             }
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
     }
 
     public void startMusic(){
@@ -264,11 +301,9 @@ public class Options extends AppCompatActivity{
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
         stopService(music);
-
     }
     public void clickOff(){
         btnHelp.setClickable(false);
         btnPlay.setClickable(false);
     }
 }
-

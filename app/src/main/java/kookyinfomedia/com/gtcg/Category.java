@@ -21,7 +21,6 @@ import android.widget.RelativeLayout;
 public class Category extends AppCompatActivity {
     private int flag;
     private boolean mIsBound = false;
-    private MusicService mServ;
     public static String selectedContinent="";
     LinearLayout pop;
     RelativeLayout img;
@@ -30,11 +29,10 @@ public class Category extends AppCompatActivity {
 
         public void onServiceConnected(ComponentName name, IBinder
                 binder) {
-            mServ = ((MusicService.ServiceBinder)binder).getService();
+            ((MusicService.ServiceBinder) binder).getService();
         }
 
         public void onServiceDisconnected(ComponentName name) {
-            mServ = null;
         }
     };
 
@@ -101,7 +99,7 @@ public class Category extends AppCompatActivity {
         super.onPause();
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        boolean isScreenOn = false;
+        boolean isScreenOn;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
             isScreenOn = powerManager.isScreenOn();
         }else{

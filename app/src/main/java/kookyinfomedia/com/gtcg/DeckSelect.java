@@ -1,7 +1,5 @@
 package kookyinfomedia.com.gtcg;
 
-import android.animation.Animator;
-import android.os.CountDownTimer;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.ComponentName;
@@ -21,13 +19,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-/*************************************** DECK SELECTION PAGE ********************************************/
+/*DECK SELECTION PAGE*/
 
-/// Setting the static variable "deck"  to be used in the Loading class for setting initial score and cards.
+//Setting the static variable "deck"  to be used in the Loading class for setting initial score and cards.
 
 
 public class DeckSelect extends AppCompatActivity {
-    private static final String TAG ="" ;
     int flag=0;
     public static int deck;
     Button deck16,deck32,deck52;
@@ -142,31 +139,7 @@ public void clickOff(){
         intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
-        /*set.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
 
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                Intent intent = new Intent(DeckSelect.this,Toss.class);
-                deck=16;
-                intent.putExtra("int_value",flag);
-                startActivity(intent);
-                finish();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });*/
 
     }
     public void deckSelected32(View v){
@@ -185,31 +158,6 @@ public void clickOff(){
         intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
-        /*set.addListener(new Animator.AnimatorListener() {
-          @Override
-          public void onAnimationStart(Animator animator) {
-
-          }
-
-          @Override
-          public void onAnimationEnd(Animator animator) {
-              Intent intent = new Intent(DeckSelect.this,Toss.class);
-              deck=32;
-              intent.putExtra("int_value",flag);
-              startActivity(intent);
-              finish();
-          }
-
-          @Override
-          public void onAnimationCancel(Animator animator) {
-
-          }
-
-          @Override
-          public void onAnimationRepeat(Animator animator) {
-
-          }
-      });*/
 
     }
     public void deckSelected52(View v){
@@ -228,31 +176,7 @@ public void clickOff(){
         intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
-        /*set.addListener(new Animator.AnimatorListener() {
-           @Override
-           public void onAnimationStart(Animator animator) {
 
-           }
-
-           @Override
-           public void onAnimationEnd(Animator animator) {
-               Intent intent = new Intent(DeckSelect.this,Toss.class);
-               deck=52;
-               intent.putExtra("int_value",flag);
-               startActivity(intent);
-               finish();
-           }
-
-           @Override
-           public void onAnimationCancel(Animator animator) {
-
-           }
-
-           @Override
-           public void onAnimationRepeat(Animator animator) {
-
-           }
-       });*/
     }
     @Override
     public void onResume(){
@@ -283,7 +207,7 @@ public void clickOff(){
         super.onPause();
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        boolean isScreenOn = false;
+        boolean isScreenOn;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
             isScreenOn = powerManager.isInteractive();
         }else{

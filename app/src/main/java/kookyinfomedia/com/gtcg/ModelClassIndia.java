@@ -1,7 +1,7 @@
 package kookyinfomedia.com.gtcg;
 
 
-public class ModelClassIndia {
+class ModelClassIndia {
     private String state;
     private String districts;
     private String area;
@@ -10,68 +10,67 @@ public class ModelClassIndia {
     private String river;
     private String crop;
     private String mineral;
+    private byte map[];
 
-    public String getState() {
+    public byte[] getMap(){
+        return map;
+    }
+    public void setMap(byte map[]){
+        this.map=map;
+    }
+    String getState(){
         return state;
     }
-
-    public void setState(String state) {
+    void setState(String state){
         this.state = state;
     }
-
-    public String getDistricts() {
+    String getDistricts(){
         return districts;
     }
-
-    public void setDistricts(String districts) {
+    void setDistricts(String districts){
         this.districts = districts;
     }
-
-    public String getArea() {
+    String getArea(){
         return area;
     }
-
-    public void setArea(String area) {
+    void setArea(String area){
         this.area = area;
     }
 
-    public String getPopulation() {
+    String getPopulation(){
         return population;
     }
-
-    public void setPopulation(String population) {
+    void setPopulation(String population){
         this.population = population;
     }
-
-    public String getNational_parks() {
+    String getNational_parks(){
         return national_parks;
     }
-
-    public void setNational_parks(String national_parks) {
+    void setNational_parks(String national_parks) {
         this.national_parks = national_parks;
     }
 
-    public String getRiver() {
+    String getRiver() {
         return river;
     }
 
-    public void setRiver(String river) {
+    void setRiver(String river) {
         this.river = river;
     }
 
-    public String getCrop() {
+    String getCrop() {
         return crop;
     }
 
-    public void setCrop(String crop) {
+    void setCrop(String crop) {
         this.crop = crop;
     }
 
-    public String getMineral() {
+    String getMineral() {
         return mineral;
     }
 
-    public void setMineral(String mineral) {
+    void setMineral(String mineral) {
         this.mineral = mineral;
     }
 
