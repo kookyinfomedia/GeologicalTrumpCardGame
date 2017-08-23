@@ -111,6 +111,7 @@ public class Help extends AppCompatActivity {
     public void backHelp(View view){
         clicksound.start();
         Intent intent=new Intent(Help.this,Options.class);
+        intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
     }

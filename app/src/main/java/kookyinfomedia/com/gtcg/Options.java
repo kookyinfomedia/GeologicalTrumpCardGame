@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -21,20 +22,23 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 
 public class Options extends AppCompatActivity{
     final Context context = this;
     public ImageView wave1,wave2,wave3,wave4,wave5,waveTitle;
     public Animation wave_anim, wave_anim_2, wave_anim_3, wave_anim_4, wave_anim_5,wave_anim_title;
-
+    ImageView pisa,tower,liberty,taj,colosseum;
     public int flag=0;
     //Service Binding
     private boolean mIsBound = false;
     public MusicService mServ;
-    Button btnPlay,btnHelp,imgLoudspeaker;
+    ImageButton btnPlay,btnHelp,imgLoudspeaker;
     MediaPlayer clicksound;
     private ServiceConnection Scon =new ServiceConnection(){
 
@@ -108,8 +112,8 @@ public class Options extends AppCompatActivity{
         wave_anim_5.setRepeatCount(-1);
         wave_anim_5.setRepeatMode(Animation.REVERSE);
 
-        wave_anim_title= new TranslateAnimation(0, 0, 0,4);
-        wave_anim_title.setDuration(1000);
+        wave_anim_title= new TranslateAnimation(0, 0, 0,6);
+        wave_anim_title.setDuration(2000);
         wave_anim_title.setFillAfter(true);
         wave_anim_title.setRepeatCount(-1);
         wave_anim_title.setRepeatMode(Animation.REVERSE);
@@ -131,9 +135,20 @@ public class Options extends AppCompatActivity{
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.translate);
         image.startAnimation(animation);
         doBindService();
-        btnPlay=(Button) findViewById(R.id.btnPlay);
-        btnHelp=(Button) findViewById(R.id.btnHelp);
-        imgLoudspeaker=(Button) findViewById(R.id.imgLoudspeaker);
+        btnPlay=(ImageButton) findViewById(R.id.btnPlay);
+        btnHelp=(ImageButton) findViewById(R.id.btnHelp);
+        imgLoudspeaker=(ImageButton) findViewById(R.id.imgLoudspeaker);
+        pisa=(ImageView) findViewById(R.id.pisa);
+        tower=(ImageView)findViewById(R.id.tower);
+        taj=(ImageView)findViewById(R.id.taj);
+        colosseum=(ImageView)findViewById(R.id.colosseum);
+        liberty=(ImageView)findViewById(R.id.liberty);
+
+       /* Glide.with(Options.this).load(R.drawable.title)
+                .thumbnail(0.1f)
+                .crossFade()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(waveTitle);*/
         playMenuAnimation();
         flag= getIntent().getIntExtra("int_value", 0);
         if(flag==1)
@@ -189,7 +204,7 @@ public class Options extends AppCompatActivity{
 
     public void soundOpt(View view)
     {
-        Button speaker =(Button) view;
+        ImageButton speaker =(ImageButton) view;
         clicksound.start();
         if(flag==0)
         {
@@ -290,6 +305,7 @@ public class Options extends AppCompatActivity{
         });
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+
     }
 
     public void startMusic(){
@@ -301,9 +317,11 @@ public class Options extends AppCompatActivity{
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
         stopService(music);
+
     }
     public void clickOff(){
         btnHelp.setClickable(false);
         btnPlay.setClickable(false);
     }
 }
+

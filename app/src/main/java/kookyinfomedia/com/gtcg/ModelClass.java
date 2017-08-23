@@ -1,7 +1,7 @@
 package kookyinfomedia.com.gtcg;
 
 
-class ModelClass {
+public class ModelClass {
     private String country,area,population,coastline,aUnits,bCountries,hPoint,capital,hPointName;
     private byte map[],flag[];
 
@@ -19,11 +19,11 @@ class ModelClass {
         this.flag=flag;
     }
 
-    String getCountry() {
+    public String getCountry() {
         return country;
     }
 
-    void setCountry(String country) {
+    public void setCountry(String country) {
         this.country = country;
     }
 
@@ -43,51 +43,51 @@ class ModelClass {
         this.population = population;
     }
 
-    String getCoastline() {
+    public String getCoastline() {
         return coastline;
     }
 
-    void setCoastline(String coastline) {
+    public void setCoastline(String coastline) {
         this.coastline = coastline;
     }
 
-    String getaUnits() {
+    public String getaUnits() {
         return aUnits;
     }
 
-    void setaUnits(String aUnits) {
+    public void setaUnits(String aUnits) {
         this.aUnits = aUnits;
     }
 
-    String getbCountries() {
+    public String getbCountries() {
         return bCountries;
     }
 
-    void setbCountries(String bCountries) {
+    public void setbCountries(String bCountries) {
         this.bCountries = bCountries;
     }
 
-    String gethPoint() {
+    public String gethPoint() {
         return hPoint;
     }
 
-    void sethPoint(String hPoint) {
+    public void sethPoint(String hPoint) {
         this.hPoint = hPoint;
     }
 
-    String gethPointName() {
+    public String gethPointName() {
         return hPointName;
     }
 
-    void sethPointName(String hPointName) {
+    public void sethPointName(String hPointName) {
         this.hPointName = hPointName;
     }
 
-    String getCapital() {
+    public String getCapital() {
         return capital;
     }
 
-    void setCapital(String capital) {
+    public void setCapital(String capital) {
         this.capital = capital;
     }
 }

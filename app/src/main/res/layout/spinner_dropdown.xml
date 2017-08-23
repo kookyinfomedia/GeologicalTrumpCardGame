@@ -2,11 +2,12 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:padding="4dp"
-    android:textSize="14sp"
+    android:textSize="@dimen/dimen_10dp"
     android:typeface="serif"
     android:singleLine="true"
     android:layout_marginLeft="2dip"
     android:layout_marginRight="5dip"
     android:ellipsize="marquee"
+    android:gravity="end"
     android:textColor="@color/colorPrimaryDark">
 </TextView>

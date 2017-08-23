@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">GTCG</string>
     <string name="shake_to_toss">Shake to toss</string>
-    <string name="tap_to_play">Tap on any Continent to play.</string>
+    <string name="tap_to_play">Tap to Choose Region to play.</string>
 </resources>

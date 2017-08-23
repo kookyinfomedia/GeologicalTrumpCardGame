@@ -19,7 +19,8 @@
         android:id="@+id/imgCoinFront"
         android:layout_width="@dimen/dimen_130dp"
         android:layout_height="@dimen/dimen_130dp"
+        android:src="@drawable/coin_back"
         android:layout_centerInParent="true"
-        android:src="@drawable/coin_back" />
+        />
 
 </RelativeLayout>

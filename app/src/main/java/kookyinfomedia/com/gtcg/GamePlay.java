@@ -25,6 +25,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,11 +41,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static kookyinfomedia.com.gtcg.DeckSelect.deck;
+import static kookyinfomedia.com.gtcg.Category.deck;
 import static kookyinfomedia.com.gtcg.Toss.toss;
 
 
@@ -53,11 +57,13 @@ public class GamePlay extends AppCompatActivity {
     public static int player;
     public static Bitmap bitmap;
     final Context context = this;
-    int flag = 0;
+    int flag = 0,x,y;
     int flagInt,flagBack=0;
     Animation animation2, animation;
     DBAdapter obj;
-    ArrayList<ModelClass> arr = new ArrayList<>();
+    ArrayList<Integer>arrA=new ArrayList<>();
+    ArrayList<Integer>arrB=new ArrayList<>();
+    ArrayList<ModelClass> arr = new ArrayList<ModelClass>();
     Controller controller;
     ImageView imgCard1_flag, imgCard2_flag;
     RelativeLayout imgCard1_map,imgCard2_map;
@@ -65,11 +71,12 @@ public class GamePlay extends AppCompatActivity {
     Button cardLoudspeaker, cardBack, loudspeaker;
     CardView cardP1, cardP2, Score, cardP3;
     int screenHeight;
+    LinearLayout lin1back,lin2back;
     ImageView cardBigLeft, cardBigRight, cardSmallLeft, cardSmallRight, toast, cardCoinLeft, cardCoinRight;
     TextView txtArea, txtPopulation, txtCoastline, txtAUnits, txtBcountries, txtHPoint, txtCountry1,txtCapital1;
     TextView valArea, valPopulation, valCoastline, valAUnits, valBCountries, valHPoint, txtCountry2,txtCapital2;
-    TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2;
-    TextView txtArea2, txtPopulation2, txtCoastline2, txtAUnits2, txtBcountries2, txtHPoint2;
+    TextView valArea2, valPopulation2, valCoastline2, valAUnits2, valBCountries2, valHPoint2,valHPointName;
+    TextView txtArea2, txtPopulation2, txtCoastline2, txtAUnits2, txtBcountries2, txtHPoint2,valHPointName2;
     TextView txtMyCards, txtMyVal, txtOppCards, txtOppVal, txtScore, txtScoreVal;
     Dialog dialog;
     RelativeLayout relUpper,relP2,relP1,relP1_border,relP2_border;
@@ -80,7 +87,7 @@ public class GamePlay extends AppCompatActivity {
 
 
     public static int gameOverFlag = 0;
-    int score = 0, myCard = deck, oppCard = deck;
+    int score = 0, myCard =deck/2, oppCard = deck/2;
 
     private boolean mIsBound = false;
     public MusicService mServ;
@@ -88,7 +95,7 @@ public class GamePlay extends AppCompatActivity {
 
         public void onServiceConnected(ComponentName name, IBinder
                 binder) {
-            mServ = ((MusicService.ServiceBinder) binder).getService();
+            mServ = ((MusicService.ServiceBinder)binder).getService();
         }
 
         public void onServiceDisconnected(ComponentName name) {
@@ -117,14 +124,6 @@ public class GamePlay extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_play);
-        cardTap = MediaPlayer.create(GamePlay.this,R.raw.card_flip);
-        cardWoosh = MediaPlayer.create(GamePlay.this,R.raw.card_woosh);
-        cardWoosh.setVolume(1.5f,1.5f);
-        cardTap.setVolume(0.8f,0.8f);
-        clicksound= MediaPlayer.create(this, R.raw.clicksound);
-        soundYouLose= MediaPlayer.create(this, R.raw.you_lose);
-        soundYouWon= MediaPlayer.create(this, R.raw.you_win);
-        flagInt = getIntent().getIntExtra("int_value", 0);
         if(flagInt==1)
         {
             stopMusic();
@@ -132,6 +131,25 @@ public class GamePlay extends AppCompatActivity {
         else{
             startMusic();
         }
+        cardTap = MediaPlayer.create(GamePlay.this,R.raw.card_flip);
+        cardWoosh = MediaPlayer.create(GamePlay.this,R.raw.card_woosh);
+        cardWoosh.setVolume(1.5f,1.5f);
+        cardTap.setVolume(1f,1f);
+        clicksound= MediaPlayer.create(this, R.raw.clicksound);
+        soundYouLose= MediaPlayer.create(this, R.raw.you_lose);
+        soundYouLose.setVolume(1.5f,1.5f);
+        soundYouWon= MediaPlayer.create(this, R.raw.you_win);
+        soundYouWon.setVolume(1.5f,1.5f);
+        flagInt = getIntent().getIntExtra("int_value", 0);
+        if(deck%2==0){
+            myCard=deck/2;
+            oppCard=deck/2;
+        }
+        else{
+            myCard=deck/2+1;
+            oppCard=deck/2;
+        }
+
         fullrel = (RelativeLayout) findViewById(R.id.fullrel);
         relLoad = (RelativeLayout) findViewById(R.id.relLoad);
         relPopup=(RelativeLayout)findViewById(R.id.relPopup);
@@ -203,6 +221,7 @@ public class GamePlay extends AppCompatActivity {
 
             imgCard1_map = (RelativeLayout) findViewById(R.id.imgCard1_map);
             imgCard1_flag = (ImageView) findViewById(R.id.imgCard1_flag);
+            lin1back=(LinearLayout)findViewById(R.id.lin1back);
 
             txtCountry1 = (TextView) findViewById(R.id.txtCountry1);
             txtCapital1=(TextView)findViewById(R.id.txtCapitalName);
@@ -219,6 +238,7 @@ public class GamePlay extends AppCompatActivity {
             valAUnits = (TextView) findViewById(R.id.valAUnits);
             valBCountries = (TextView) findViewById(R.id.valBCountries);
             valHPoint = (TextView) findViewById(R.id.valHPoint);
+            valHPointName = (TextView) findViewById(R.id.valHPointName);
 
             l1 = (LinearLayout) findViewById(R.id.linLay1);
             l2 = (LinearLayout) findViewById(R.id.linLay2);
@@ -237,6 +257,7 @@ public class GamePlay extends AppCompatActivity {
 
             imgCard2_map = (RelativeLayout) findViewById(R.id.imgCard2_map);
             imgCard2_flag = (ImageView) findViewById(R.id.imgCard2_flag);
+            lin2back=(LinearLayout)findViewById(R.id.lin2back);
 
             txtCountry2 = (TextView) findViewById(R.id.txtCountry2);
             txtCapital2=(TextView)findViewById(R.id.txtCapitalName2);
@@ -253,6 +274,7 @@ public class GamePlay extends AppCompatActivity {
             valAUnits2 = (TextView) findViewById(R.id.valAUnits2);
             valBCountries2 = (TextView) findViewById(R.id.valBCountries2);
             valHPoint2 = (TextView) findViewById(R.id.valHPoint2);
+            valHPointName2 = (TextView) findViewById(R.id.valHPointName2);
 
             l11 = (LinearLayout) findViewById(R.id.linLay11);
             l12 = (LinearLayout) findViewById(R.id.linLay12);
@@ -289,7 +311,6 @@ public class GamePlay extends AppCompatActivity {
                     dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
                     cardBack = (Button) findViewById(R.id.cardBack);
-
 
                     if (flagInt == 1) {
                         loudspeaker.setBackgroundResource(R.drawable.soundoff);
@@ -410,7 +431,7 @@ public class GamePlay extends AppCompatActivity {
 
                             Animation myAnim2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation2);
                             cardBigLeft.startAnimation(myAnim2);
-
+                            
                             AnimatorSet set1 = new AnimatorSet();
                             set1.playTogether(
                                     ObjectAnimator.ofFloat(cardBigRight, "scaleX", 0.1f, 1f),
@@ -522,7 +543,6 @@ public class GamePlay extends AppCompatActivity {
 
     /////////// Method for choosing the record and showing data over the cards. ///////////////////////
     public void ShowRecord() {
-        int x, y;
         do {
             Random ran = new Random();
             x = ran.nextInt(arr.size());
@@ -532,8 +552,16 @@ public class GamePlay extends AppCompatActivity {
             if (y < 0 || y > arr.size())
                 y = 1;
             //valArea.setText(arr.get(count).getCountry());
-        } while (x == y);
-
+        } while ((x == y) || arrB.contains(x) || arrA.contains(y));
+        if(arrA.isEmpty()&&arrB.isEmpty())
+        {
+            arrA.add(x);
+            arrB.add(y);
+        }
+        else{
+            arrA.add(x);
+            arrB.add(y);
+        }
         txtCountry1.setText(arr.get(x).getCountry());
         //txtCountry1.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
@@ -555,14 +583,17 @@ public class GamePlay extends AppCompatActivity {
         valBCountries.setText(arr.get(x).getbCountries());
         //valBCountries.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        valHPoint.setText(arr.get(x).gethPoint());
+        valHPoint.setText(arr.get(x).gethPoint()+" m");
         //valHPoint.setBackground(getResources().getDrawable(R.drawable.layout_white));
+
+        valHPointName.setText(arr.get(x).gethPointName());
+
 
         //imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
         Drawable image = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(x).getMap(), 0, arr.get(x).getMap().length));
-        image.setAlpha(100);
-        relP1.setBackground(image);
-        relP2.setBackground(getResources().getDrawable(R.drawable.layout_white_border));
+        image.setAlpha(200);
+        lin1back.setBackground(image);
+        relP1_border.setBackground(getResources().getDrawable(R.drawable.layout_white_border));
         imgCard1_flag.setImageBitmap(convertToBitmap(arr.get(x).getFlag()));
 
         modelClass = new ModelClass();
@@ -601,13 +632,15 @@ public class GamePlay extends AppCompatActivity {
         valBCountries2.setText(arr.get(y).getbCountries());
         //valBCountries2.setBackground(getResources().getDrawable(R.drawable.layout_white));
 
-        valHPoint2.setText(arr.get(y).gethPoint());
+        valHPoint2.setText(arr.get(y).gethPoint()+" m");
+
+        valHPointName2.setText(arr.get(y).gethPointName());
         //valHPoint2.setBackground(getResources().getDrawable(R.drawable.layout_white));
         //imgCard2_flag.setImageBitmap(convertToBitmap(arr.get(y).getFlag()));
         imgCard2_flag.setImageBitmap(convertToBitmap(arr.get(y).getFlag()));
         Drawable image2 = new BitmapDrawable(getResources(),BitmapFactory.decodeByteArray(arr.get(y).getMap(), 0, arr.get(y).getMap().length));
-       image2.setAlpha(100);
-        relP2.setBackground(image2);
+       image2.setAlpha(200);
+        lin2back.setBackground(image2);
         relP2_border.setBackground(getResources().getDrawable(R.drawable.layout_white_border));
 
         modelClass1.setCountry(arr.get(y).getCountry());
@@ -663,7 +696,7 @@ public class GamePlay extends AppCompatActivity {
             animation1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
-                   
+                    
                 }
 
                 @Override
@@ -799,7 +832,7 @@ public class GamePlay extends AppCompatActivity {
         animation1.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                    
+                
             }
 
             @Override
@@ -853,6 +886,8 @@ public class GamePlay extends AppCompatActivity {
                 playerNum = controller.checkWin(modelClass1, modelClass, betField);
             updatedScore = controller.updateScore(playerNum);
             if (updatedScore == 1) {
+                arrB.remove(arrB.indexOf(y));
+                arrA.add(y);
                 score = score + 100;
                 myCard = myCard + 1;
                 oppCard = oppCard - 1;
@@ -900,8 +935,10 @@ public class GamePlay extends AppCompatActivity {
                     }
                 }.start();
             } else if (updatedScore == 0) {
-                if(score!= 0)
+                if(score!= 00)
                     score = score - 100;
+                arrA.remove(arrA.indexOf(x));
+                arrB.add(x);
                 myCard = myCard - 1;
                 oppCard = oppCard + 1;
                 switch (betField) {
@@ -989,12 +1026,11 @@ public class GamePlay extends AppCompatActivity {
                             animation2.setAnimationListener(new Animation.AnimationListener() {
                                 @Override
                                 public void onAnimationStart(Animation animation) {
-
+                                            
                                 }
 
                                 @Override
                                 public void onAnimationEnd(Animation animation) {
-                                    cardWoosh.start();
                                     Animation animation3 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation3);
                                     Animation animation4 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation4);
                                     // animation4.setStartOffset(3000);
@@ -1011,6 +1047,7 @@ public class GamePlay extends AppCompatActivity {
                                     set.setDuration(1000);
                                     set.setStartDelay(1000);
                                     set.start();
+                                    cardWoosh.start();
                                     Animation myAnim2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation2);
                                     cardBigLeft.startAnimation(myAnim2);
                                     AnimatorSet set1 = new AnimatorSet();
@@ -1021,14 +1058,15 @@ public class GamePlay extends AppCompatActivity {
                                     set1.setDuration(1000);
                                     set1.setStartDelay(1000);
                                     set1.start();
+                                    
                                     if (playerNum == 2) {
                                         player = 2;
-                                        cardWoosh.start();
                                         Animation animation5 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation5);
                                         animation5.setDuration(1000);
                                         animation5.setStartOffset(1000);
                                         cardBigLeft.startAnimation(animation4);
                                         cardBigRight.startAnimation(animation5);
+                                        cardWoosh.start();
                                         animation4.setAnimationListener(new Animation.AnimationListener() {
                                             @Override
                                             public void onAnimationStart(Animation animation) {
@@ -1103,7 +1141,7 @@ public class GamePlay extends AppCompatActivity {
                     });
                 }
             }.start();
-        } else {
+        }else if (myCard == 0 || oppCard == 0) {
             if (myCard != 0) {
                 showGameWonDialog();
             } else {
@@ -1207,6 +1245,7 @@ public class GamePlay extends AppCompatActivity {
                     ObjectAnimator.ofFloat(cardBigLeft, "scaleX", 0.1f, 1f),
                     ObjectAnimator.ofFloat(cardBigLeft, "scaleY", 0.1f, 1f)
             );
+            
             set.setDuration(1000).start();
 
             Animation myAnim2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation2);
@@ -1226,6 +1265,7 @@ public class GamePlay extends AppCompatActivity {
             myAnim1.setAnimationListener(new Animation.AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
+                    
                     flag = 1;
                 }
 
@@ -1258,7 +1298,7 @@ public class GamePlay extends AppCompatActivity {
                     animation1.setAnimationListener(new Animation.AnimationListener() {
                         @Override
                         public void onAnimationStart(Animation animation) {
-
+                            
                         }
 
                         @Override
@@ -1269,7 +1309,7 @@ public class GamePlay extends AppCompatActivity {
                             animation2.setAnimationListener(new Animation.AnimationListener() {
                                 @Override
                                 public void onAnimationStart(Animation animation) {
-
+                                    
                                 }
 
                                 @Override
@@ -1610,7 +1650,7 @@ public class GamePlay extends AppCompatActivity {
                 v.draw(canvas);
             }
 
-        } catch (Exception ignored) {
+        } catch (Exception e) {
         }
         return screenshot;
     }
@@ -1643,6 +1683,8 @@ public class GamePlay extends AppCompatActivity {
         Intent music = new Intent();
         music.setClass(this, MusicService.class);
         startService(music);
+
+        Log.i("IMORTANT","start music");
     }
 
     public void stopMusic() {
@@ -1661,6 +1703,8 @@ public class GamePlay extends AppCompatActivity {
         } else {
             speaker.setBackgroundResource(R.drawable.soundon);
             mServ.resumeMusic();
+            Log.i("IMORTANT","start music");
+
             flagInt = 0;
         }
     }

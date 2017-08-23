@@ -1,7 +1,7 @@
 package kookyinfomedia.com.gtcg;
 
 
-class ModelClassIndia {
+public class ModelClassIndia {
     private String state;
     private String districts;
     private String area;
@@ -11,66 +11,94 @@ class ModelClassIndia {
     private String crop;
     private String mineral;
     private byte map[];
+    private String festival;
+    private String capital;
+    public String getFestival() {
+        return festival;
+    }
 
-    public byte[] getMap(){
+    public void setFestival(String festival) {
+        this.festival = festival;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
+
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+
+
+    public byte[] getMap()
+    {
         return map;
     }
-    public void setMap(byte map[]){
+    public void setMap(byte map[])
+    {
         this.map=map;
     }
-    String getState(){
+    public String getState() {
         return state;
     }
-    void setState(String state){
+
+    public void setState(String state) {
         this.state = state;
     }
-    String getDistricts(){
+
+    public String getDistricts() {
         return districts;
     }
-    void setDistricts(String districts){
+
+    public void setDistricts(String districts) {
         this.districts = districts;
     }
-    String getArea(){
+
+    public String getArea() {
         return area;
     }
-    void setArea(String area){
+
+    public void setArea(String area) {
         this.area = area;
     }
 
-    String getPopulation(){
+    public String getPopulation() {
         return population;
     }
-    void setPopulation(String population){
+
+    public void setPopulation(String population) {
         this.population = population;
     }
-    String getNational_parks(){
+
+    public String getNational_parks() {
         return national_parks;
     }
-    void setNational_parks(String national_parks) {
+
+    public void setNational_parks(String national_parks) {
         this.national_parks = national_parks;
     }
 
-    String getRiver() {
+    public String getRiver() {
         return river;
     }
 
-    void setRiver(String river) {
+    public void setRiver(String river) {
         this.river = river;
     }
 
-    String getCrop() {
+    public String getCrop() {
         return crop;
     }
 
-    void setCrop(String crop) {
+    public void setCrop(String crop) {
         this.crop = crop;
     }
 
-    String getMineral() {
+    public String getMineral() {
         return mineral;
     }
 
-    void setMineral(String mineral) {
+    public void setMineral(String mineral) {
         this.mineral = mineral;
     }
 

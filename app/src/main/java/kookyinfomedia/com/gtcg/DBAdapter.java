@@ -1,7 +1,7 @@
 package kookyinfomedia.com.gtcg;
 
 
-/*Class for fetching data from database.*/
+// Class for fetching data from database.
 
 
 import android.content.Context;
@@ -14,16 +14,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.StringTokenizer;
 
 import static kookyinfomedia.com.gtcg.Category.selectedContinent;
 
 
-class DBAdapter extends SQLiteOpenHelper {
-    private static String name = "gtcg.sqlite";
-    private static String path = "";
-    private static String continent;
+public class DBAdapter extends SQLiteOpenHelper {
+    static String name = "gtcg.sqlite";
+    static String path = "";
+    static String continent;
+    static ArrayList<ModelClassIndia> i;
+    static ArrayList<ModelClass> a;
     static SQLiteDatabase sdb;
 
     @Override
@@ -45,7 +46,7 @@ class DBAdapter extends SQLiteOpenHelper {
                 + "/databases";
     }
 
-    boolean checkDatabase()
+    public boolean checkDatabase()
     {
         SQLiteDatabase db = null;
         try
@@ -53,7 +54,7 @@ class DBAdapter extends SQLiteOpenHelper {
             db = SQLiteDatabase.openDatabase(path + "/" + name, null,
                     SQLiteDatabase.OPEN_READWRITE);
         }
-        catch (Exception ignored)
+        catch (Exception e)
         {
 
         }
@@ -68,12 +69,12 @@ class DBAdapter extends SQLiteOpenHelper {
         }
     }
 
-    static synchronized DBAdapter getDBAdapter(Context v)
+    public static synchronized DBAdapter getDBAdapter(Context v)
     {
         return(new DBAdapter(v));
     }
 
-    void createDatabase(Context v)
+    public void createDatabase(Context v)
     {
         this.getReadableDatabase();
         try
@@ -101,7 +102,7 @@ class DBAdapter extends SQLiteOpenHelper {
         }
     }
 
-    void openDatabase()
+    public void openDatabase()
     {
         try
         {
@@ -117,11 +118,11 @@ class DBAdapter extends SQLiteOpenHelper {
     public ArrayList<ModelClass> getData() {
         continent = selectedContinent;
         Cursor c1;
-        if(Objects.equals(continent, "world"))
+        if(continent=="world")
             c1 = sdb.rawQuery("select * from " + continent, null);
         else
          c1 = sdb.rawQuery("select * from " + continent+"_view", null);
-        ArrayList<ModelClass> a = new ArrayList<>();
+        a = new ArrayList<ModelClass>();
 
         try {
             while (c1.moveToNext()) {
@@ -140,7 +141,7 @@ class DBAdapter extends SQLiteOpenHelper {
 
 
 
-                /*Splitting strings using the delimiter "space"*/
+                // Splitting strings using the delimiter "space"
 
                 StringTokenizer tokens = new StringTokenizer(hPoint, " ");
                 hPoint = tokens.nextToken();
@@ -159,7 +160,7 @@ class DBAdapter extends SQLiteOpenHelper {
                 a.add(modelClass);
             }
         }
-        catch (Exception ignored){}
+        catch (Exception e){}
         finally {
             c1.close();
             sdb.close();
@@ -169,26 +170,25 @@ class DBAdapter extends SQLiteOpenHelper {
 
 
 
-    ArrayList<ModelClassIndia> getDataIndia() {
+    public ArrayList<ModelClassIndia> getDataIndia() {
         continent = selectedContinent;
-        ArrayList<ModelClassIndia> i = new ArrayList<>();
+        Cursor c1 = sdb.rawQuery("select * from india_view", null);
+        i = new ArrayList<ModelClassIndia>();
 
-        try (Cursor c1 = sdb.rawQuery("select * from india_view", null)) {
+        try {
             while (c1.moveToNext()) {
                 ModelClassIndia modelClassIndia = new ModelClassIndia();
                 String state = c1.getString(0);
-                String districts = c1.getString(1);
+                String districts=c1.getString(1);
                 String area = c1.getString(2);
                 String population = c1.getString(3);
                 String national_parks = c1.getString(4);
                 String river = c1.getString(5);
-
                 String crop = c1.getString(6);
-
                 String mineral = c1.getString(7);
-
-
-                //byte map[] = c1.getBlob(31);
+                byte map[] = c1.getBlob(8);
+                String festival=c1.getString(9);
+                String capital=c1.getString(10);
 
 
                 modelClassIndia.setState(state);
@@ -196,19 +196,18 @@ class DBAdapter extends SQLiteOpenHelper {
                 modelClassIndia.setPopulation(population);
                 modelClassIndia.setDistricts(districts);
                 modelClassIndia.setNational_parks(national_parks);
-
                 modelClassIndia.setRiver(river);
-
                 modelClassIndia.setCrop(crop);
-
                 modelClassIndia.setMineral(mineral);
-
-
-                //modelClass.setMap(map);
+                modelClassIndia.setMap(map);
+                modelClassIndia.setFestival(festival);
+                modelClassIndia.setCapital(capital);
                 i.add(modelClassIndia);
             }
-        } catch (Exception ignored) {
-        } finally {
+        }
+        catch (Exception e){}
+        finally {
+            c1.close();
             sdb.close();
         }
         return i;

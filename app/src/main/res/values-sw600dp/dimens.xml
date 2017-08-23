@@ -6,8 +6,12 @@
     <dimen name="dimen_minus_8dp">-12dp</dimen>
     <dimen name="dimen_minus_10dp">-15dp</dimen>
     <dimen name="dimen_minus_20dp">-30dp</dimen>
+    <dimen name="dimen_minus_30dp">-45dp</dimen>
+    <dimen name="dimen_minus_40dp">-60dp</dimen>
+    <dimen name="dimen_minus_50dp">-75dp</dimen>
     <dimen name="dimen_minus_60dp">-90dp</dimen>
     <dimen name="dimen_minus_70dp">-105dp</dimen>
+    <dimen name="dimen_minus_147dp">-220.5dp</dimen>
 
 
     <dimen name="dimen_1dp">1.5dp</dimen>

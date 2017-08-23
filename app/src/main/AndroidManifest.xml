@@ -36,10 +36,13 @@
             android:name=".DeckSelect"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".Toss"
+            android:name=".GamePlayIndia"
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".GamePlay"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Toss"
             android:screenOrientation="sensorLandscape" />
 
         <meta-data
@@ -49,7 +52,6 @@
         <activity
             android:name=".Help"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".GamePlayIndia" />
     </application>
 
 </manifest>

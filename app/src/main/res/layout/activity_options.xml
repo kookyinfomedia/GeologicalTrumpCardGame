@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/sky">
 
-    <Button
+
+    <ImageButton
         android:id="@+id/imgLoudspeaker"
         android:layout_width="@dimen/dimen_40dp"
         android:layout_height="@dimen/dimen_40dp"
@@ -16,7 +18,7 @@
         android:onClick="soundOpt" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/btnPlay"
         android:layout_width="@dimen/dimen_160dp"
         android:layout_height="@dimen/dimen_55dp"
@@ -28,7 +30,7 @@
         android:onClick="playGame" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/btnHelp"
         android:layout_width="@dimen/dimen_160dp"
         android:layout_height="@dimen/dimen_55dp"
@@ -42,9 +44,10 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="@dimen/dimen_200dp"
-        android:layout_height="@dimen/dimen_150dp"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_100dp"
         android:scaleX="2"
+        android:scaleY="2"
         android:src="@drawable/cloud2"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -69,8 +72,8 @@
         android:layout_height="@dimen/dimen_200dp"
         android:scaleX="2.2"
         android:scaleY="2.0"
+        android:src="@drawable/eiffel_tower"
         android:rotation="340.0"
-        app:srcCompat="@drawable/eiffel_tower"
         android:layout_marginBottom="@dimen/dimen_15dp"
         android:layout_marginLeft="@dimen/dimen_95dp"
         android:layout_marginStart="@dimen/dimen_95dp"
@@ -82,9 +85,9 @@
         android:layout_width="@dimen/dimen_180dp"
         android:layout_height="@dimen/dimen_150dp"
         android:scaleX="1.2"
+        android:src="@drawable/statue_of_liberty"
         android:scaleY="1.2"
         android:rotation="340.0"
-        app:srcCompat="@drawable/statue_of_liberty"
         android:layout_marginRight="@dimen/dimen_30dp"
         android:layout_marginEnd="@dimen/dimen_30dp"
         android:layout_alignParentBottom="true"
@@ -97,7 +100,7 @@
         android:layout_height="@dimen/dimen_150dp"
         android:scaleX="1.2"
         android:scaleY="1.2"
-        app:srcCompat="@drawable/taj_mahal"
+        android:src="@drawable/taj_mahal"
         android:layout_marginTop="@dimen/dimen_12dp"
         android:layout_alignTop="@+id/pisa"
         android:layout_toRightOf="@+id/tower"
@@ -109,7 +112,7 @@
         android:scaleX="1.5"
         android:scaleY="1.8"
         android:rotation="30.0"
-        app:srcCompat="@drawable/colosseum"
+        android:src="@drawable/colosseum"
         android:layout_marginLeft="@dimen/dimen_55dp"
         android:layout_marginStart="@dimen/dimen_55dp"
         android:layout_alignBottom="@+id/imageView"
@@ -133,9 +136,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/title"
         android:layout_toStartOf="@+id/colosseum"
         android:layout_marginEnd="10dp"
+        android:src="@drawable/title"
         android:layout_above="@+id/liberty"
         android:layout_marginBottom="7dp" />
 

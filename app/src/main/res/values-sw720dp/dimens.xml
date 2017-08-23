@@ -4,8 +4,12 @@
     <dimen name="dimen_minus_8dp">-16dp</dimen>
     <dimen name="dimen_minus_10dp">-20dp</dimen>
     <dimen name="dimen_minus_20dp">-40dp</dimen>
+    <dimen name="dimen_minus_30dp">-60dp</dimen>
+    <dimen name="dimen_minus_40dp">-80dp</dimen>
+    <dimen name="dimen_minus_50dp">-100dp</dimen>
     <dimen name="dimen_minus_60dp">-120dp</dimen>
     <dimen name="dimen_minus_70dp">-140dp</dimen>
+    <dimen name="dimen_minus_147dp">-294dp</dimen>
 
     <dimen name="dimen_1dp">2dp</dimen>
     <dimen name="dimen_2dp">4dp</dimen>

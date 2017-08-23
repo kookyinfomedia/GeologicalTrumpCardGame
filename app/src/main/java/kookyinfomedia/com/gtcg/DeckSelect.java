@@ -17,18 +17,21 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-/*DECK SELECTION PAGE*/
+import static kookyinfomedia.com.gtcg.Category.deck;
 
 //Setting the static variable "deck"  to be used in the Loading class for setting initial score and cards.
 
 
 public class DeckSelect extends AppCompatActivity {
     int flag=0;
-    public static int deck;
-    Button deck16,deck32,deck52;
     MediaPlayer clicksound;
+    ImageView btnDeck;
+    ImageButton speaker,btnBack;
     //------------------------------------------Service Binding------------------------------------//
     private boolean mIsBound = false;
     private MusicService mServ;
@@ -67,12 +70,14 @@ public class DeckSelect extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_deck_select);
+        btnDeck = (ImageView)findViewById(R.id.deckCard);
         clicksound= MediaPlayer.create(this, R.raw.clicksound);
+        speaker =(ImageButton) findViewById(R.id.sound);
+        btnBack = (ImageButton)findViewById(R.id.back);
+        TextView txt1=(TextView)findViewById(R.id.txt1);
+        txt1.setText(""+deck);
         playMenuAnimation();
-        deck16=(Button)findViewById(R.id.deck16);
-        deck32=(Button)findViewById(R.id.deck32);
-        deck52=(Button)findViewById(R.id.deck52);
-        Button speaker =(Button) findViewById(R.id.sound);
+
         flag= getIntent().getIntExtra("int_value", 0);
         if(flag==1)
         {
@@ -102,7 +107,7 @@ public class DeckSelect extends AppCompatActivity {
     }
     public void back(View view){
         clicksound.start();
-        Intent intent = new Intent(DeckSelect.this,Options.class);
+        Intent intent = new Intent(DeckSelect.this,Category.class);
         intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
@@ -110,80 +115,42 @@ public class DeckSelect extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         clicksound.start();
-        Intent intent=new Intent(this,Options.class);
+        Intent intent=new Intent(this,Category.class);
         intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
     }
 
 public void clickOff(){
-    deck16.setClickable(false);
-    deck32.setClickable(false);
-    deck52.setClickable(false);
+    btnDeck.setClickable(false);
 }
 
 
-    public void deckSelected16(View v){
+    public void deckSelected(View v){
         clicksound.start();
         clickOff();
-        deck16.setAlpha(0.4f);
+        RelativeLayout rel=(RelativeLayout)findViewById(R.id.rel);
+        rel.setAlpha(0.4f);
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
 
-                ObjectAnimator.ofFloat(deck16, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(deck16, "scaleY", 1f, 0.8f)
+                ObjectAnimator.ofFloat(rel, "scaleX", 1f, 0.8f),
+                ObjectAnimator.ofFloat(rel, "scaleY", 1f, 0.8f)
         );
         set.start();
         Intent intent = new Intent(DeckSelect.this,Toss.class);
-        deck=16;
-        intent.putExtra("int_value",flag);
-        startActivity(intent);
-        finish();
 
-
-    }
-    public void deckSelected32(View v){
-        clicksound.start();
-        clickOff();
-        deck32.setAlpha(0.4f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(
-
-                ObjectAnimator.ofFloat(deck32, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(deck32, "scaleY", 1f, 0.8f)
-        );
-        set.start();
-        Intent intent = new Intent(DeckSelect.this,Toss.class);
-        deck=32;
         intent.putExtra("int_value",flag);
         startActivity(intent);
         finish();
 
     }
-    public void deckSelected52(View v){
-        clicksound.start();
-        clickOff();
-        deck52.setAlpha(0.4f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(
 
-                ObjectAnimator.ofFloat(deck52, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(deck52, "scaleY", 1f, 0.8f)
-        );
-        set.start();
-        Intent intent = new Intent(DeckSelect.this,Toss.class);
-        deck=52;
-        intent.putExtra("int_value",flag);
-        startActivity(intent);
-        finish();
-
-    }
     @Override
     public void onResume(){
         super.onResume();
         doBindService();
         playMenuAnimation();
-        Button speaker =(Button) findViewById(R.id.sound);
         if(flag==1)
         {
             speaker.setBackgroundResource(R.drawable.soundoff);
@@ -207,7 +174,7 @@ public void clickOff(){
         super.onPause();
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        boolean isScreenOn;
+        boolean isScreenOn=false;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
             isScreenOn = powerManager.isInteractive();
         }else{
@@ -221,36 +188,16 @@ public void clickOff(){
     }
 
     private void playMenuAnimation() {
-        Button btnBack = (Button)findViewById(R.id.back);
-        final Button btnSound = (Button)findViewById(R.id.sound);
-        Button btnDeck16 = (Button)findViewById(R.id.deck16);
-        Button btnDeck32 = (Button)findViewById(R.id.deck32);
-        Button btnDeck52 = (Button)findViewById(R.id.deck52);
-        RelativeLayout rel=(RelativeLayout)findViewById(R.id.rel);
 
-        // relative layout bounce
         Animation myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
         MyBounceInterpolator interpolator = new MyBounceInterpolator(0.3, 20);
         myAnim.setInterpolator(interpolator);
+
+
+        // Deck bounce
+        RelativeLayout rel=(RelativeLayout)findViewById(R.id.rel);
+        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
         rel.startAnimation(myAnim);
-
-        //  Deck 16 bounce
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        myAnim.setStartOffset(1000);
-        myAnim.setDuration(1000);
-        myAnim.setInterpolator(interpolator);
-        btnDeck16.startAnimation(myAnim);
-
-        //  Deck 32 bounce
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        btnDeck32.startAnimation(myAnim);
-        myAnim.setStartOffset(1100);
-        myAnim.setDuration(1000);
-        myAnim.setInterpolator(interpolator);
-
-        // Deck 52 bounce
-        myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        btnDeck52.startAnimation(myAnim);
         myAnim.setStartOffset(1200);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);
@@ -264,7 +211,7 @@ public void clickOff(){
 
         // Sound Button bounce
         myAnim = AnimationUtils.loadAnimation(this, R.anim.bounce);
-        btnSound.startAnimation(myAnim);
+        speaker.startAnimation(myAnim);
         myAnim.setStartOffset(1400);
         myAnim.setDuration(1000);
         myAnim.setInterpolator(interpolator);

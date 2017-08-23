@@ -8,7 +8,7 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.widget.Toast;
 
-public class MusicService extends Service implements OnErrorListener {
+public class MusicService extends Service  implements OnErrorListener {
 
     private final IBinder mBinder = new ServiceBinder();
     MediaPlayer mPlayer;
@@ -17,7 +17,7 @@ public class MusicService extends Service implements OnErrorListener {
     public MusicService() {
     }
 
-    class ServiceBinder extends Binder {
+    public class ServiceBinder extends Binder {
         MusicService getService() {
             return MusicService.this;
         }
@@ -37,7 +37,7 @@ public class MusicService extends Service implements OnErrorListener {
 
         if (mPlayer != null) {
             mPlayer.setLooping(true);
-            mPlayer.setVolume(100, 100);
+            mPlayer.setVolume(0.5f,0.5f);
         }
 
 
@@ -45,6 +45,7 @@ public class MusicService extends Service implements OnErrorListener {
 
             public boolean onError(MediaPlayer mp, int what, int
                     extra) {
+
                 onError(mPlayer, what, extra);
                 return true;
             }
@@ -66,7 +67,7 @@ public class MusicService extends Service implements OnErrorListener {
     }
 
     public void resumeMusic() {
-        if (!mPlayer.isPlaying()) {
+        if (mPlayer.isPlaying() == false) {
             mPlayer.seekTo(length);
             mPlayer.start();
         }
@@ -76,6 +77,19 @@ public class MusicService extends Service implements OnErrorListener {
         mPlayer.stop();
         mPlayer.release();
         mPlayer = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPlayer != null) {
+            try {
+                mPlayer.stop();
+                mPlayer.release();
+            } finally {
+                mPlayer = null;
+            }
+        }
     }
 
     public boolean onError(MediaPlayer mp, int what, int extra) {
