@@ -22,6 +22,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import static kookyinfomedia.com.gtcg.Category.deck;
 
 //Setting the static variable "deck"  to be used in the Loading class for setting initial score and cards.
@@ -91,7 +94,6 @@ public class DeckSelect extends AppCompatActivity {
     }
     public void soundDeck(View view)
     {
-        Button speaker =(Button) view;
         clicksound.start();
         if(flag==0)
         {

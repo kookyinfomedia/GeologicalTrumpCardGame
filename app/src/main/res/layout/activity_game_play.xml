@@ -412,6 +412,7 @@
                             android:layout_marginBottom="@dimen/dimen_2dp"
                             android:layout_marginLeft="@dimen/dimen_10dp"
                             android:text="valHPo"
+                            android:layout_marginRight="@dimen/dimen_20dp"
                             android:layout_alignParentRight="true"
                             android:textSize="@dimen/dimen_10dp"
                             android:textColor="@color/colorPrimaryDark"/>
@@ -752,6 +753,7 @@
                             android:layout_marginLeft="@dimen/dimen_10dp"
                             android:text="valHPo"
                             android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dimen_20dp"
                             android:textSize="@dimen/dimen_10dp"
                             android:textColor="@color/colorPrimaryDark"/>
                         </RelativeLayout>

@@ -58,6 +58,7 @@ public class GamePlay extends AppCompatActivity {
     public static Bitmap bitmap;
     final Context context = this;
     int flag = 0,x,y;
+    int xprev=-1,yprev=-1;
     int flagInt,flagBack=0;
     Animation animation2, animation;
     DBAdapter obj;
@@ -124,6 +125,7 @@ public class GamePlay extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_play);
+        flagInt = getIntent().getIntExtra("int_value", 0);
         if(flagInt==1)
         {
             stopMusic();
@@ -140,7 +142,6 @@ public class GamePlay extends AppCompatActivity {
         soundYouLose.setVolume(1.5f,1.5f);
         soundYouWon= MediaPlayer.create(this, R.raw.you_win);
         soundYouWon.setVolume(1.5f,1.5f);
-        flagInt = getIntent().getIntExtra("int_value", 0);
         if(deck%2==0){
             myCard=deck/2;
             oppCard=deck/2;
@@ -366,6 +367,7 @@ public class GamePlay extends AppCompatActivity {
                                         animation1.setAnimationListener(new Animation.AnimationListener() {
                                             @Override
                                             public void onAnimationStart(Animation animation) {
+                                                if(flagInt==0)
                                                     cardTap.start();
                                             }
 
@@ -419,7 +421,8 @@ public class GamePlay extends AppCompatActivity {
                                     }
                                 }.start();
                             }
-                            cardWoosh.start();
+                            if(flagInt==0)
+                                cardWoosh.start();
                             // Animation : Cards coming from both sides.
                             AnimatorSet set = new AnimatorSet();
                             set.playTogether(
@@ -549,10 +552,13 @@ public class GamePlay extends AppCompatActivity {
             if (x < 0 || x > arr.size())
                 x = 1;
             y = ran.nextInt(arr.size());
+
             if (y < 0 || y > arr.size())
                 y = 1;
             //valArea.setText(arr.get(count).getCountry());
-        } while ((x == y) || arrB.contains(x) || arrA.contains(y));
+        } while ((x == y) || arrB.contains(x) || arrA.contains(y)||(x==xprev)||(y==xprev)||(x==yprev)||(y==yprev));
+        xprev=x;
+        yprev=y;
         if(arrA.isEmpty()&&arrB.isEmpty())
         {
             arrA.add(x);
@@ -682,7 +688,8 @@ public class GamePlay extends AppCompatActivity {
     /////// Method to be called when user clicks his card ////////
     public void showCard(View v) {
         if (flag == 0) {
-            cardTap.start();
+            if(flagInt==0)
+                cardTap.start();
             touchOn();
             flag = 1;
             cardBigLeft.setClickable(false);
@@ -825,7 +832,8 @@ public class GamePlay extends AppCompatActivity {
 
 
     public void flipCardRight() {
-        cardTap.start();
+        if(flagInt==0)
+             cardTap.start();
         Animation animation1 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.to_middle2);
         animation2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.from_middle2);
         cardBigRight.startAnimation(animation1);
@@ -1001,7 +1009,8 @@ public class GamePlay extends AppCompatActivity {
 
                 public void onFinish() {
                     // After one round ..send cards back to the respective places.
-                    cardTap.start();
+                    if(flagInt==0)
+                        cardTap.start();
                     Animation animation1 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.to_middle2);
                     animation2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.from_middle2);
                     cardP1.startAnimation(animation1);
@@ -1047,7 +1056,8 @@ public class GamePlay extends AppCompatActivity {
                                     set.setDuration(1000);
                                     set.setStartDelay(1000);
                                     set.start();
-                                    cardWoosh.start();
+                                    if(flagInt==0)
+                                        cardWoosh.start();
                                     Animation myAnim2 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation2);
                                     cardBigLeft.startAnimation(myAnim2);
                                     AnimatorSet set1 = new AnimatorSet();
@@ -1066,7 +1076,8 @@ public class GamePlay extends AppCompatActivity {
                                         animation5.setStartOffset(1000);
                                         cardBigLeft.startAnimation(animation4);
                                         cardBigRight.startAnimation(animation5);
-                                        cardWoosh.start();
+                                        if(flagInt==0)
+                                            cardWoosh.start();
                                         animation4.setAnimationListener(new Animation.AnimationListener() {
                                             @Override
                                             public void onAnimationStart(Animation animation) {
@@ -1151,7 +1162,8 @@ public class GamePlay extends AppCompatActivity {
     }
 
     public void showGameWonDialog() {
-        soundYouWon.start();
+        if(flagInt==0)
+            soundYouWon.start();
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1193,7 +1205,8 @@ public class GamePlay extends AppCompatActivity {
     }
 
     public void showGameLoseDialog() {
-        soundYouLose.start();
+        if(flagInt==0)
+            soundYouLose.start();
         gameOverFlag = 1;
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1258,7 +1271,8 @@ public class GamePlay extends AppCompatActivity {
                     ObjectAnimator.ofFloat(cardBigRight, "scaleY", 0.1f, 1f)
             );
             set1.setDuration(1000).start();
-            cardWoosh.start();
+            if(flagInt==0)
+                cardWoosh.start();
 
             Animation myAnim1 = AnimationUtils.loadAnimation(GamePlay.this, R.anim.animation1);
             cardBigRight.startAnimation(myAnim1);

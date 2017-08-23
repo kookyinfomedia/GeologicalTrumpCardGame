@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
@@ -27,12 +28,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class Category extends AppCompatActivity {
 	private int flag;
+	public int t=10;
+    MediaPlayer clicksound;
 	private boolean mIsBound = false;
 	private MusicService mServ;
 	public static int deck;
 	public static String selectedContinent="";
 	LinearLayout pop;
 	TextView txt;
+	boolean backPressed=false;
 	ImageView asia,southAmerica,northAmerica,europe,africa,australia,antarctica,img,india,world;
 	private ServiceConnection Scon =new ServiceConnection(){
 
@@ -69,6 +73,7 @@ public class Category extends AppCompatActivity {
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_category);
 		doBindService();
+        clicksound= MediaPlayer.create(this, R.raw.clicksound);
 		txt=(TextView)findViewById(R.id.txt);
 		Display display = getWindowManager().getDefaultDisplay();
 		screenHeight = display.getHeight();
@@ -132,6 +137,7 @@ public class Category extends AppCompatActivity {
 	}
 	@Override
 	public void onStop(){
+		backPressed=true;
 		super.onStop();
 		doUnbindService();
 		stopMusic();
@@ -150,6 +156,7 @@ public class Category extends AppCompatActivity {
 	}
 	@Override
 	public void onBackPressed(){
+		backPressed=true;
 		Intent intent=new Intent(this,Options.class);
 		intent.putExtra("int_value",flag);
 		startActivity(intent);
@@ -179,6 +186,7 @@ public class Category extends AppCompatActivity {
         india.setVisibility(View.INVISIBLE);
 	}
 	public void openDeckIndia(View view){
+        clicksound.start();
 		selectedContinent="india";
 		deck=36;
 		imageinvisible();
@@ -190,15 +198,16 @@ public class Category extends AppCompatActivity {
 		);
 		set1.setDuration(500);
 		set1.start();
-		new CountDownTimer(1000,100){
+		new CountDownTimer(1000,t){
 			public void onTick(long ms){
-
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 
@@ -206,10 +215,11 @@ public class Category extends AppCompatActivity {
 	}
 
 	public void openDeckWorld(View view){
+        clicksound.start();
 		selectedContinent="world";
 		deck=195;
 		imageinvisible();
-		img.setBackground(getResources().getDrawable(R.drawable.india));
+		img.setBackground(getResources().getDrawable(R.drawable.earth_hov));
 		AnimatorSet set1 = new AnimatorSet();
 		set1.playTogether(
 				ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
@@ -222,10 +232,12 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 
@@ -233,6 +245,7 @@ public class Category extends AppCompatActivity {
 	}
 
 	public void openDeckAsia(View view){
+        clicksound.start();
 		selectedContinent="asia";
 		deck=47;
 		imageinvisible();
@@ -249,17 +262,19 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 
 
 	}
 	public void openDeckNorthAmerica(View view){
-
+        clicksound.start();
 		selectedContinent="north_america";
 		deck=23;
 		imageinvisible();
@@ -276,14 +291,17 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 	}
 	public void openDeckSouthAmerica(View view){
+        clicksound.start();
 		selectedContinent="south_america";
 		deck=12;
 		imageinvisible();
@@ -300,14 +318,17 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 	}
 	public void openDeckAfrica(View view){
+        clicksound.start();
 		selectedContinent="africa";
 		deck=52;
 		imageinvisible();
@@ -324,16 +345,18 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 	}
 	public void openDeckAntarctica(View view){
+        clicksound.start();
 		selectedContinent="antarctica";
-
 		imageinvisible();
 		img.setBackground(getResources().getDrawable(R.drawable.antarctica));
 		AnimatorSet set1 = new AnimatorSet();
@@ -348,14 +371,17 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 	}
 	public void openDeckEurope(View view){
+        clicksound.start();
 		selectedContinent="europe";
 		deck=51;
 		imageinvisible();
@@ -372,14 +398,17 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 	}
 	public void openDeckAustralia(View view){
+        clicksound.start();
 		selectedContinent="australia";
 		deck=14;
 		imageinvisible();
@@ -396,10 +425,12 @@ public class Category extends AppCompatActivity {
 
 			}
 			public void onFinish(){
-				Intent intent =new Intent(Category.this,DeckSelect.class);
-				intent.putExtra("int_value",flag);
-				startActivity(intent);
-				finish();
+				if(!backPressed) {
+					Intent intent = new Intent(Category.this, DeckSelect.class);
+					intent.putExtra("int_value", flag);
+					startActivity(intent);
+					finish();
+				}
 			}
 		}.start();
 	}

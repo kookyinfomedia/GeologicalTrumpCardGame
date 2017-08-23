@@ -93,7 +93,8 @@ public class Toss extends AppCompatActivity {
 
                 spinSound = MediaPlayer.create(Toss.this,R.raw.spin);
                 spinSound.setLooping(true);
-                spinSound.start();
+                if(flag==0)
+                    spinSound.start();
                 spinSound.setVolume(0.2f,0.2f);
                 view.setOnClickListener(null);
                 animation1 = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.to_middle);

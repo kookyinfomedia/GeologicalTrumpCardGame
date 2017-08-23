@@ -61,6 +61,7 @@ public class GamePlayIndia extends AppCompatActivity {
     File imageFile;
     public static Bitmap bitmap;
     public int flag=0,x,y;
+    int xprev=-1,yprev=-1;
     ArrayList<Integer>arrA=new ArrayList<>();
     ArrayList<Integer>arrB=new ArrayList<>();
     String riverName, cropName, mineralName;
@@ -129,6 +130,7 @@ public class GamePlayIndia extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_play_india);
+        flagInt = getIntent().getIntExtra("int_value", 0);
         if(flagInt==1)
         {
             stopMusic();
@@ -146,7 +148,6 @@ public class GamePlayIndia extends AppCompatActivity {
         cardWoosh.setVolume(1.5f,1.5f);
         cardTap.setVolume(1f,1f);
         clicksound= MediaPlayer.create(this, R.raw.clicksound);
-        flagInt = getIntent().getIntExtra("int_value", 0);
         if(deck%2==0){
             myCard=deck/2;
             oppCard=deck/2;
@@ -565,9 +566,10 @@ public class GamePlayIndia extends AppCompatActivity {
         do {
             Random ran = new Random();
             x = ran.nextInt(arr.size());
-            
             y = ran.nextInt(arr.size());
-            } while ((x == y) || arrB.contains(x) || arrA.contains(y));
+            } while ((x == y) || arrB.contains(x) || arrA.contains(y)||(x==xprev)||(y==xprev)||(x==yprev)||(y==yprev));
+        xprev=x;
+        yprev=y;
         if(arrA.isEmpty()&& arrB.isEmpty())
         {
             arrA.add(x);

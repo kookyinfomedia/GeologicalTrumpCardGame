@@ -34,10 +34,11 @@
             android:id="@+id/txt1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorWhite"
             android:text="30"
+            android:textStyle="bold"
             android:layout_marginLeft="@dimen/dimen_10dp"
-            android:textSize="@dimen/dimen_40dp" />
+            android:textSize="@dimen/dimen_30dp" />
 
     </RelativeLayout>
 
