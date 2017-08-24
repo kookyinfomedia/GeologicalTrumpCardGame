@@ -354,32 +354,7 @@ public class Category extends AppCompatActivity {
 			}
 		}.start();
 	}
-	public void openDeckAntarctica(View view){
-        clicksound.start();
-		selectedContinent="antarctica";
-		imageinvisible();
-		img.setBackground(getResources().getDrawable(R.drawable.antarctica));
-		AnimatorSet set1 = new AnimatorSet();
-		set1.playTogether(
-				ObjectAnimator.ofFloat(img, "scaleX", 1f, 2.5f),
-				ObjectAnimator.ofFloat(img, "scaleY", 1f, 2.5f)
-		);
-		set1.setDuration(500);
-		set1.start();
-		new CountDownTimer(1000,100){
-			public void onTick(long ms){
 
-			}
-			public void onFinish(){
-				if(!backPressed) {
-					Intent intent = new Intent(Category.this, DeckSelect.class);
-					intent.putExtra("int_value", flag);
-					startActivity(intent);
-					finish();
-				}
-			}
-		}.start();
-	}
 	public void openDeckEurope(View view){
         clicksound.start();
 		selectedContinent="europe";

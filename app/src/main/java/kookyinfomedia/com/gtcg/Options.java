@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -21,13 +20,11 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
+import com.chartboost.sdk.CBLocation;
+import com.chartboost.sdk.Chartboost;
 
 public class Options extends AppCompatActivity{
     final Context context = this;
@@ -70,6 +67,13 @@ public class Options extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Chartboost.startWithAppId(this, "599c01760150990ccc990d46", "9aa783d6c3e892c4058e0d3740750a10b01f6635");
+        Chartboost.onCreate(this);
+
+        Chartboost.cacheInterstitial(CBLocation.LOCATION_DEFAULT);
+        Chartboost.cacheRewardedVideo(CBLocation.LOCATION_GAMEOVER);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -165,6 +169,10 @@ public class Options extends AppCompatActivity{
     @Override
     public void onResume(){
         super.onResume();
+        Chartboost.onResume(this);
+        Chartboost.showInterstitial(CBLocation.LOCATION_DEFAULT);
+        Chartboost.showRewardedVideo(CBLocation.LOCATION_GAMEOVER);
+
         doBindService();
         if(flag==1)
         {
@@ -180,6 +188,7 @@ public class Options extends AppCompatActivity{
     @Override
     public void onStop(){
         super.onStop();
+        Chartboost.onStop(this);
         doUnbindService();
         stopMusic();
     }
@@ -188,6 +197,7 @@ public class Options extends AppCompatActivity{
     public  void onPause()
     {
         super.onPause();
+        Chartboost.onPause(this);
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         boolean isScreenOn = false;
@@ -303,9 +313,15 @@ public class Options extends AppCompatActivity{
                 finishAffinity();
             }
         });
+
+        // If an interstitial is on screen, close it.
+        if (Chartboost.onBackPressed())
+            return;
+        else
+            super.onBackPressed();
+
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
-
     }
 
     public void startMusic(){

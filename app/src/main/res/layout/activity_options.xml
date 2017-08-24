@@ -7,6 +7,30 @@
     android:background="@drawable/sky">
 
 
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/colosseum"
+        android:layout_marginEnd="10dp"
+        android:src="@drawable/title"
+        android:layout_above="@+id/liberty"
+        android:layout_marginBottom="7dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dimen_100dp"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/cloud2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
     <ImageButton
         android:id="@+id/imgLoudspeaker"
         android:layout_width="@dimen/dimen_40dp"
@@ -42,16 +66,6 @@
         android:background="@drawable/help_button"
         android:onClick="help" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_100dp"
-        android:scaleX="2"
-        android:scaleY="2"
-        android:src="@drawable/cloud2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
     <ImageView
         android:id="@+id/pisa"
@@ -130,16 +144,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/colosseum"
-        android:layout_marginEnd="10dp"
-        android:src="@drawable/title"
-        android:layout_above="@+id/liberty"
-        android:layout_marginBottom="7dp" />
 
 </RelativeLayout>

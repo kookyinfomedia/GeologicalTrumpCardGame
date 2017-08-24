@@ -23,10 +23,8 @@
         android:id="@+id/deckCard"
         android:layout_width="@dimen/dimen_200dp"
         android:layout_height="@dimen/dimen_200dp"
-        android:layout_below="@+id/txt1"
         android:src="@drawable/card_left"
         android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/dimen_minus_60dp"
         android:onClick="deckSelected"
         android:textSize="@dimen/dimen_40dp" />
 
@@ -36,6 +34,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:text="30"
+            android:layout_marginTop="@dimen/dimen_10dp"
             android:textStyle="bold"
             android:layout_marginLeft="@dimen/dimen_10dp"
             android:textSize="@dimen/dimen_30dp" />

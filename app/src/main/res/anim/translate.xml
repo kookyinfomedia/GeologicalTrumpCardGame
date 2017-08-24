@@ -7,7 +7,7 @@
     <translate
         android:interpolator="@android:anim/linear_interpolator"
         android:toXDelta="120%p"
-        android:fromXDelta="-50%p"
+        android:fromXDelta="-55%p"
         android:duration="30000"
         android:startOffset="0"
         android:repeatCount="infinite"

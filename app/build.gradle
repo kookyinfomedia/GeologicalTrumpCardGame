@@ -54,6 +54,7 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
     compile 'com.android.support:support-v4:26.+'
     compile 'org.jetbrains:annotations-java5:15.0'
+
     testCompile 'junit:junit:4.12'
 
 }
