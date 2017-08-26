@@ -23,10 +23,9 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.chartboost.sdk.CBLocation;
-import com.chartboost.sdk.Chartboost;
-
 public class Options extends AppCompatActivity{
+    /*SharedPreferences sharedPreferences = null;*/
+
     final Context context = this;
     public ImageView wave1,wave2,wave3,wave4,wave5,waveTitle;
     public Animation wave_anim, wave_anim_2, wave_anim_3, wave_anim_4, wave_anim_5,wave_anim_title;
@@ -68,11 +67,9 @@ public class Options extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Chartboost.startWithAppId(this, "599c01760150990ccc990d46", "9aa783d6c3e892c4058e0d3740750a10b01f6635");
-        Chartboost.onCreate(this);
-
-        Chartboost.cacheInterstitial(CBLocation.LOCATION_DEFAULT);
-        Chartboost.cacheRewardedVideo(CBLocation.LOCATION_GAMEOVER);
+        /*Chartboost.startWithAppId(this, getResources().getString(R.string.appId), getResources().getString(R.string.appSignature));
+        setupSdkWithCustomSettings();
+        Chartboost.onCreate(this);*/
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -165,13 +162,25 @@ public class Options extends AppCompatActivity{
             startMusic();
         }
     }
+    /*private void setupSdkWithCustomSettings() {
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        Chartboost.setShouldPrefetchVideoContent(
+                sharedPreferences.getBoolean(getString(R.string.key_enable_video_prefetch), true));
+        Chartboost.setShouldRequestInterstitialsInFirstSession(
+                sharedPreferences.getBoolean(getString(R.string.key_request_interstitial_in_first_session), true));
+        Chartboost.setAutoCacheAds(
+                sharedPreferences.getBoolean(getString(R.string.key_enable_autocache), true));
+
+    }*/
 
     @Override
     public void onResume(){
         super.onResume();
-        Chartboost.onResume(this);
+        /*Chartboost.onResume(this);
         Chartboost.showInterstitial(CBLocation.LOCATION_DEFAULT);
-        Chartboost.showRewardedVideo(CBLocation.LOCATION_GAMEOVER);
+        Chartboost.showRewardedVideo(CBLocation.LOCATION_GAMEOVER);*/
 
         doBindService();
         if(flag==1)
@@ -188,7 +197,7 @@ public class Options extends AppCompatActivity{
     @Override
     public void onStop(){
         super.onStop();
-        Chartboost.onStop(this);
+        /*Chartboost.onStop(this);*/
         doUnbindService();
         stopMusic();
     }
@@ -197,7 +206,7 @@ public class Options extends AppCompatActivity{
     public  void onPause()
     {
         super.onPause();
-        Chartboost.onPause(this);
+        /*Chartboost.onPause(this);*/
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         boolean isScreenOn = false;
@@ -315,10 +324,10 @@ public class Options extends AppCompatActivity{
         });
 
         // If an interstitial is on screen, close it.
-        if (Chartboost.onBackPressed())
+        /*if (Chartboost.onBackPressed())
             return;
         else
-            super.onBackPressed();
+            super.onBackPressed();*/
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();

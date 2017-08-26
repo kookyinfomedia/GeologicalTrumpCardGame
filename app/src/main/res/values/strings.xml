@@ -2,4 +2,12 @@
     <string name="app_name">GTCG</string>
     <string name="shake_to_toss">Shake to toss</string>
     <string name="tap_to_play">Tap to Choose Region to play.</string>
+    <string name="appId">588b1cf1f6cd4501525f3d12</string>
+    <string name="appSignature">2c46739a486f6196854ecdd781eaef425ce72ce9</string>
+
+    <!--Preference Key definitions-->
+    <string name="key_enable_autocache">enableAutoCache</string>
+    <string name="key_lock_orientation">lockOrientation</string>
+    <string name="key_enable_video_prefetch">enableVideoPrefetch</string>
+    <string name="key_request_interstitial_in_first_session">interstitialInFirstSession</string>
 </resources>
