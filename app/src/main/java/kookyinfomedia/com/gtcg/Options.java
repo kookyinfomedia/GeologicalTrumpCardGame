@@ -23,9 +23,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-public class Options extends AppCompatActivity{
-    /*SharedPreferences sharedPreferences = null;*/
 
+public class Options extends AppCompatActivity{
     final Context context = this;
     public ImageView wave1,wave2,wave3,wave4,wave5,waveTitle;
     public Animation wave_anim, wave_anim_2, wave_anim_3, wave_anim_4, wave_anim_5,wave_anim_title;
@@ -66,11 +65,8 @@ public class Options extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        /*Chartboost.startWithAppId(this, getResources().getString(R.string.appId), getResources().getString(R.string.appSignature));
-        setupSdkWithCustomSettings();
-        Chartboost.onCreate(this);*/
-
+        //Chartboost.startWithAppId(this,"588b1cf1f6cd4501525f3d12","2c46739a486f6196854ecdd781eaef425ce72ce9");
+        //Chartboost.onCreate(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -162,26 +158,18 @@ public class Options extends AppCompatActivity{
             startMusic();
         }
     }
-    /*private void setupSdkWithCustomSettings() {
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+    @Override
+    public void onStart() {
+        super.onStart();
+       // Chartboost.onStart(this);
+        //Chartboost.showInterstitial(CBLocation.LOCATION_DEFAULT);
 
-        Chartboost.setShouldPrefetchVideoContent(
-                sharedPreferences.getBoolean(getString(R.string.key_enable_video_prefetch), true));
-        Chartboost.setShouldRequestInterstitialsInFirstSession(
-                sharedPreferences.getBoolean(getString(R.string.key_request_interstitial_in_first_session), true));
-        Chartboost.setAutoCacheAds(
-                sharedPreferences.getBoolean(getString(R.string.key_enable_autocache), true));
-
-    }*/
-
+    }
     @Override
     public void onResume(){
         super.onResume();
-        /*Chartboost.onResume(this);
-        Chartboost.showInterstitial(CBLocation.LOCATION_DEFAULT);
-        Chartboost.showRewardedVideo(CBLocation.LOCATION_GAMEOVER);*/
-
+        //Chartboost.onResume(this);
         doBindService();
         if(flag==1)
         {
@@ -197,7 +185,7 @@ public class Options extends AppCompatActivity{
     @Override
     public void onStop(){
         super.onStop();
-        /*Chartboost.onStop(this);*/
+        //Chartboost.onStop(this);
         doUnbindService();
         stopMusic();
     }
@@ -206,7 +194,7 @@ public class Options extends AppCompatActivity{
     public  void onPause()
     {
         super.onPause();
-        /*Chartboost.onPause(this);*/
+        //Chartboost.onPause(this);
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
         boolean isScreenOn = false;
@@ -224,7 +212,7 @@ public class Options extends AppCompatActivity{
     public void soundOpt(View view)
     {
         ImageButton speaker =(ImageButton) view;
-        clicksound.start();
+            clicksound.start();
         if(flag==0)
         {
             speaker.setBackgroundResource(R.drawable.soundoff);
@@ -295,42 +283,39 @@ public class Options extends AppCompatActivity{
 
     }
     public void onBackPressed() {
-        clicksound.start();
-        final Dialog dialog = new Dialog(context);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.quit_popup);
-        // set the pause_popup dialog components - text, image and button
-        ImageView image = dialog.findViewById(R.id.image);
-        image.setImageResource(R.drawable.wrong);
-        ImageView image2 = dialog.findViewById(R.id.image2);
-        image2.setImageResource(R.drawable.righttick);
+       // if(Chartboost.onBackPressed())
+           // return;
+        //else {
+            clicksound.start();
+            final Dialog dialog = new Dialog(context);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.quit_popup);
+            // set the pause_popup dialog components - text, image and button
+            ImageView image = dialog.findViewById(R.id.image);
+            image.setImageResource(R.drawable.wrong);
+            ImageView image2 = dialog.findViewById(R.id.image2);
+            image2.setImageResource(R.drawable.righttick);
 
-        // if button is clicked, close the pause_popup dialog
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicksound.start();
-                dialog.dismiss();
-            }
-        });
+            // if button is clicked, close the pause_popup dialog
+            image.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicksound.start();
+                    dialog.dismiss();
+                }
+            });
 
-        //quit the game
-        image2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clicksound.start();
-                finishAffinity();
-            }
-        });
-
-        // If an interstitial is on screen, close it.
-        /*if (Chartboost.onBackPressed())
-            return;
-        else
-            super.onBackPressed();*/
-
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.show();
+            //quit the game
+            image2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicksound.start();
+                    finishAffinity();
+                }
+            });
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+        //}
     }
 
     public void startMusic(){
@@ -349,4 +334,3 @@ public class Options extends AppCompatActivity{
         btnPlay.setClickable(false);
     }
 }
-
