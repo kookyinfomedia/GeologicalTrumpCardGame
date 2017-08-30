@@ -155,6 +155,27 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="CAPITAL"
+                                android:layout_marginBottom="@dimen/dimen_5dp"
+                                android:layout_marginLeft="@dimen/dimen_5dp"
+                                android:textSize="@dimen/dimen_10dp"
+                                android:id="@+id/txtCapitall1"
+                                android:textColor="@color/color_Teal"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="FESTIVAL"
+                                android:layout_marginBottom="@dimen/dimen_5dp"
+                                android:id="@+id/txtFestt1"
+                                android:textSize="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_5dp"
+                                android:layout_alignParentRight="true"
+                                android:textColor="#e0678f"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CAPITAL"
+                                android:layout_below="@+id/txtCapitall1"
                                 android:layout_marginLeft="@dimen/dimen_5dp"
                                 android:textSize="@dimen/dimen_10dp"
                                 android:id="@+id/txtCapital"
@@ -165,8 +186,8 @@
                                 android:text="FESTIVAL"
                                 android:id="@+id/txtFest"
                                 android:textSize="@dimen/dimen_10dp"
+                                android:layout_below="@+id/txtFestt1"
                                 android:layout_marginRight="@dimen/dimen_5dp"
-                                android:layout_marginTop="@dimen/dimen_3dp"
                                 android:layout_alignParentRight="true"
                                 android:textColor="#e0678f"/>
                         </RelativeLayout>
@@ -499,6 +520,27 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="CAPITAL"
+                                android:layout_marginBottom="@dimen/dimen_5dp"
+                                android:layout_marginLeft="@dimen/dimen_5dp"
+                                android:textSize="@dimen/dimen_10dp"
+                                android:id="@+id/txtCapitall"
+                                android:textColor="@color/color_Teal"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="FESTIVAL"
+                                android:layout_marginBottom="@dimen/dimen_5dp"
+                                android:id="@+id/txtFestt"
+                                android:textSize="@dimen/dimen_10dp"
+                                android:layout_marginRight="@dimen/dimen_5dp"
+                                android:layout_alignParentRight="true"
+                                android:textColor="#e0678f"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="CAPITAL"
+                                android:layout_below="@+id/txtCapitall"
                                 android:layout_marginLeft="@dimen/dimen_5dp"
                                 android:textSize="@dimen/dimen_10dp"
                                 android:id="@+id/txtCapital2"
@@ -509,8 +551,8 @@
                                 android:text="FESTIVAL"
                                 android:id="@+id/txtFest2"
                                 android:textSize="@dimen/dimen_10dp"
+                                android:layout_below="@+id/txtFestt"
                                 android:layout_marginRight="@dimen/dimen_5dp"
-                                android:layout_marginTop="@dimen/dimen_3dp"
                                 android:layout_alignParentRight="true"
                                 android:textColor="#e0678f"/>
                         </RelativeLayout>
