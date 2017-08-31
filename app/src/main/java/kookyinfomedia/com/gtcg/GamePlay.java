@@ -348,7 +348,7 @@ public class GamePlay extends AppCompatActivity {
                             if(score!=0)
                                 txtScoreVal.setText("" + score);
                             else
-                                txtScoreVal.setText("0000");
+                                txtScoreVal.setText("0");
                             clickoff();
                             ShowRecord();
 
@@ -902,7 +902,7 @@ public class GamePlay extends AppCompatActivity {
                     }
                 }.start();
             } else if (updatedScore == 0) {
-                if(score!= 00)
+                if(score!= 0)
                     score = score - 100;
                 arrA.remove(arrA.indexOf(x));
                 arrB.add(x);
@@ -955,7 +955,7 @@ public class GamePlay extends AppCompatActivity {
             if(score!=0)
                 txtScoreVal.setText("" + score);
             else
-                txtScoreVal.setText("0000");
+                txtScoreVal.setText("0");
             txtMyVal.setText("" + myCard);
             txtOppVal.setText("" + oppCard);
             flag = 1;
