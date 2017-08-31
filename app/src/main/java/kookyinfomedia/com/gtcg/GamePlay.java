@@ -24,7 +24,6 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,10 +38,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.chartboost.sdk.CBLocation;
+import com.chartboost.sdk.Chartboost;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Random;
-import com.chartboost.sdk.*;
+
 import static kookyinfomedia.com.gtcg.Category.deck;
 import static kookyinfomedia.com.gtcg.Toss.toss;
 
@@ -132,7 +135,7 @@ public class GamePlay extends AppCompatActivity {
             startMusic();
         }
         cardTap = MediaPlayer.create(GamePlay.this,R.raw.card_flip);
-        cardWoosh = MediaPlayer.create(GamePlay.this,R.raw.card_woosh);
+        cardWoosh = cardTap;
         cardWoosh.setVolume(1.5f,1.5f);
         cardTap.setVolume(1f,1f);
         clicksound= MediaPlayer.create(this, R.raw.clicksound);
@@ -1016,6 +1019,7 @@ public class GamePlay extends AppCompatActivity {
 
                                             }
                                             public void onFinish(){
+                                                if(flagInt==0)
                                                 cardWoosh.start();
                                             }
                                         }.start();
@@ -1043,6 +1047,7 @@ public class GamePlay extends AppCompatActivity {
 
                                                 }
                                                 public void onFinish(){
+                                                    if(flagInt==0)
                                                     cardWoosh.start();
                                                 }
                                             }.start();
@@ -1232,6 +1237,7 @@ public class GamePlay extends AppCompatActivity {
 
                     }
                     public void onFinish(){
+                        if(flagInt==0)
                         cardWoosh.start();
                     }
                 }.start();
@@ -1339,6 +1345,7 @@ public class GamePlay extends AppCompatActivity {
                 }
             }.start();
             // Animation : Cards coming from both sides.
+            if(flagInt==0)
             cardWoosh.start();
             AnimatorSet set = new AnimatorSet();
             set.playTogether(
@@ -1679,8 +1686,6 @@ public class GamePlay extends AppCompatActivity {
         } else {
             speaker.setBackgroundResource(R.drawable.soundon);
             mServ.resumeMusic();
-            Log.i("IMORTANT","start music");
-
             flagInt = 0;
         }
     }

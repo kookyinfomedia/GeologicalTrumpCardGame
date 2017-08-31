@@ -42,17 +42,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.chartboost.sdk.CBLocation;
+import com.chartboost.sdk.Chartboost;
+
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
-import com.chartboost.sdk.*;
+
 import static kookyinfomedia.com.gtcg.Category.deck;
 import static kookyinfomedia.com.gtcg.Toss.toss;
 
 public class GamePlayIndia extends AppCompatActivity {
     RelativeLayout fullrel, relLoad,rel1,relPopup;
-    private static final String TAG = "";
     public static int player;
     int pause=0;
     public static Bitmap bitmap;
@@ -65,7 +67,7 @@ public class GamePlayIndia extends AppCompatActivity {
     int flagInt, flagBack = 0;
     Animation animation2, animation;
     DBAdapter obj;
-    ArrayList<ModelClassIndia> arr = new ArrayList<ModelClassIndia>();
+    ArrayList<ModelClassIndia> arr = new ArrayList<>();
     ControllerIndia controllerIndia;
     //ImageView imgCard1_flag, imgCard2_flag;
     RelativeLayout imgCard1_State,imgCard2_State;
@@ -138,7 +140,7 @@ public class GamePlayIndia extends AppCompatActivity {
         }
 
         cardTap = MediaPlayer.create(GamePlayIndia.this,R.raw.card_flip);
-        cardWoosh = MediaPlayer.create(GamePlayIndia.this,R.raw.card_woosh);
+        cardWoosh = cardTap;
         soundYouLose= MediaPlayer.create(this, R.raw.you_lose);
         soundYouLose.setVolume(200,200);
         soundYouWon= MediaPlayer.create(this, R.raw.you_win);
@@ -172,7 +174,7 @@ public class GamePlayIndia extends AppCompatActivity {
         Chartboost.onPause(this);
         // If the screen is off then the device has been locked
         PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
-        boolean isScreenOn = false;
+        boolean isScreenOn;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT_WATCH) {
             isScreenOn = powerManager.isInteractive();
         }else{
@@ -189,11 +191,11 @@ public class GamePlayIndia extends AppCompatActivity {
         protected ArrayList doInBackground(Void... voids) {
             try {
                 obj = DBAdapter.getDBAdapter(getApplicationContext());
-                if (obj.checkDatabase() == false)
+                if (!obj.checkDatabase())
                     obj.createDatabase(getApplicationContext());
                 obj.openDatabase();
                 arr = obj.getDataIndia();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             } finally {
                 DBAdapter.sdb.close();
                 obj.close();
@@ -377,6 +379,7 @@ public class GamePlayIndia extends AppCompatActivity {
                                         animation1.setAnimationListener(new Animation.AnimationListener() {
                                             @Override
                                             public void onAnimationStart(Animation animation) {
+                                                if(flagInt==0)
                                                 cardTap.start();
                                                 
                                             }
@@ -436,7 +439,8 @@ public class GamePlayIndia extends AppCompatActivity {
                                 }.start();
                             }
                             // Animation : Cards coming from both sides.
-                             cardWoosh.start();
+                            if(flagInt==0)
+                               cardWoosh.start();
                             AnimatorSet set = new AnimatorSet();
                             set.playTogether(
 
@@ -731,6 +735,7 @@ public class GamePlayIndia extends AppCompatActivity {
     /////// Method to be called when user clicks his card ////////
     public void showCardI(View v) {
         if (flag == 0) {
+            if(flagInt==0)
             cardTap.start();
             touchOn();
             flag = 1;
@@ -905,6 +910,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
 
     public void flipCardRight() {
+        if(flagInt==0)
         cardTap.start();
         Animation animation1 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.to_middle2);
         animation2 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.from_middle2);
@@ -1092,6 +1098,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
                 public void onFinish() {
                     // After one round ..send cards back to the respective places.
+                    if(flagInt==0)
                     cardTap.start();
                     Animation animation1 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.to_middle2);
                     animation2 = AnimationUtils.loadAnimation(GamePlayIndia.this, R.anim.from_middle2);
@@ -1156,6 +1163,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
                                         }
                                         public void onFinish(){
+                                            if(flagInt==0)
                                             cardWoosh.start();
                                         }
                                     }.start();
@@ -1171,6 +1179,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
                                             }
                                             public void onFinish(){
+                                                if(flagInt==0)
                                                 cardWoosh.start();
                                             }
                                         }.start();
@@ -1362,6 +1371,7 @@ public class GamePlayIndia extends AppCompatActivity {
 
                 }
                 public void onFinish(){
+                    if(flagInt==0)
                     cardWoosh.start();
                 }
             }.start();
@@ -1473,6 +1483,7 @@ public class GamePlayIndia extends AppCompatActivity {
                 }
             }.start();
             // Animation : Cards coming from both sides.
+            if(flagInt==0)
             cardWoosh.start();
             AnimatorSet set = new AnimatorSet();
             set.playTogether(
@@ -1771,8 +1782,8 @@ public class GamePlayIndia extends AppCompatActivity {
                 Canvas canvas = new Canvas(screenshot);
                 v.draw(canvas);
             }
+        } catch (Exception ignored) {
 
-        } catch (Exception e) {
         }
         return screenshot;
     }

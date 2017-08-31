@@ -17,7 +17,6 @@
         android:theme="@style/AppTheme"
         android:hardwareAccelerated="true">
         <activity android:name="com.chartboost.sdk.CBImpressionActivity"
-            android:excludeFromRecents="true"
             android:hardwareAccelerated="true"
             android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
             android:configChanges="keyboardHidden|orientation|screenSize" />
@@ -25,8 +24,7 @@
             android:name=".MainActivity"
             android:screenOrientation="sensorLandscape"
             android:hardwareAccelerated="true"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:excludeFromRecents="true">
+            android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

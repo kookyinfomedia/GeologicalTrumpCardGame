@@ -277,18 +277,18 @@
                         android:textColor="@color/colorPrimaryDark"/>
 
                     <TextView
-                        android:textAlignment="center"
                         android:id="@+id/valCoastline"
                         android:layout_width="@dimen/dimen_100dp"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/valPopulation"
                         android:layout_marginBottom="@dimen/dimen_5dp"
-                        android:layout_marginLeft="-15dp"
+                        android:layout_marginLeft="-5dp"
                         android:layout_marginTop="@dimen/dimen_5dp"
                         android:layout_toRightOf="@+id/txtCoastline"
                         android:text="LANDLOCKED"
-                        android:textSize="@dimen/dimen_10dp"
-                        android:textColor="@color/colorPrimaryDark"/>
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/dimen_10dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -637,17 +637,16 @@
                         android:textColor="@color/colorPrimaryDark"/>
 
                     <TextView
-                        android:textAlignment="center"
                         android:id="@+id/valCoastline2"
                         android:layout_width="@dimen/dimen_100dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_5dp"
                         android:layout_marginBottom="@dimen/dimen_5dp"
-                        android:layout_marginLeft="-10dp"
+                        android:layout_marginTop="@dimen/dimen_5dp"
                         android:layout_toRightOf="@+id/txtCoastline2"
                         android:text="LANDLOCKED"
-                        android:textSize="@dimen/dimen_10dp"
-                        android:textColor="@color/colorPrimaryDark"/>
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/dimen_10dp" />
                 </LinearLayout>
 
                 <LinearLayout
