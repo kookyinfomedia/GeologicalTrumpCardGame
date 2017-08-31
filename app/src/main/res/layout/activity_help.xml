@@ -16,15 +16,19 @@
 
             <ImageView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="400dp"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_marginRight="-10dp"
+                android:layout_marginLeft="-10dp"
                 android:layout_weight="0.11"
                 android:background="@drawable/help1" />
 
             <ImageView
                 android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="400dp"
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_marginRight="-10dp"
+                android:layout_marginLeft="-10dp"
                 android:background="@drawable/help2" />
 
         </LinearLayout>

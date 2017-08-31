@@ -1,7 +1,5 @@
 package kookyinfomedia.com.gtcg;
 
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -252,13 +250,6 @@ public class Options extends AppCompatActivity{
         clicksound.start();
         clickOff();
         btnPlay.setAlpha(0.4f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(
-
-                ObjectAnimator.ofFloat(btnPlay, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(btnPlay, "scaleY", 1f, 0.8f)
-        );
-        set.start();
         Intent intent = new Intent(Options.this, Category.class);
         intent.putExtra("int_value", flag);
         startActivity(intent);
@@ -270,12 +261,6 @@ public class Options extends AppCompatActivity{
         clicksound.start();
         clickOff();
         btnHelp.setAlpha(0.4f);
-        AnimatorSet set = new AnimatorSet();
-        set.playTogether(
-                ObjectAnimator.ofFloat(btnHelp, "scaleX", 1f, 0.8f),
-                ObjectAnimator.ofFloat(btnHelp, "scaleY", 1f, 0.8f)
-        );
-        set.start();
         Intent intent = new Intent(Options.this, Help.class);
         intent.putExtra("int_value", flag);
         startActivity(intent);

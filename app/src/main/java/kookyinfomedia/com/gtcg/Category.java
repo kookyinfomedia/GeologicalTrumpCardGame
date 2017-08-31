@@ -241,7 +241,7 @@ public class Category extends AppCompatActivity {
 	public void openDeckAsia(View view){
         clicksound.start();
 		selectedContinent="asia";
-		deck=47;
+		deck=48;
 		imageinvisible();
 		img.setBackground(getResources().getDrawable(R.drawable.asia));
 		AnimatorSet set1 = new AnimatorSet();
@@ -324,7 +324,7 @@ public class Category extends AppCompatActivity {
 	public void openDeckAfrica(View view){
         clicksound.start();
 		selectedContinent="africa";
-		deck=52;
+		deck=54;
 		imageinvisible();
 		img.setBackground(getResources().getDrawable(R.drawable.africa));
 		AnimatorSet set1 = new AnimatorSet();
